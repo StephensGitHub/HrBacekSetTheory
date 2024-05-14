@@ -1,0 +1,361 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts} 
+\usepackage{sidenotes}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb,tikz}
+\usepackage{tikz}
+\usepackage{scalerel}
+\setcounter{MaxMatrixCols}{20}
+
+\newcommand{\longdiv}{\smash{\mkern-0.43mu\vstretch{1.31}{\hstretch{.7}{)}}\mkern-5.2mu\vstretch{1.31}{\hstretch{.7}{)}}}}
+
+
+\title{Scratch For Thought}
+\author{Stephen Xia}
+\date{Mar 2024}
+
+\begin{document}
+\maketitle
+
+This is an attempt to breakdown the material surrounding set theory theorems.
+
+\medskip
+\textbf{Recursion Theorem}
+\medskip
+
+\section{Chapter 3 Section 3}
+
+Let there be $A = \mathbb{N}$ and $0 \in A$. Let $g: A \times \mathbb{N} \xrightarrow{} A$ be defined as $g(n, m) = n \times (m + 1)$. We wish to demonstrate there exists $f: \mathbb{N} \xrightarrow{} A$ such $f_0 = a$ and $f_{n + 1} = g(f_n, n)$. In other words, we wish create $f$ to predict each step $g$ takes deterministically. It is also possible to think about $g$ as a simulation of $f$.
+
+\medskip
+\textbf{Difficulty}
+\medskip
+
+The difficulty of constructing such $f: \mathbb{N} \xrightarrow{} A$ lies in the fact it can be naturally imagined as a generative set. In other words, it is a set which grows upon itself infinitely. For example, $\{(0,1)\}$ can be "grown" into $\{(0,1),(1,1)\}$, as $1! = (0!) 1 = 1 \times 1 = 1$. Such "growth" becomes difficult to define with infinitely many such steps of "growth".
+
+\medskip
+\textbf{Solution}
+\medskip
+
+The solution of resolving the problem of describing infinite "growth" can be resolved by defining each growth separately and forming a union of all possible grown sequences. HrBacek notes a m-step computation is a finite sequence of length m + 1 where $t_0 = 1$ and $t_{k + 1} = t_k \times (k + 1) = g(t_k, k)$. 
+
+\medskip
+\textbf{T-game}
+\medskip
+
+Here let us play a game of describing what a 0-step of $t$ is. This is just $\{(0,1)\}$. 
+
+\medskip
+\textbf{Existence of m-step computation}
+\medskip
+
+A 3-step $t$ can be considered this way. There must be only elements of the form $(0,t_0), (1,t_1), (2,t_2), (3,t_3)$ in $t$. But it is initially not clear what $t_0, t_1, t_2, t_3$ each must be. From assumption, we know $t_0 = a$. $t_1 = g(t_0, 0) = t_0 \times (0 + 1) = 1$. $t_2 = g(t_1, 1) = t_1 \times (1 + 1) = t_1 \times 2 = 2$. We can find $t_3 = 6$ similarly. This is because it takes finitely many steps to determine what $t_1, t_2, t_3$ must be, which has a concrete basis to demonstrate such $t_1, t_2, t_3$ exists. For example $t_1 = g(t_0, 0)$ must exist as $g$ is a function defined over all of $A$ and $t_0$ is a member of $A$. Same argument can be made for $t_2 = g(t_1, 1)$ as $t_1$ can be shown to exist and $g(t_1, 1)$ must then also exist. Since it can be exactly specified all of the elements in each m-step computation, such m-step computations must be valid functions $t: (m + 1) \xrightarrow{} A$.
+
+\medskip
+\textbf{Uniqueness of m-step computations}
+\medskip
+
+HrBacek proceeds to demonstrate the set of all m-step computations, which from an axiom of comprehension perspective can be originating from the set $\mathcal{P}((m + 1) \times \mathbb{N})$. As a quick breakdown, let m = 2, then $(m + 1) \times \mathbb{N} = 3 \times \mathbb{N}$ can contain elements such as $\{(0,1),(1,2),(2,3),(0,4),(1,6),(2,5)...\}$. There will be elements of $\mathcal{P}((m + 1) \times \mathbb{N})$ which are not functions, but those are not of our concern as we use the property that $t$ is a m-step computation(thus a function) to ensure it is a function. It remains to demonstrate all m-step computations satisfying the requirements 
+\begin{enumerate}
+	\item
+	$t_0 = 1$ 
+	\item 
+	 $t_{k + 1} = t_k \times (k + 1) = g(t_k, k)$
+\end{enumerate}
+ is indeed the same function. HrBacek demonstrates this inductively. Let there be two function $t,l$ which both satisfy 1), 2). Then $t_0 = a = l_0$ and given $t_n = l_n$ we have $t_{n + 1} = g(t_n, n) = g(l_n, n) = l_{n + 1}$ from $t_n = l_n$. From an intuitive perspective, it is because all m-steps must have the same starting point and from that point stepping through $g$ is entirely deterministic based on the first parameter of $g$, with the second parameter only serving as a crutch/necessity for computation/indexing.
+ 
+ \medskip
+ \textbf{Union of m-steps}
+ \medskip
+
+HrBacek makes a startling step here. Get it? step :). It notes $F = \{t \in \mathcal{P \times A} \text{ } | \text{ t is an m-step computation for some natural number m}\}$. Consider at this point, given me a function $t$, I will be able to precisely tell you if is a m-step computation based on whether it satisfies properties 1,2 from the previous section. This check takes finite time, although it appears checking things in infinite time is also quite acceptable in math. Given axiom of comprehension, it is guaranteed such a $F$ must exist. So instead of trying to build $f$ in one go, HrBacek builds infinitely many $m-step$, putting them together finally into the $f$ of interest. As $\cup F = f$, we have finished the building up part of $f$ and now require checking that $f$ meets the requirements of interest.
+
+\medskip
+\textbf{Finite Steps Only?}
+\medskip
+
+In math in general, things should be generated with finitely many steps, otherwise paradoxes may be caused. The concept of doing all proofs based on axioms in finitely many steps is called finitism. There is classical finitism, which allows the usage of infinite sets in axioms. Ultrafinitists do not allow for such constructs.
+
+\medskip
+\textbf{Question 2}
+\medskip
+
+$(A, \prec)$ is a linearly ordered non-empty set with the following properties. 
+Let successor in $A$ be defined for $p \in A$ as $r \in A$ so that $p \prec r$ and there is not $q$ in between $p,r$, in other words there is not $q \in A$ so that $p \prec q \prec r$.
+
+\begin{enumerate}
+\item Every $p \in A$ has a successor. 
+\item Every nonempty subset of A has a $\prec$-least element.
+\item If $p \in A$ is not the $\prec$-element of $A$, then $p$ is a successor of some $q \in A$.
+
+We wish to show $A$ cannot miss any of these three properties, otherwise no isomorphism from $\mathbb{N}$ to $A$ can exist.
+
+\medskip
+
+Missing the first property is not good since every natural number has a successor. It is sufficient to target the $p$ which does not have any successor. Let there be some isomorphism $f$ from $\mathbb{N}$ onto $A$. Then $f(n) = p$ for some $n$. Let $f(n + 1) = p'$. Note there must exist some $q$ between $p$ and $p'$ since $p'$ cannot be the successor of $p$ by assumption. Then we have $p \prec q$ and $q \prec p'$. Let $f(m) = q$. Since $f$ is an isomorphism, it must be that $p \prec q$ and $q \prec p'$ implies $n < m$ and $m < n + 1$. Since $m < n + 1$, it must be that $m = n$ or $m < n$. If $m = n$, we cannot have $n < m$. If $m < n$, we also cannot have $n < m$. So it must be that such isomorphism $f$ does not exist. There does not exist any isomorphism from $\mathbb{N}$ to $A$ as desired.
+
+\medskip
+
+Missing the second property is bad because every non-empty subset of the natural numbers contains a least element. Let there be a non-empty subset of $A$ which does not have $\prec$-least element. Let there be pre-image of such $A$ with $B = f^{-1}(A)$. Then identify the least element of $B$ in $\mathbb{N}$ and name it $b'$. Let $f(b') = a'$. Note for any $a \in A$, there exists $b \in B$ such that $f(b) = a$ and that $b' < b$ implies $f(b') = a' \prec a = f(b)$. Thus we have that $f(b')$ is the least element of $A$, which contradicts the assumption that $A$ does not have a least element. There thus cannot exist an isomorphism.
+
+\medskip
+
+It is hard to find an issue with missing the third property at first. But it seems that the infimum of all the natural numbers less than the element of interest should be the natural number which has that element as its successor. So every number which is not the least element should have some natural number have it as its successor. We target such an element of $\mathbb{N}$. Let there be a $p \in A$, which is not the $\prec$-element of $A$, which is not successor of any elements of $A$. Let there be isomorphism from $\mathbb{N}$ to $A$ as usual. Then we can let $f(n) = p$. Let the supremum of all the elements less than n be $n'$. Such a set is not empty as it contains 0 and is bounded by n thus must have a supremum. Let $p' = f(n')$. Since $p'$ cannot have $p$ as its successor, there must exist some $r$ such that $p' \prec r \prec p$. Let $f(m) = r$. From $f$ is an isomorphism and $p' \prec r \prec p$ we have $n < m < n + 1$. This is not possible as shown in part one of this question. Thus there cannot be an isomorphism between $\mathbb{N}$ and $A$ by contradiction.
+
+\medskip
+
+It is shown with any one of the three properties missing the isomorphism between $\mathbb{N}$ and $A$ cannot exist.
+
+\medskip
+\textbf{Ideas Corner: Natural Numbers Structure}
+\medskip
+
+Question 2 spurred on some questions about properties of natural numbers. As noted in the previous section (3.2),
+
+\begin{enumerate}
+ \item the natural numbers are well-ordered(every non-empty subset has a least element)
+ \item every nonempty set of natural numbers that has an upper bound has a supremum
+ \item $k < n + 1$ if $k = n$ or $k < n$.
+ \end{enumerate}
+
+\medskip
+Property a) indicates a sort lower bound of every set which is contained in $\mathbb{N}$, somewhat mirroring property $b)$ guaranteeing the infimum as the lower bound/least element is automatically the infimum. The extra caution taken in $b)$ seems to be because there is no ceiling to the natural numbers, while there is a clear floor $0$. Property b) is quite useful for proving who has a certain element as a successor.
+
+\medskip
+Property c) indicate a sort of weird gap concept about the natural numbers. It sort of says the gap between two numbers is 1 and cannot be lesser. The $+1$ action is sort of an individisible action. You do not have some element $n < k < n + 1$, as $k = n$ or $k < n$ are the only possibilities. in question 2, this is clearly demonstrated as $A$, a structure where successor is defined has having no elements in between the two elements involved in the successor function is directly isomorphic to $\mathbb{N}$.
+
+\medskip
+\textbf{Question 5}
+\medskip
+
+It can be easy to ignore this as just a sub case of the recursion theorem, but I think I will venture to list out some possible subsets of $A$ and $g$'s here.
+
+\medskip
+
+The idea is to map $\bar{A} \times \mathbb{N}$ into $\mathbb{A}$ where $\bar{A} \subset A$. Let $A = \mathbb{N}$ and $\bar{A} = \{1,2,3\}$. Let there be $g = \{((1,1),2),((2,2),3),((3,3),1),((1,4),2),((2,5),3),((3,6),1),...\}$. For $((1,1),2) \in g$, the meaning can be imagined as if you encounter $1$ on the 1st step, you move to 2. Similarly for $((3,6),1)$, if you encounter 3 on the 6th step, you go to 1. It is like a game board or a finite state machine, were the number of steps you taken and your current state determine the next location you must move to. You can have some arbitrary steps for if you encounter 1 on the second step, since it cannot occur, but you need it in g for g to be a function over the domain.
+
+\medskip
+
+This $g$ will harmlessly cycle within itself and not cause any problems. But note $\bar{A} \times \mathbb{N}$ maps to $A$ and not $\bar{A}$, so we can easily have $g = \{((1,1), 2), ((2,2), 3), ((3,3), 4)\}$. Then note $g((3,3)) = 4$, which we don't have $g((4,n)) = m$ for any $n$ since $(4,n)$ cannot be in the domain $\bar{A} \times \mathbb{N}$. At the point the problem suggests letting there be some $\bar{a} \in A'$ where $A' = A \cup \{a\}$. This can allow you to tie up the $g((4,n))$, i.e, give it some place to land. The suggestion says let 
+\[
+\bar{g}(x,n) = \begin{cases}
+g(x,n) \text{ if defined;} \\
+\bar{a} \text{ otherwise } \\
+\end{cases}
+\]
+
+Thus once you land at $\bar{a}$, you never get out: $g((\bar{a},m)) = \bar{a}$, $g((\bar{a}, m + 1)) = \bar{a}$, ...
+We want to get it to look like the recursion theorem's A, so ideally this modification of $A'$ seems sufficient as $g$ is now closed within $A'$. But this is only a crutch to get at $f$ since it fits every condition of the recursion theorem, from which you can use $f \upharpoonright n$ as the function of interest, since after $n$ steps, you land on $\bar{a}$ and really can't go anywhere else. So $f$ past that point does not really give any information and is not useful to us.
+
+
+\medskip
+\textbf{Question 6}
+\medskip
+
+Such a sequence might look like this. Let $X \subseteq \mathbb{N}$. For example let $X = \{1,3,6,12,31,...\}$. Then define $g$ to target the next largest element in $X$. By this I mean the least element of the set of all elements in $X$ greater than the current element. For example with $g(3, 2)$ is the least element of the set of all elements in $X$ greater than 3, which is $\{6,12,31,...\}$. Then the least element of this set is 6. Let $g(3,2) = 6$. We can discard 2, as the number of steps it took to get to 3 is irrelevant to where the next step should be. I think an $f$ paired with a $g$ thus defined will cover all the elements in $X$. This can be viewed somewhat independently of Question 5. 
+
+\medskip
+This technique also exposes an interesting idea about natural numbers. The least element of all the elements greater than you is similar to some notion of successor. Consider that $m < n + 1$ implies $m = n$ or $m < n$. Of all the elements which are less than you, the greatest one has you as a successor. This related back to the gap concept. If you are the least element of all things greater than me, than clearly between you and me is an indivisible gap, not possible to be entered by any other element, thus that gap must be some sort of atomic gap, i.e +1. In a broken up subset of $\mathbb{N}$, we relabel/redefine the indivisible gaps to between you and the least element greater than you which is still in the subset. This relabeling allows you to use the minimum gap concept to create a sort of faux-successor function $g$ on the subset. But it perhaps remains to be seen why this function deals with covering $X$ so well. After all, what enables the original successor function to cover $\mathbb{N}$ so well, is for every non-zero element, there is some element which has it as its successor. This sense of inverting the successor function is necessary. Defining someone who has you as a successor as a unique and existing element.
+
+\medskip
+\textbf{Question 6 Ideas Outline}
+\medskip
+
+Given $g$ defined as the successor function over $X$, we have $f$. Showing $f$ is one-to-one can be done with the fact that $f_n < f_{n + 1}$ implies $f_n < f_m$ for any $n < m$. Showing $\text{ran } f = X$ is difficult. The idea is to show for each element of $X$, either it is covered by $f$ as a result of elements in $X$ that are lesser than it, or it is covered by $f_0$. 
+
+\medskip
+\textbf{Parameterized Recursion Theorem}
+\medskip
+
+Take there to be some $a: P \xrightarrow{} A$, $g: P \times A \times \mathbb{N} \xrightarrow{} A$. Then there must exist some $f: P \times \mathbb{N} \xrightarrow{} A$ such that:
+
+\begin{enumerate}
+	\item $f(p, 0) = a(p)$
+	\item $f(p, n + 1) = g(p, f(p, n), n)$ for all $p \in P$ and $n \in \mathbb{N}$.
+\end{enumerate}
+
+Note that for each $a(p)$, it can be thought of generating a unique $f(p, 0)$. The starting point of an $f$ related to $p$ can be denoted as $f\#p$ for convenience sake. $f\#p$'s starting point is controlled by $a(p)$. The path $g$ takes based on this starting point may or may not be independent of $p$. Just like how $g(f_n,n) = s(f_n)$ in the original recursion theorem can ignore the parameter $n$, $g(p, f(p, n), n)$ does not need to involved $p$ actively in deciding where $g$ steps to next. How $f\#p$ looks can depend on not only $g$, but also $p$ and $a$. $a$ and $p$ can both influence the starting point of $f$. $p$ can influence the path which $g$ takes. 
+
+\section{Chapter 3, Section 4}
+
+Ideas about associativity and commutativity. 
+
+It seems like commutativity of addition only requires $m + 0 = m$ for all $m$ and $m + (n + 1) = (m + n) + 1$, which feels rather weak. It appears a weak version of associativity and identity combined with $m + 0 = 0 + m = m$ was sufficient to justify commutativity. 
+
+\medskip
+\textbf{Examples}
+\medskip
+
+Here are some examples to make the abstract induction idea slightly more concrete. This may be a waste of time, but I feel the double induction is fairly weird to think about directly.
+
+\begin{align*}
+	1 + 2 &= 1 + (1 + 1)\\
+	&= (1 + 1) + 1 && \text{By $m + (n + 1) = (m + n) + 1$}\\
+	&= 2 + 1\\
+\end{align*}
+
+It seems any variations of $1 + n = n + 1$ can be proven in this way:
+
+\begin{align*}
+	1 + n &= 1 + ((n - 1) + 1)\\
+	&= (1 + (n - 1)) + 1\\
+	&= n + 1\\
+\end{align*}
+
+A silly idea is you can push any $m$ past $n$ one by one in this manner.
+
+The idea is to push the first 1 dissected from the second operand past the first operand, and do this on repeat:
+
+\begin{align*}
+	3 + 2 &= (3 + (1 + 1))\\
+	&= (3 + 1) + 1\\
+	&= (1 + 3) + 1\\
+	&= (1 + (3 + 1))\\
+	&= (1 + (1 + 3))\\
+\end{align*}
+
+And we are stuck with the $1's$ unable to expand out.
+
+Perhaps writing in function notation is more fruitful?
+
+\begin{align*}
+	+(3,2) &= +(3,+(1,1))\\
+	&= +(+(3,1),1)\\
+	&= +(+(1,3),1)\\
+	&= +(1,+(3,1))\\
+	&= +(1,+(1,3))\\
+\end{align*}
+
+Nope!
+
+\newpage
+Consider here that 1 + n is fundamentally different from n + 1. 1 + n applies the function $g$ n times onto the starting point 1, while n + 1 applies the function $g$ 1 time onto the starting point n. Proving commutativity is the same as showing starting at $a(n) = n$ and stepping m times(applying successor function m times) after that is the same as starting at $m$ and applying the successor function n times.
+
+\medskip
+Maybe I should bend the knee here and stop wasting time, instead produce an example based on the inductive proof given in the textbook.
+
+Below is the induction proof as shown in the text. I will try to reproduce it without looking too much.
+
+Note the inductive assumption is that $m + (n + 1) = (n + 1) + m$, and we wish to show $(m + 1) + (n + 1) = (n + 1) + (m + 1)$.
+
+\begin{align*}
+	(n + 1) + (m + 1) &= ((n + 1) + m) + 1\\
+	&= (m + (n + 1)) + 1\\
+	&= ((m + n) + 1) + 1\\
+	&= ((n + m) + 1) + 1\\
+	&= (n + (m + 1)) + 1\\
+	&= ((m + 1) + n) + 1\\
+	&= (m + 1) + (n + 1)\\
+\end{align*}
+
+Now to check in with textbook.
+
+Oh I guess the proof in exactly the backwards direction. 
+
+Here is the problem, I am able to exactly mechanically produce this proof without getting much insight for it. Every step is logical and even reasonable, but it feels weird.
+
+So I will go ahead with a small example just to be sure I get this:
+
+We have the assumption that $n = 2$, $m = 1$, $n$ commutes with all naturals and $n + 1$ commutes with anything less than $m + 1$.
+
+\begin{align}
+	(2 + 1) + (0 + 1) &= ((2 + 1) + 1) + 1\\
+	&= (1 + (2 + 1)) + 1\\
+	&= ((1 + 2) + 1) + 1\\
+	&= ((2 + 1) + 1) + 1\\
+	&= (2 + (1 + 1)) + 1\\
+	&= ((1 + 1) + 2) + 1\\
+	&= (1 + 1) + (2 + 1)\\
+\end{align}
+
+$(1)$ is directly from $m + (n + 1) = (m + n) + 1$. $(2)$ we prove here:
+
+\begin{align*}
+	(2 + 1) + 1 &= (2 + 1) + (0 + 1)\\
+	&= ((2 + 1) + 0) + 1\\
+	&= (0 + (2 + 1)) + 1\\
+	&= ((0 + 2) + 1) + 1\\
+	&= ((2 + 0) + 1) + 1\\
+	&= (2 + (0 + 1)) + 1\\
+	&= ((1 + 1) + 1) + 1\\
+	&= (1 + (1 + 1)) + 1\\
+	&= ((0 + 1) + 2) + 1\\
+	&= ((0 + 1) + 2) + 1\\
+	&= (1 + 2) + 1\\
+	&= 1 + (2 + 1)\\
+\end{align*}
+
+Well I mean I could keep going but this feels a bit pointless.
+
+\medskip
+\begin{align*}
+	2 + 4 &= 2 + (3 + 1)\\
+	&= 2 + ((1 + 2) + 1)\\
+	&= 2 + (1 + (2 + 1))\\
+	&= 2 + (1 + 3)\\
+	&= 2 + (1 + (1 + 2))\\
+	&= 2 + (1 + (1 + (1 + 1)))\\
+	&= 2 + (1 + (1 + 1)) + 1\\
+\end{align*}
+
+\newpage
+\textbf{Conclusion??}
+
+Gonna attempt to botch a conclusion at this. 
+
+\begin{align}
+	(n + 1) + (m + 1) &= ((n + 1) + m) + 1\\
+	&= (m + (n + 1)) + 1\\
+	&= ((m + n) + 1) + 1\\
+	&= ((n + m) + 1) + 1\\
+	&= (n + (m + 1)) + 1\\
+	&= ((m + 1) + n) + 1\\
+	&= (m + 1) + (n + 1)\\
+\end{align}
+
+With this general proof, the idea is sneak (m + 1) past (n + 1). So first break up m and 1 and sneak m past n + 1. This is generally possible because m commutes with n and m + 1 commutes with n also. Take the one that n has and bring it together with m. m takes the 1 which n possesses and sneaks it past n. n acquires the 1 which m leaves behind in the end. 
+\end{enumerate}
+
+\section{Chapter 4 Section 3}
+
+\medskip
+\textbf{Theorem 3.10}
+\medskip
+
+We wish to show $A$ is countable implies $\text{Seq}(A)$, or all finite sequences of elements of $A$ is countable.
+
+Let us show $\text{Seq}(\mathbb{N})$ is countable. Then from the bijection $f: A \xrightarrow{} \mathbb{N}$ we can induce $g: \text{Seq}(A) \xrightarrow{} \text{Seq}(\mathbb{N})$, where for any $a_n \in \text{Seq}(A)$, we let $g(a_n) := b_n$ where $b_n(k) := f(a_n(k))$ for all $k \in \mathbb{N}$. This induced bijection implies that $\text{Seq}(\mathbb{N})$ is countable implies $\text{Seq}(A)$ is as well.
+
+\medskip
+First there must exist $q: \mathbb{N} \xrightarrow{}\mathbb{N} \times \mathbb{N}$ which is bijection as shown previously. The exact implementation/description of $q$ is irrelevant to discuss here.
+
+\medskip
+We let there be some $k: (\mathbb{N} \xrightarrow{} \text{Seq}(\mathbb{N})) \times \mathbb{N} \xrightarrow{} (\mathbb{N} \xrightarrow{} \text{Seq}(\mathbb{N}))$ defined as for any $a \in (\mathbb{N} \xrightarrow{} \text{Seq}(\mathbb{N}))$, we have $k(a, n) = b$. Then we note $b$ is defined as follows: For any $i \in \mathbb{N}$, given that $g(i) = (i_1, i_2)$, we let $\langle a_0, ..., a_n \rangle = a(i_1)$, then $b(i) = a(i_1) \cup \{(n + 1), i_2\}$. Or in other words $b(i) = \langle a_0, ..., a_n, i_2 \rangle$. Thus with this definition of $k$ and the recursion theorem, there must exist some $f: \mathbb{N} \xrightarrow{} (\mathbb{N} \xrightarrow{} \text{Seq}(\mathbb{N}))$ such that $f_{n + 1} = k(f_n, n)$. It remains to show that $f$ is one-to-one and onto, but the construction of $k$ is shown here to keep my sanity. The bijection that $f$ is is more suggested/demonstrated in HrBacek.
+
+\newpage
+Onto-ness of $f_n: \mathbb{N} \xrightarrow{} \mathbb{N}^n$?
+
+\medskip
+\textbf{Base case.}
+\medskip
+
+ $f_1 = \{(0, \langle 0 \rangle),(1, \langle 1 \rangle),...\}$. All length 1 sequences are covered.
+
+\medskip
+\textbf{Inductive case.}
+\medskip
+
+Inductive case. Given all length $n$ sequences are covered. Try to show $f_{n + 1}$ is onto w/ respect to $\mathbb{N}^{n + 1}$. For any sequence $a$ in $\mathbb{N}^{n + 1}$, let $b = a \upharpoonright (n + 1)$. Then note there exists $i$ such that $f_n(i) = b$ by inductive assumption. Also we have $q: \mathbb{N} \xrightarrow{} \mathbb{N} \times \mathbb{N}$, so there must exist some $j \in \mathbb{N}$ such that $q(j) = (i, a_{n})$. Then $f_{n + 1}(j) = f_n(q(j)(0)) \cup \{(n, a_{n})\}$. Thus $f_{n + 1}$ covers all sequences of length $n + 1$. Less notationally speaking, $f_{n + 1}$ needs to find the appropriate input in $g$ that corresponds to the pair of indices which glues the right sequence in $f_{n}$ and the last element of the desired length n + 1 sequence together.
+
+\medskip
+\textbf{Theorem 3.14}
+\medskip
+
+I am thinking for any $c_0, ..., c_{f_{p - 1}} \in C_{n}$, there exists $d_0, ..., d_{f_{p - 1}} \in C_{n}$ such that $a(d_i) = c_i$ for all relevant i. Then for any tuple of length $f_{p - 1}$, that tuple can be reached with some $k$ under $g(k)$. So $a_{i + 1}(k)$ covers every $F_p[C_{n}^{f_p}]$ in this way in the upper case of the case definition of the function. It covers the $C_i$ case with $a_i(q)$, which is quite reasonable? for any $c \in C_{n}$, we note there exists some $q \in \mathbb{N}$ such that $a_n(q) = c$. Then there will also exist $k \in \mathbb{N}$ such that $g(k) = \langle p, q, ...\rangle$ for that specific $q$. Thus $a_{i + 1}(k)$ for any $k$ also covers $C_n$ when $p = n$ (second case). Treating $a$ as a mapping from $\mathbb{N} \times \mathbb{N}$ onto $\bar{C}$ is reasonable in this sense. Which covers the fact that $\bar{C}$ is at most countable?! 
+
+\end{document}

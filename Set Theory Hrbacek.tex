@@ -1,0 +1,2186 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts} 
+\usepackage{sidenotes}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb,tikz}
+\usepackage{tikz}
+\usepackage{scalerel}
+\setcounter{MaxMatrixCols}{20}
+\newcommand{ \len }[0]{ \textbf{Len} }
+\newcommand{ \seqnat }[0]{ \text{seq}(\mathbb{N}) }
+\newcommand{ \Max }[0]{\text{max}}
+\newcommand{ \dom }[0]{\text{dom}}
+\newcommand{ \nat }[0]{\mathbb{N}}
+
+
+
+\newcommand{\longdiv}{\smash{\mkern-0.43mu\vstretch{1.31}{\hstretch{.7}{)}}\mkern-5.2mu\vstretch{1.31}{\hstretch{.7}{)}}}}
+
+
+\title{Hrbacek Set Theory}
+\author{Stephen Xia}
+\date{November 2023}
+
+\begin{document}
+\maketitle
+
+\medskip
+\textbf{Scratch}
+\medskip
+
+Let $S = \{\{A,B\},\{C\}\}$.
+
+\medskip
+$\bigcup_{a \in \bigcup S}F_a = \bigcup\{F_a \text{ } | \text{ } a \in \bigcup S\} = \bigcup \{F_a \text{ } | \text{ a = A or a = B or a = C}\} = \bigcup \{F_A, F_B, F_C\}$ 
+
+\medskip
+
+\begin{align*}
+    \bigcup_{C \in S}(\bigcup_{a \in C}F_a) &= \bigcup\{\bigcup_{a \in C}F_a \text{ } | \text{ } C \in S\}\\
+    &= \bigcup\{\bigcup_{a \in \{A,B\}}F_a, \bigcup_{a \in \{C\}}F_a\}\\
+    &= \bigcup\{\bigcup\{F_a \text{ } | \text{ } a \in \{A,B\}\}, \bigcup\{F_a \text{ } | \text{ } a \in \{C\}\}\}\\
+\end{align*}
+
+\bigskip
+Note that $x \in \bigcup_{a \in \bigcup S}F_a$ is the same thing as $x \in F_A$, or $x \in F_B$, or $x \in F_C$ by $\bigcup_{a \in \bigcup S}F_a = \bigcup\{F_A, F_B, F_C\}$.
+
+\bigskip
+Note that $x \in \bigcup_{C \in S}(\bigcup_{a \in C}F_a)$ is also the same as $x \in F_A$, or $x \in F_B$, or $x \in F_C$.
+
+If $x \in \bigcup_{C \in S}(\bigcup_{a \in C}F_a)$ then $x \in \bigcup\{F_a \text{ } | \text{ } a \in \{A,B\}\}$ or $x \in \bigcup\{F_a \text{ } | \text{ } a \in \{C\}\}$ since $\bigcup_{C \in S}(\bigcup_{a \in C}F_a) = \bigcup\{\bigcup\{F_a \text{ } | \text{ } a \in \{A,B\}\}, \bigcup\{F_a \text{ } | \text{ } a \in \{C\}\}\}$.
+
+\medskip
+Then $x \in \bigcup\{F_a \text{ } | \text{ } a \in \{A,B\}\}$ or $x \in \bigcup\{F_a \text{ } | \text{ } a \in \{C\}\}$ implies that $x \in \bigcup\{F_A, F_B\}$ or $x \in \bigcup\{F_C\}$, which means $x \in F_A$ or $x \in F_B$ in the case that $x \in \bigcup\{F_A, F_B\}$ or $x \in F_C$ in the case $x \in \bigcup\{F_C\}$.
+
+\medskip
+As a quick conclusion we can note that if $x \in \bigcup_{C \in S}(\bigcup_{a \in C}F_a)$ we have that $x \in F_A$ or $x \in F_B$ or $x \in F_C$.
+
+\medskip
+If $x \in F_A$ or $x \in F_B$ or $x \in F_C$ we have three cases.
+
+\medskip
+In the case that $x \in F_A$ we have $x \in \bigcup\{F_A, F_B\}$ which means $x \in \bigcup\{F_a \text{ } | \text{ } a \in \{A,B\}\}$, which implies that $x \in \bigcup\{\bigcup\{F_a \text{ } | \text{ } a \in \{A,B\}\}, \bigcup\{F_    a \text{ } | \text{ } a \in \{C\}\}\}$.
+
+\medskip
+In the case that $x \in F_B$ we also have $x \in \bigcup\{\bigcup\{F_a \text{ } | \text{ } a \in \{A,B\}\}, \bigcup\{F_a \text{ } | \text{ } a \in \{C\}\}\}$. by a symmetric case with $x \in A$.
+
+\medskip
+In the case that $x \in F_C$ we have $x \in \bigcup\{\bigcup\{F_a \text{     } | \text{ } a \in \{C\}\}$ which implies $x \in \bigcup\{\bigcup\{F_a \text{ } | \text{ } a \in \{A,B\}\}, \bigcup\{F_a \text{ } | \text{ } a \in \{C\}\}\}$.
+
+\medskip
+As a quick conclusion we have that if $x \in F_A$ or $x \in F_B$ or $x \in F_C$ we have $x \in  \bigcup\{\bigcup\{F_a \text{ } | \text{ } a \in \{A,B\}\}, \bigcup\{F_a \text{ } | \text{ } a \in \{C\}\}\}$.
+
+\medskip
+Thus we have that $x \in F_A$ or $x \in F_B$ or $x \in F_C$ iff $x \in  \bigcup\{\bigcup\{F_a \text{ } | \text{ } a \in \{A,B\}\}, \bigcup\{F_a \text{ } | \text{ } a \in \{C\}\}\}$.
+
+Finally this means that $x \in \bigcup_{C \in S}(\bigcup_{a \in C}F_a)$ is the same as $x \in F_A$ or $x \in F_B$ or $x \in F_C$ is the same as $x \in \bigcup_{a \in \bigcup S}F_a$.
+
+\medskip
+$x \in \bigcup_{C \in S}(\bigcup_{a \in C}F_a)$ iff $x \in \bigcup_{a \in \bigcup S}F_a$ implies $\bigcup_{C \in S}(\bigcup_{a \in C}F_a) = \bigcup_{a \in \bigcup S}F_a$ through the Axiom of Extensionality.
+
+
+\section{Chapter 1}
+
+3.1) 
+Allow $A,B$ to be sets. Then let there be property P for x where $\bold{P}(x)$ is $x \notin B$. Then note that by the axiom schema of comprehension there is a set C such that $x \in A$ and $\bold{P}(x)$ iff $x \in C$. Let there be such a $C$. Then for any $x \in A$ and $x \notin B$ we have that $x \in C$ and for any $x$ such that $x \in A$ and $x \notin B$ is not true, i.e $x \notin A$ and $x \in B$ we have $x \notin C$. 
+
+\medskip
+Therefore we have that $C$ is the set of all x such that $x \in A$ and $x \notin B$ and does not admit any x where $x \in A$ and $x \notin B$ is not true.
+
+\bigskip
+3.2)
+Assume some set must exist and such a set be called $S$. Then let there be property $\bold{P}(x)$ with $x \notin S$, then we have from the Axiom of Schema Comprehension that there exists set $A$ such that $x \in A$ iff $x \notin S$ and $\bold{P}(x)$. Such a set $A$ does not contain any elements. 
+
+\medskip
+For the sake of contradiction assume $A$ contains some $x$, then $x \in S$ and $x \notin S$ which cannot be possible at the same time. Thus $A$ does not contain any elements.
+
+\medskip
+We note $A$ is the empty set, which exists as a set given the Axiom of Schema Comprehension.
+
+\bigskip
+3.3.a)
+
+Begin by noting that $S = \{x \in V \text{ }|\text{ } x \notin x\}$ is valid notation because since $V$ is the set of all sets, then $x \notin x$ obviously implies $x \in V$.  
+
+\medskip
+
+Allow that $S = \{x \in V \text{ }|\text{ } x \notin x\}$, then note that if $S \in S$, then because $S \in S$, it must be that $S \in V$ and $S \notin S$, which is a contradiction. Yet if $S \notin S$, then as $V$ is the set of all sets, $S \in V$ and we have $S \in V$ and $S \notin S$, which implies $S \in S$. This is again a contradiction. This means that such a set $S$ cannot exist, even the Axiom of Schema Comprehension says it must. Therefore $V$, the set of all sets must not exist.
+
+\bigskip
+3.3.b)
+
+Note that if there does not exist any set $S$ which is not an element of the set $A$ for some set $A$, then it must be that for every set $S$, $S$ is an element of $A$. This would $A$ a set of all sets, which was shown impossible given the Axiom of Schema Comprehension in 3.3.a). Thus it must be for arbitrary set $A$, there exists some $S$ such that $S$ is not an element of $A$ as desired.
+
+\newpage
+
+3.4)
+First note there are arbitrary sets of $A,B$.
+
+\medskip
+As in 3.1) we allow sets $C_1,C_2$ where $x \in C_1$ iff $x \in A$ and $x \notin B$.
+
+\medskip
+Similarly we allow $x \in C_2$ iff $x \in B$ and $x \notin A$.
+
+\medskip
+Then use the Axiom of Pair to construct S such that $x \in S$ iff $x = C_1$ or $x = C_2$. Then use the Axiom of Union to construct $Q$ such that $x \in Q$ iff $x \in T$ for some $T \subseteq S$. 
+
+\medskip
+Then note that $x \in Q$ iff ($x \in C_1$ or $x \in C_2$) iff (($x \in A$ and $x \notin B$) and ($x \in B$ and $x \notin A$)). Thus $x \in Q$ iff  (($x \in A$ and $x \notin B$) and ($x \in B$ and $x \notin A$)) we are done and $Q$ is the desired set.
+
+\bigskip
+3.5.a)
+Allow set $S_1$ such that $x \in S_1$ iff $x = A$ or $x = B$ from the Axiom of Pair. Then allow $S_2$ such that $x \in S_2$ iff $X = C$ or $X = C$. Then $S_1 = \{A,B\}$ and $S_2 = \{C\}$. Then there must exist a set $Q$ such that $x \in Q$ iff $x = S_1$ or $x = S_2$ using another application of the Axiom of Pair. We use the Axiom of Union to form $P = \bigcup Q$.
+
+\medskip
+Note that $x \in P$ iff ($x \in S_1$ or $x \in S_2$) iff (($x = A$ or $x = B$) or ($x = C$)) iff ($x = A$ or $x = B$ or $x = C$). Thus $Q$ is our desired set such that $x \in Q$ iff $x = A$ or $x = B$ or $x = C$.
+
+\bigskip
+3.5.b)
+
+There must exist set $P$ such that $x \in P$ iff $x = A$ or $x = B$ or $x = C$ as shown in 3.5.a). There must also exist a set $Q$ such that $x \in Q$ iff $x = D$ or $x = D$ from the Axiom of Pair. There must exist a set $M$ such that $x \in M$ iff $x = P$ or $x = Q$ by by the Axiom of Pair. Then construct $L = \bigcup M$. Thus we note $x \in L$ iff $x \in P$ or $x \in Q$ iff (($x = A$ or $x = B$ or $x = C$) or $x = D$) iff $x = A$ or $x = B$ or $x = C$ or $x = D$ as desired.
+
+\medskip
+
+In fact as a small extrapolation from this question it does appear quite convenient to prove that a n-tuple version of the axiom of pair can be very reasonably defined inductively. And such an operation can be shown to produce a result set which both exists and is unique. Yet as Jalāl al-Dīn Muḥammad Rūmī has pointed out natural numbers are not yet defined up to this point, meaning the structure does not yet exist to perform induction.
+
+\bigskip
+3.6)
+There is a set Y $= \{u \in X \text{ } | \text{ } u \notin u\}$ which must exist by the Axiom of Schema Comprehension. Note that since for any $u \in Y$, $u \in X$ and $u \notin u$, which implies $u \in X$, we have that $Y \subseteq X$ and $Y \in \mathcal{P}(X)$.
+
+\medskip
+
+Then continue to note that if $Y \in X$, consider two cases:
+
+\medskip
+
+If $Y \notin Y$, then $Y \in Y$ because $Y \in X$ and $Y \notin Y$. Of course $Y \notin Y$ is a contradiction from $Y \in Y$, thus this cannot be possible.
+
+\medskip
+
+If $Y \in Y$, then $Y \notin Y$, because $Y \in Y$ implies that $Y \in X$ and $Y \notin Y$. This is another contradiction with $Y \in Y$ and $Y \notin Y$.
+
+\medskip
+
+Since $Y \notin Y$ and $Y \in Y$ both leads to contradictions when $Y \in X$, it is clear that $Y \in X$ is not possible.
+
+\medskip
+
+And since $Y \in \mathcal{P}(X)$ yet $Y \notin X$, it is true that $\mathcal{P}(X)$ is not a subset of $X$ and also $\mathcal{P}(X) \neq X$ as desired. Q.E.D.
+
+\medskip
+It might be reasonable to think that the Axiom of Schema Comprehension is necessary to generate that contradiction with a set of sets existing. Considering that the $u \notin u$ limiting requirement on $u \in X$ really nailed down the issue in 3.6) and also 3.3.a) and that coming up with an issue for $X \in X$ simply might not be too easy.
+
+\bigskip
+
+3.7)
+
+\medskip
+\textbf{Weak Axiom of Pair $\xrightarrow{}$ Axiom of Pair}
+\medskip
+
+Start with the weak Axiom of Pair where if there are some sets $A,B$ then a set $C$ must exist where $A \in C$ and $B \in C$.
+
+\medskip
+Consider S = $\{x \in C \text{ } | \text{ } \mathcal{P}(x)\}$ where $\mathcal{P}(x)$ is $x = A$ or $x = B$. Therefore note that if $x = A$, we have that $x \in C$ and $x \in A$, which implies $x \in C$ and ($x \in A$ or $x \in B$), which implies $x \in C$ and $\mathcal{P}(x)$, which finally implies that $x = A \in S$.
+
+\medskip
+By the same logic $B \in S$. Thus if $x = A$ or $x = B$ then $x \in S$. Then consider if $x \in S$, $\mathcal{P}(x)$ must be true, which implies that $x = A$ or $x = B$. thus we have that $x \in S$ iff $x = A$ or $x = B$ as desired.
+
+\medskip
+\textbf{Weak Axiom of Union $\xrightarrow{}$ Axiom of Union}
+\medskip
+
+Start with the Weak Axiom of Union which states that for any set S there exists U such that for any $X$ if $X \in A$ and $A \in S$ then $X \in U$.
+
+\medskip
+
+Use the Axiom Schema of Comprehension on such a set $U$ as follows: $Q = \{x \in U \text{ } | \text{ } \mathcal{P}(x)\}$ where $\mathcal{P}(x)$ is the property that there exists some set $B \in S$ such that $x \in B$. 
+
+\medskip
+
+Note then $x \in Q$ iff ($x \in U$ and $\mathcal{P}(x)$) iff ($x \in U$ and $x \in A$ for some $A \in S$). Note that if $x \in A$ and $A \in S$, then $x \in U$, thus we note that when written as $\{x \in U \text{ } | \text{ } x \in A \text{ for some } A \in S\}$, the U in question does not have an impact on the set, which means the equivalent formulation $\{x \text{ } | \text{ } x \in A \text{ for some } A \in S\}$ is sufficient to represent it.
+
+\medskip
+Thus it can be noted that $x \in Q$ iff $x \in A \text { for some} A \in S$. Thus it is shown that the Weak Axiom of Union and the Axiom Schema of Comprehension is sufficient to demonstrate the Axiom of Union as desired.
+
+\medskip
+\textbf{Weak Axiom of Power Set $\xrightarrow{}$ Axiom of Power Set}
+\medskip
+
+For any set S, there must exist a set P such that $X \subseteq S$ implies $X \in P$ as the Weak Axiom of Power Set states.
+Then we can apply the Axiom Schema of Comprehension onto the set $P$ to generate a new set as follows: $Q = \{x \in P \text{ } | \text{ } \mathcal{P}(x)\}$ where $\mathcal{P}(x)$ is the property that $x \subseteq S$. Then note that $x \in Q$ iff ($x \in P$ and $\mathcal{P}(x)$) iff ($x \in P$ and $x \subseteq S$). Note then that $x \subseteq S$ implies $x \in P$, thus $\{x \in P | x \subseteq S\}$ can be equivalently formulated as $\{x | x \subseteq S\}$. This means that $\mathcal{P}(x)$ iff $x \subseteq S$ as desired, which concludes our proof.
+
+\medskip
+
+4.4)
+Assume such a complement of A can exist and name it B. Then consider that for any $x$ it must either be in A or in B. Use the Axiom of Pair to generate set $C$ such that $x = A$ or $x = B$ iff $x \in C$. Then use the Axiom of Union to generate set D from C where $x \in D$ iff $x \in A$ for some $A \in C$. Thus we consider some arbitrary set $x$. 
+
+\medskip
+Consider x using two cases. If $x \in A$, then $x \in A$ or $x \in B$, which implies $x \in D$.
+
+\medskip
+If $x \notin A$, then $x \in B$, since all $x \notin A$ is in B. Then $x \in B$ implies $x \in A$ or $x \in B$, which finally implies $x \in D$ as well. Thus any $x \in D$, which is a set of all sets. This was shown previously to be impossible, thus set B the "complement".of A cannot exist.
+
+\bigskip
+4.5.a)
+
+$T_1 = \{Y \in \mathcal{P}(A) \text{ } | \text{ } Y = A \cap X \text{ for some } X \in S\}$
+
+\bigskip
+\textbf{$A \cap (\bigcup S)$ is a subset of $T_1$}
+\bigskip
+
+If $x \in A \cap (\bigcup S)$, then $x \in A$ and $x \in \bigcup S$. If $x \in \bigcup S$, $x \in B$ for some $B \in S$. Thus $x \in A$ and $x \in B$ for some $B \in S$, which implies $x \in A \cap B$ for some $B \in S$ and that $x \in Y$ for some $Y \in T_1$. This means $x \in \bigcup T_1$. Thus $A \cap (\bigcup S) \subseteq T_1$ as desired.
+
+\bigskip
+\textbf{$T_1$ is a subset of $A \cap (\bigcup S)$}
+\bigskip
+
+If $x \in T_1$, then $x \in A \cap B$ for some $B \in S$. This means $x \in A$ and $x \in B$ for some $B \in S$, which by definition means $x \in A$ and $x \in \bigcup S$ and that finally $x \in A \cap (\bigcup S)$ as desired.
+
+\bigskip
+\textbf{Conclusion}
+\bigskip
+
+We have that $A \cap (\bigcup S)$ is a subset of $T_1$ and $T_1$ is a subset of $A \cap (\bigcup S)$, thus $A \cap (\bigcup S)$ and $T_1$ are equal as desired. With a bit more rigor one could say any member of $A \cap (\bigcup S)$ is a member of $T_1$ by $A \cap (\bigcup S)$ is a subset of $T_1$ and vice versa and since $A \cap (\bigcup S)$ and $T_1$ have the same members they are the same set.
+
+\newpage
+4.5.b.1)
+
+Let $T_2 = \{Y \in \mathcal{P}(A) \text{ } | \text{ } Y = A - X \text { for some } X \in S\}$.
+
+\bigskip
+\textbf{$A - \cup S$ is a subset of $\cap T_2$}
+\bigskip
+
+If $x \in A - \cup S$, then $x \in A$ and $x \notin \cup S$. To apply the definition $x \notin \cup S$, $x$ is not a member of any $X \in S$. Thus we have that $x \in A$ and $x \notin X$ for any $X \in S$. Since $x \in A$ and $x \notin X$ for any $X \in S$, we have that $x \in A - X$ for any $X \in S$. This means that $x \in Y$ for any $Y \in T_2$. $x \in Y$ for any $Y \in T_2$ finally implies that $x \in \cap T_2$.
+
+\bigskip
+\textbf{$\cap T_2$ is a subset of $A - \cup S$}
+\bigskip
+
+For any $x \in \cap T_2$ we have that $x \in Y$ for all $Y \in T_2$. Then there does not exist an $X \in S$ such that $x \notin A - X$, as we can have $A - X \in T_2$ for such an $X$, which would mean $x \notin Y$ for some $Y \in T_2$, a contradiction from $x \in Y$ for all $Y \in T_2$. Thus it must be true that $x \in A - X$ for all $X \in S$, which implies $x \in A$ and $x \notin X$ for any $X \in S$. $x \notin X$ for any $X \in S$ further means $x \notin \cup S$. We finally have that $x \in A - \cup S$ as desired.
+
+\bigskip
+\textbf{Conclusion}
+\bigskip
+
+As before since any element of $A - \cup S$ is an element of $\cap T_2$ by $A - \cup S$ is a subset of $\cap T_2$ and any element of $\cap T_2$ is an element of $A - \cup S$ by $\cap T_2$ is a subset of $A - \cup S$, we have $x \in A - \cup S$ iff $x \in \cap T_2$ which implies that $A - \cup S = \cap T_2$ via the Axiom of Extensionality.
+
+\bigskip
+4.5.b.2)
+
+\bigskip
+\textbf{$A - \cap S$ is a subset of $\cup T_2$}
+\bigskip
+
+Let $T_2$ be same as before. Then since $x \in A - \cap S$, we note that $x \in A$ and $x \notin \cap S$, which means $x \in A$ and $x \notin X$ for some $X \in S$. Then note that since $x \in A$ and $x \notin X$ for some $X \in S$ we have that $x \in A - X$ for some $X \in S$ which means that $x \in Y$ for some $Y \in T_2$. This implies that $x \in \cup T_2$. 
+
+\bigskip
+\textbf{$\cup T_2$ is a subset of $A - \cap S$}
+\bigskip
+
+If $x \in \cup T_2$, then $x \in Y$ for some $Y \in T_2$, which means $x \in A - X$ for some $X \in S$. This implies that $x \in A$ and $x \notin X$ for some $X \in S$, which means that $x \in A$ and $x \notin \cap S$, thus $x \in A - \cap S$ as desired.
+
+\bigskip
+\textbf{Conclusion}
+\bigskip
+
+Since any element of $A - \cap S$ is also an element of $\cup T_2$ and vice versa we have that $A - \cap S = \cup T_2$ by the Axiom of Extensionality.
+
+\newpage
+4.6)
+
+Consider the set represented by the notation $\{ x \in \cup S \text{ } | \text{ } x \in A \text{ for all } A \in S\}$. Consider two cases, one case where $S$ is the empty set while another case where $S$ is not the empty set. 
+
+\medskip
+\textbf{S is the empty set}
+\medskip
+
+If $S$ is the empty set then $x \in A$ for all $A \in S$ is vacuously true and $x \in A$ for some $A \in S$ is never true. 
+
+\medskip
+\textbf{S is not the empty set}
+\medskip
+
+If $S$ is not the empty set then $x \in A$ for all $A \in S$ implies that $x \in A$ for some $A \in S$, which finally implies that $x \in \cup S$, thus since $x \in A \text{ for all } A \in S$ implies $x \in \cup S$, $\cap S = \{ x \in \cup S \text{ } | \text{ } x \in A \text{ for all } A \in S\}$ is valid notation and must exist by the axiom of comprehension with $x \in \cup S$ and $x$ satisfying the property $x \in A \text{ for all } A \in S$. 
+
+\medskip
+\textbf{Conclusion}
+\medskip
+
+Finally note since $\cap S := \{ x \in \cup S \text{ } | \text{ } x \in A \text{ for all } A \in S\}$, $\cap S := \{ x \in A \text{ for all } A \in S\}$ as $x \in A \text{ for all } A \in S$ implies $x \in \cup S$. This means that $\cap S$ as defined in the last paragraph of page 14 exists when $S$ is not null as desired.
+
+\medskip
+\textbf{Sidenote}
+\medskip
+
+As a sidenote, $P(x) = x \in A \text{ for all } A \in S$ would not be a property of $x$ is $S$ is the empty set, since $P(x)$ would always be true and the truthfulness of such a property does not depend on x.
+
+
+\bigskip
+\section{Chapter 2}
+\bigskip
+
+\medskip
+\textbf{1 Ordered Pairs}
+\medskip
+
+1.1)
+\medskip
+Note that $a \in \{a,b\}$ and $b \in \{a,b\}$, thus $\{a\}$ and $\{a,b\}$ are subsets of $\{a,b\}$. Thus $\{a\}$ and $\{a,b\}$ are elements of $\mathcal{P}(\{a,b\})$. Then note that $\{\{a\},\{a,b\}\}$ is a subset of $\mathcal{P}(\{a,b\})$ which means that it is an element of $\mathcal{P}(\mathcal{P}(\{a,b\}))$.
+
+\medskip
+Thus $(a,b) = \{\{a\},\{a,b\}\}$ is in $\mathcal{P}(\mathcal{P}(\{a,b\}))$ as desired.
+
+\medskip
+Note since $(a,b) = \{\{a\},\{a,b\}\}$ we have that $\cup (a,b) = \{a,b\}$. Thus $a \in \{a,b\} = \cup (a,b)$ and $b \in \{a,b\} = \cup (a,b)$ as desired.
+
+\bigskip
+Note for the general case that if $a \in A$ and $b \in A$ for some set A then any element in the two sets $\{a\}$, $\{a,b\}$ are in A also. Therefore we have that $\{a\}$ and $\{a,b\}$ are subsets of A. Since $\{a\}$ and $\{a,b\}$ are subsets of A, note then that $\{a\}, \{a,b\} \in \mathcal{P}(A)$. With $\{a\}$, $\{a,b\}$ being in $\mathcal{P}(A)$ we have that $\{\{a\},\{a,b\}\}$ is a subset of $\mathcal{P}(A)$. Then $\{\{a\},\{a,b\}\} \in \mathcal{P}(\mathcal{P}(A))$ as desired. 
+ 
+\newpage
+1.2)
+
+\medskip
+\textbf{Show (a,b) Exists}
+\medskip
+
+Note that a,b,c,d are objects of interest. 
+
+\medskip
+
+From the Axiom of Pair let there be set A such that $x \in A$ iff $x = a$ or $x = a$. 
+From the notation of the text we have $A = \{a\}$. 
+
+\medskip
+
+From the Axiom of Pair let there be set B such that $x \in B$ iff $x = a$ or $x = b$.
+We have $B = \{a,b\}$.
+
+\medskip
+
+Then from the Axiom of Pair, let there be set C such that $x \in C$ iff $x = A$ or $x = B$. Then note that $C = \{A,B\} = \{\{a\},\{a,b\}\}$ as desired.
+
+\medskip
+
+This means that $(a,b) := \{\{a\},\{a,b\}\}$ exists as shown.
+
+\medskip
+\textbf{Show (a,b,c) Exists}
+\medskip
+
+\medskip
+
+From the Axiom of Pair let there be set $A$ such that $x \in A$ iff $x = (a,b)$ or $x = (a,b)$, then $A = \{(a,b)\}$.
+
+Again construct from the Axiom of Pair a set $B$ such that $x \in B$ iff $x = (a,b)$ or $x = c$, then $B = \{(a,b),c\}$.
+
+\medskip
+
+Then construct from set $A,B$ a set $C$ from the Axiom of Pair such that $x \in C$ iff $x = A$ or $x = B$. 
+
+\medskip
+
+Note then that $C = \{A,B\} = \{\{(a,b)\},\{(a,b),c\}\}$
+
+
+\medskip
+
+Note by the notation of the textbook we have $(a,b,c) = ((a,b),c) = \{\{(a,b)\}, \{(a,b),c\}\}$. Thus $(a,b,c) := \{\{(a,b)\},\{(a,b),c\}\}$ exists as desired.
+
+\medskip
+\textbf{Show (a,b,c,d) Exists}
+\medskip
+
+From the Axiom of Pair let there be set $A$ such that $x \in A$ iff $x = (a,b,c)$ or $x = (a,b,c)$.
+
+\medskip
+
+Again from the Axiom of Pair let there be set $B$ such that $x \in B$ iff $x = (a,b,c)$ or $x = d$.
+
+\medskip
+
+
+Thrice we use the Axiom of Pair to construct a set, let this set be $C$ such that $x \in C$ iff $x = A$ or $x = B$. We have $C = \{A,B\} = \{\{(a,b,c)\},\{(a,b,c),d\}\}$. 
+
+\medskip
+
+Note by the notation of the textbook we have $(a,b,c,d) = ((a,b,c),d) = \{\{(a,b,c)\}, \{(a,b,c),d\}\}$. Thus $(a,b,c,d) := \{\{(a,b,c)\}, \{(a,b,c),d\}\}$ exists as desired. 
+
+\newpage
+1.3)
+
+\medskip
+
+Note $(a,b) = (b,a)$, thus $\{\{a\},\{a,b\}\} = \{\{b\},\{b,a\}\}$. 
+
+\medskip
+
+As $(a,b) = (b,a)$ from the Axiom of Extensionality and $\{a\} \in (a,b)$, $\{a\} \in (b,a)$ as well. Yet from $(b,a) = \{\{b\},\{b,a\}\}$ we have that $\{a\} \in (b,a)$ iff $\{a\} = \{b\}$ or $\{a\} = \{b,a\}$.
+
+\medskip
+In the case that $\{a\} = \{b\}$, it is necessary that $a = b$ because if $a \neq b$, $a \in \{a\}$ yet $a \notin \{b\}$. Similarly $\{a\} = \{b,a\}$ only if $a = b$, otherwise $b \in \{b,a\}$ and $b \notin \{a\}$. 
+
+\medskip
+\textbf{Conclusion}
+\medskip
+
+In a brief summary of this argument, $(a,b) = (b,a)$ implies $\{a\} = \{b\}$ or $\{a\} = \{b,a\}$, which in either case implies that $a = b$. 
+
+\bigskip
+
+1.4) 
+
+\bigskip
+\textbf{3-tuple Equality Implies Element-wise Equality}
+\bigskip
+
+First express $(a,b,c)$ and $(a',b',c')$ in a for intuitive form as defined by Hrbacek:
+
+$(a,b,c) = ((a,b),c)$ and $(a',b',c') = ((a',b'),c')$.
+
+\medskip
+
+Then we note $((a,b),c) = ((a',b'),c')$ which from Theorem 1.2 implies $(a,b) = (a',b')$ and $c = c'$. A second application of Theorem 1.2 on $(a,b) = (a',b')$ shows that $a = a'$ and $b = b'$ as well. 
+
+\medskip
+
+Thus $(a,b,c) = (a',b',c')$ implies $a = a'$, $b = b'$, $c = c'$ as desired.
+
+\bigskip
+\textbf{4-tuple Equality Implies Element-wise Equality}
+\bigskip
+
+Let $(a,b,c,d) = (a',b',c',d')$. Then $(a,b,c,d) = ((a,b,c),d) = ((a',b',c'),d') = (a',b',c',d')$ based on the definition of a quadruple.
+
+\medskip
+
+Then note that from Theorem 1.2 and $((a,b,c),d) = ((a',b',c'),d')$ we have $(a,b,c) = (a',b',c')$ and $d = d'$. Also from the previous part of this question $(a,b,c) = (a',b',c')$ implies $a = a'$ and $b = b'$ and $c = c'$
+
+\medskip
+\textbf{Conclusion}
+\medskip
+
+We have that $(a,b,c,d) = (a',b',c',d')$ implies $a = a'$, $b = b'$, $c = c'$, $d = d'$ as desired.
+
+\bigskip
+1.5)
+
+\medskip
+$((a,b),c) \neq (a,(b,c))$ and from Theorem 1.2 we have $(a,b) = a$ and $c = (b,c)$. 
+
+\medskip
+
+Since $(a,b) = a$ by the Axiom of Extensionality we have that $\{a\} \in (a,b)$ implies $\{a\} \in a$. 
+
+\medskip
+
+Yet if $a$ is the empty set then $\{a\}$ cannot be in $a$.
+
+\medskip
+
+Thus $((a,b),c) \neq (a,(b,c))$ when $a$ is the empty set as desired.
+
+\bigskip
+
+1.6)
+
+\medskip
+\textbf{Setting up the Premise}
+\medskip
+
+Allow sets $A,B$ such that $A \neq B$.
+
+
+Set up tuple using the following definition:
+$\langle a,b \rangle := \{\{a, A\}, \{b, B\}\}$.
+
+\medskip
+
+Let there be $a',b'$ such that $\langle a,b \rangle = \langle a',b' \rangle$.
+
+\medskip
+\textbf{Lemma About Equality of Sets of Two Elements}
+\medskip
+
+Now to make a short diversion and demonstrate a lemma about two sets when they are equal and both have two elements. 
+
+\medskip
+\textbf{Premise}
+\medskip
+
+Allow $A = \{a,b\}$ and $B = \{c,d\}$ and $A = B$. 
+
+\medskip
+Then since $a \in A$, $a \in B$ as well by $A = B$ and the Axiom of Extensionality. $a \in B$ implies that $a = c$ or $a = d$. 
+
+\medskip
+WLOG take the case that $a = c$. Then by similar reasoning $d = a$ or $d = b$ since $d \in A$.
+
+\medskip
+\textbf{d = a}
+\medskip
+
+If $d = a$, then $A = \{a,b\}$ and $B = \{c,d\} = \{a,a\} = \{a\}$. This means $b = a$ since $b \in B = \{a\}$.
+
+\medskip
+Thus we have that $a = b = c = d$ as a possible outcome of $A = B$.
+
+\medskip
+\textbf{d = b}
+\medskip
+
+As another outcome we have that $d = b$, which means $a = c$ and $b = d$, which implies a pairwise equality between the sets $A,B$. That is if two elements of $A$ and $B$ are equal, then the remaining element of $A$ and the remaining element of $B$ must also be equal.
+
+\medskip
+\textbf{Conclusion of Lemma}
+\medskip
+
+Thus as a conclusion of the lemma if two sets with two elements each are equal, either all elements of both sets are equal, or that the elements are pairwise equal.
+
+\medskip
+\textbf{Proof Main Body}
+\medskip
+
+For abstraction purposes allow $C = \{a, A\}$, $D = \{b, B\}$, $E = \{a', A\}$, $F = \{b', B\}$. Such sets $C,D,E,F$ exist by the Axiom of Pair.
+
+\medskip
+
+Then note that $\langle a,b \rangle = \{C, D\} = \{E, F\} = \langle a',b' \rangle$.
+
+If $C \in \{C, D\}$ then $C \in \{E,F\}$ also by the Axiom of Extensionality and $\{C,D\} = \{E,F\}$. Thus since $C \in \{E,F\}$, we have that $C = E$ or $C = F$.
+
+\newpage
+\textbf{C = E}
+\medskip
+
+If $C = E$, then either $D = F$ by the lemma, or $C = E = D = F$.
+
+\medskip
+Let $D = F$. With $C = \{a, A\} = \{a', A\} = E$ since a pair of elements from $C$ and $E$ have already matched with $A = A$ the lemma states $a = a'$ or $a = a' = A$. In either case $a = a'$. $D = F$ implies $b = b'$ by simliar logic.
+
+\medskip
+If $C = E = D = F$, then we have that $a = a'$ from $C = E$ and we also have that $b = b'$ from $D = F$. 
+
+\medskip
+\textbf{C = F}
+\medskip
+
+If $C = F$, then $A \in C$ implies $A \in F$. Sinc $A \in F = \{b',B\}$ and $A \neq B$, it must be that $A = b'$. As we cannot have $a = b' = A = B$ since $A \neq B$, by the lemma we must have $a = B$. 
+
+\medskip
+From the lemma we note if $C = F$ then either $D = E$ or $C = D = F = E$.
+
+\medskip
+If $D = E$, then by similar logic from $C = F$ we note that $b = A$ and $a' = B$ as well from $D = E$.
+
+\medskip
+If $C = D = F = E$, we note that $a = B$, $A = b'$, $b = A$, $a' = B$ are still true from $C = F$ and $D = E$. Thus either case we have $a = a' = A$ and $b = b' = A$.
+
+\bigskip
+Finally we note that $\langle a,b \rangle = \langle a',b' \rangle$ implies that $a = a'$ and $b = b'$ as desired regardless which case we encounter.
+
+
+\bigskip
+\textbf{Define Triples and Quadruples}
+\medskip
+
+For triples and quadruples use the same convention that hrbacek uses. 
+
+\begin{align*}
+    \langle a,b,c \rangle &= \langle \langle a,b \rangle, c \rangle\\
+    \langle a,b,c,d \rangle &= \langle \langle a,b,c \rangle, d \rangle\\
+\end{align*}
+
+\medskip
+\textbf{2. Relations}
+\medskip
+
+2.1).
+\medskip
+
+Let $A = \bigcup (\bigcup R)$ and $(x,y) \in R$. 
+
+\medskip
+
+Then $(x,y) = \{\{x\},\{x,y\}\} \in R$, which implies from the definition of union that since $\{x\}, \{x,y\} \in (x,y)$ and $(x,y) \in R$, then $\{x\}, \{x,y\} \in \bigcup R$. 
+
+\medskip
+Another application of the definition of union shows that since $\{x\}, \{x,y\} \in \bigcup R$, $x,y \in \bigcup (\bigcup R)$ as well since $x,y \in \{x,y\}$ and $\{x,y\} \in \bigcup R$.
+
+\medskip
+
+Let there be some property $P(x) = $ there exsits $y$ such that $(x,y) \ in R$.
+
+\medskip
+Then if $x$ satisfies such a property then $x \in A$ as previously shown.
+
+\medskip
+Note the set $S = \{x \in A \text{ } | \text{ there exists } y \text{ such that } (x,y) \in R\}$ is admissible because A contains all x such that there exists a y where $(x,y) \in R$.
+
+\medskip
+Then such a set $S$ is $\text{dom} R$ as $S = \{x \text{ } | \text{ there exists } y \text{ such that } (x,y) \in R\}$ is the definition of $\text{dom} R$. Thus $\text{dom} R$ exists.
+
+\medskip
+We can similarly construct $\text{range} R$ from $\{y \text{ } | \text{ there exists } x \text{ such that } (x,y) \in R$. The details are similar so I will not go over them.
+
+\bigskip
+2.2.a)
+
+\medskip
+Let there be a property $P(x,y) := (y,x) \in R$ and a set $\text{ran R} \times \text{dom R}$. Then from the axiom schema of comprehension we can produce a set $S$ such that $(x,y) \in S$ iff $(x,y) \in \text{ran R} \times \text{dom R}$ and $P(x,y)$ is true. 
+
+\medskip
+Such a set can also be notated as $\{(x,y) \in \text{ran R} \times \text{dom R} \text{ } | \text{ } (y,x) \in R\} = \{(x,y) \text{ } | \text{ } (y,x) \in R\}$, which is the definition of $R^{-1}$, thus $R^{-1}$ must exist.
+
+\bigskip
+2.2.b)
+\medskip
+
+$A \times B \times C = (A \times B) \times C$ by definition. $(A \times B)$ exists and thus $(A \times B) \times C$ must also exist since $(A \times B)$ and $C$ both exists as sets.
+
+\bigskip
+2.7.a)
+
+Let $X = \{a\}$ and $Y = \{b\}$ with $a,b$ both sets and $a \neq b$. Such a,b exists with $a = \emptyset$ and $b = \{\emptyset\}$. Since $\emptyset \in b$ and $\emptyset \notin a$, $b \neq a$.
+
+\medskip
+Then since $X = \{a\}$ and $Y = \{b\}$, we have $X \times Y = \{(a,b)\}$ and $Y \times X = \{(b,a)\}$. $(a,b) \in X \times Y$ yet $(a,b) \notin Y \times X$ because $(a,b) \in Y \times X$ iff $(a,b) = (b,a)$. However, $(a,b) \neq (b,a)$ by $(a,b) = (b,a)$ only if $a = b$ yet $a \neq b$.
+
+\medskip
+We have found $X,Y$ such that $X \times Y \neq Y \times X$ as desired.
+
+\medskip
+2.7.b)
+
+Let $X = \{a\}$, $Y = \{b\}$, $Z = \{c\}$ where $a,b,c$ are three distinct sets. 
+
+\medskip
+It is possible to construct sets $a,b,c$ with $a = \emptyset$, $b = \{\emptyset\}$, $c = \{\{\emptyset\}\}$. $c \neq b$ and $c \neq a$ since $\{\emptyset\} \in c$ and it is not in a or b. $a \neq b$ as shown. Thus $a,b,c$ are pairwise unequal.
+
+\medskip
+Note here that $X \times (Y \times Z) = \{((a,b),c)\}$ and $(X \times Y) \times Z = \{(a,(b,c))\}$
+
+\medskip
+Then note $(a,(b,c)) \in X \times (Y \times Z)$ and $((a,b),c) \in (X \times Y) \times Z$. Since $(a,(b,c))$ is in $X \times (Y \times Z)$ and $X \times (Y \times Z) = (X \times Y) \times Z$ we must have $(a,(b,c)) \in (X \times Y) \times Z$ also. $(a,(b,c)) \in (X \times Y) \times Z$ implies $(a,(b,c)) = ((a,b),c)$ since $(X \times Y) \times Z = \{((a,b),c))\}$.
+
+\medskip
+However for $(a,(b,c)) = ((a,b),c)$ we must have $a = (a,b)$ and $(b,c) = c$. 
+
+\medskip
+If $a = (a,b)$, then $a = \{\{a\},\{a,b\}\}$. Yet $a = \emptyset$ does not contain $\{a\}$ or $\{a,b\}$. Thus $(a,(b,c)) \neq (a,(b,c))$ as desired.
+
+\medskip
+Finally we can conclude that $X \times (Y \times Z) \neq (X \times Y) \times Z$ as desired since $(a,(b,c)) \in X \times (Y \times Z)$ and $(a,(b,c)) \notin (X \times Y) \times Z$.
+
+\newpage
+2.7.c)
+Let $a = \emptyset$ for convenience.
+
+\medskip
+Let $X = \{a\}$. Then $X^{3} = (X \times X) \times X = \{((a,a),a)\}$ and $X \times (X \times X) = \{(a,(a,a))\}$. 
+
+\medskip
+We have $((a,a),a) \in (X \times X) \times X$ and $(X \times X) \times X = X \times (X \times X)$ which must imply $((a,a),a) \in X \times (X \times X)$. By $X \times (X \times X) = \{(a,(a,a))\}$ we must have $((a,a),a) = (a,(a,a))$. This implies that $(a,a) = a$, which implies $\{\{a\},\{a\}\} = a$. This is not possible as $\{a\} \in \{\{a\},\{a\}\}$ yet $\{a\} \notin a$ as $a$ is the emptyset.
+
+\medskip
+Thus we have $X^{3} \neq X \times (X \times X)$.
+
+\medskip
+\textbf{3. Functions}
+\medskip
+ 
+3.8)
+
+Given some arbitrary system of sets, or set of sets $A$. Then define a set $S$, such that $x \in S$ iff $x \in A \times A$ and there exists some $a \in A$ such that $x = (a,a)$. By the Axiom of Comprehension such a set $S$ must exist.
+
+\medskip
+
+Due to the fact that $x \in S$ only if $x = (i,i)$ for some $i \in A$ is true, $i = S_i$ for any $i \in \text{dom} S$ is a set as well since all elements of $A$ are sets. This matches the description Hrbacek gives where "the values of S are all sets" for some indexed system of sets $S$. 
+
+\medskip
+
+Then note the such a set $S$ is not only a relation, but also a function. This is because for any $aSb_1$ and $aSb_2$, we have that $a = b_1$ and $a = b_2$, which by transitivity of equality implies that $b_1 = b_2$. 
+
+\medskip
+\textbf{domain of S is A}
+\medskip
+
+Take a quick diversion to note that the domain of S is A. This is because it is necessary for any $x \in S$ that $x \in A \times A$ by definition of S. Thus $\text{dom S} \subseteq A$.
+
+Furthermore, for any $i \in A$, $x = (i,i) \in S$ because $(x,x) \in A \times A$ and $i = (x,x)$ where $x \in A$. Thus any $i \in A$ is also in the domain of $S$. Thus $A \subseteq \text{dom S}$.
+
+\medskip
+From the definitely of set equality we have that $\text{dom S} = A$ as desired.
+
+\medskip
+\textbf{range of S is A}
+\medskip
+
+Note finally that $\{S_i \text{ } | \text{ } i \in \text{dom S}\} = \{S_i \text{ } | \text{ } i \in \text{A}\}$ from $\text{dom S} = A$.
+
+\medskip
+\textbf{x $\in$ A implies $x \in \{S_i \text{ } | \text{ } i \in A\}$}
+\medskip
+
+Then for any $x \in A$, we have that $(x,x) \in S$ as shown, which means $x \in \{S_i \text{ } | \text{ } i \in A\}$. 
+
+\medskip
+\textbf{$x \in \{S_i \text{ } | \text{ } i \in A\}$ implies x $\in$ A}
+\medskip
+
+In the opposite direction we have for any $x \in \{S_i \text{ } | \text{ } i \in A\}$, then $(i,x) \in S$ with $i \in A$. Since $(i,x) \in S$ iff $(i,x) = (j,j)$ for some $j \in A$ and that two ordered pairs are equal only when all the elements from both pairs are equal we have that $i = j$ and $x = j$, which implies $i = x$. Thus note that $x = i \in \text{ran} A$. 
+
+\medskip
+
+From the definition of equality we note that $\{S_i \text{ } | \text{ } i \in \text{dom S}\} = \{S_i \text{ } | \text{ } i \in A\} = A$, which means the set A is indexed by the function $S$ as desired.
+
+\bigskip
+3.9.a)
+
+Define a set $S$ such that $x \in S$ iff $x \in \mathcal{P}(A \times B)$ and $P(x)$ where $P(x)$ is the property that for any $y_1,y_2 \in x$, if $y_1 = (a,b_1)$ and $y_2 = (a,b_2)$, or in other words the first element of $y_1$ and $y_2$ are the same, then $b_1 = b_2$, or in other words, their second elements must also be equal. 
+
+\medskip
+
+Then if $f \in S$, $f$ must satisfy the property $P(f)$, which means it must be a function f, which must also be in $\mathcal{P}(A \times B)$, which means it must be a function from A into B. We can arrive at the conclusion that if $f \in S$, then $f$ is a function from A into B. In other words all elements of S are also functions from A into B.
+
+\medskip
+
+For any function f from A into B, first it is true that P(f) is true as per the definition of a function. Furthermore for any element $x \in f$, a function from A into B, it must be true that $x = (a,b)$ for some $a \in A$, $b \in B$. Thus $x \in A \times B$ as well. Since any element of $f$ is also an element of $A \times B$ we have $f \subseteq A \times B$ and $f \in \mathcal{P}(A \times B)$. Thus since for any function f from A into B, P(f) is true and also f is an element of $\mathcal{P}(A \times B)$, we have that $f \in S$ by definition of S.
+
+\medskip
+
+Thus S is a set which contains all the functions from A into B and only contains such functions, which is precisely the definition of $B^{A}$. Thus $S$ is $B^{A}$ and since $S$ exists by the Axiom Schema of Comprehension, then $B^{A}$ must also exist.
+
+\bigskip
+3.9.b)
+
+There is a set S such that $x \in S$ iff $x \in \mathcal{P}(I \times \bigcup_{i \in I} S_i)$ and $P(x)$ where $P(x)$ means x must be a function from I into $\bigcup_{i \in I} S_i$ such that $x_i \in S_i$ for any $i \in I$.
+
+\medskip
+
+Note that we can also write 
+
+$S = \{x \in \mathcal{P}(I \times \bigcup_{i \in I} S_i) \text{ } | P(x) \}$. Since $x$ is a function from I into $\bigcup_{i \in I} S_i$ implies $x \in \mathcal{P}(I \times \bigcup_{i \in I} S_i)$, $S = \{x \text{ } | \text{ } x \text{ must be a function from I into }  \bigcup_{i \in I} S_i \text{ such that } x_i \in S_i \text{ for any i } \in I\}$ is another equivalent representation of S, which happens to be the definition of $\Pi_{i \in I}S_i$. Thus $\Pi_{i \in I}S_i$ exists as desired for any indexed system $S_i$.
+
+\bigskip
+3.10.a)
+
+\medskip
+\textbf{$\bigcup_{a \in \cup S} F_a$ is a subset of $\bigcup_{C \in S}(\bigcup_{a \in C}F_a)$}
+\medskip
+
+Note that for any $x \in \bigcup_{a \in \cup S} F_a$ we have that $x \in \bigcup\{F_a \text{ } | \text{ } a \in \bigcup S\}$, which through the definition of union implies $x \in F_a$ for some $a \in \bigcup S$. Through another application of the definition of union, $x \in F_a$ for some $a \in \bigcup S$ implies that $x \in F_a$ for some $a \in D$ for some $D \in S$.
+
+\medskip
+
+Note that $x \in F_a$ for some $a \in D$ where $D \in S$ is the same as $x \in \bigcup_{a \in D} F_a$ given such a fixed D where $D \in S$. Then since $D \in S$, we note $x \in \bigcup_{a \in C} F_a$ for some $C \in S$, which implies that $x \in \bigcup_{C \in S} (\bigcup_{a \in C} F_A)$.
+
+\medskip
+
+Since for any $x$ such that $x \in \bigcup_{a \in \cup S} F_a$, we have that $x \in \bigcup_{C \in S}(\bigcup_{a \in C}F_a)$, it must be true that $\bigcup_{a \in \cup S} F_a$ is a subset of $\bigcup_{C \in S}(\bigcup_{a \in C}F_a)$. 
+
+\bigskip
+\medskip
+\textbf{$\bigcup_{C \in S}(\bigcup_{a \in C}F_a)$ is a subset of $\bigcup_{a \in \cup S} F_a$ }
+\medskip
+
+For any $x \in \bigcup_{C \in S}(\bigcup_{a \in C}F_a)$, since $\bigcup_{C \in S}(\bigcup_{a \in C}F_a) = \bigcup\{\bigcup_{a \in C}F_a \text{ } | \text{ } C \in S\}$, it must be that $x \in \bigcup_{a \in C}F_a$ for some $C \in S$. Yet if $x \in \bigcup_{a \in C}F_a$ for some $C \in S$, then we can note that $x \in \bigcup\{F_a \text{ } | \text{ } a \in C\}$ for some $C \in S$, which finally implies that $x \in F_a$ for some $a \in C$ for some $C \in S$.
+
+\medskip
+$x \in F_a$ for some $a \in C$ for some $C \in S$ implies $x \in F_a$ for some $a \in \bigcup S$ or that $x \in \bigcup_{a \in \bigcup S}F_a$.
+
+\medskip
+Thus since for any $x$, $x \in \bigcup_{C \in S}(\bigcup_{a \in C}F_a)$ implies $x \in \bigcup_{a \in \cup S} F_a$ we have that $\bigcup_{C \in S}(\bigcup_{a \in C}F_a)$ is a subset of $\bigcup_{a \in \cup S} F_a$.
+
+\bigskip
+\textbf{Conclusion}
+\medskip
+
+Since the sets $\bigcup_{a \in \cup S} F_a$ and $\bigcup_{C \in S}(\bigcup_{a \in C}F_a)$ are subsets of eachother, from the Axiom of Extensionality we have that $\bigcup_{a \in \cup S} F_a = \bigcup_{C \in S}(\bigcup_{a     \in C}F_a)$.
+
+\bigskip
+3.10.b)
+
+\medskip
+\textbf{$\bigcap_{a \in \bigcup S} F_a$ is a subset of $\bigcap_{C \in S}(\bigcap_{a \in C} F_a)$}
+\medskip
+
+\medskip
+\textbf{$a \in C$ for some $C \in S$ and $x \in \bigcap_{a \in \bigcup S}F_a$ implies $x \in F_a$}
+\medskip
+
+For any element $x$ such that $x \in \bigcap_{a \in \bigcup S} F_a$ we have $x \in \bigcap\{F_a \text{ } | \text{ } a \in \bigcup S\}$, which implies for any $a \in \bigcup S$, $x \in F_a$. Thus for any $a \in C$ if $C \in S$ we also have $a \in \bigcup S$ and thus $x \in F_a$.
+
+\medskip
+\textbf{$\bigcap_{a \in \bigcup S} F_a$ is a subset of $\bigcap_{C \in S}(\bigcap_{a \in C} F_a)$ Conclusion}
+\medskip
+
+First note that $\bigcap_{C \in S}(\bigcap_{a \in C} F_a) = \bigcap\{(\bigcap_{a \in C} F_a) \text{ } | \text{ } C \in S\}$.
+
+\medskip
+Then note that for any arbitrary fixed $D \in S$ we have that $x \in \bigcap_{a \in \bigcup S} F_a$ implies $x \in F_a$ for all $a \in D$. Finally we have if $x \in \bigcap_{a \in \bigcup S} F_a$, $x \in \bigcap_{a \in D} F_a$ for any $D \in S$ and thus $x \in \bigcap\{(\bigcap_{a \in C} F_a) \text{ } | \text { } C \in S\} = \bigcap_{C \in S}(\bigcap_{a \in C}F_a)$. Thus we have that $x \in \bigcap_{a \in \bigcup S} F_a$ implies that $x \in \bigcap_{C \in S}(\bigcap_{a \in c}F_a)$ as desired, which implies $\bigcap_{a \in \bigcup S} F_a$ is a subset of $\bigcap_{C \in S}(\bigcap_{a \in C} F_a)$.
+
+\medskip
+\textbf{Any element of $\bigcap_{C \in S}(\bigcap_{a \in C} F_a)$ is an element of $\bigcap_{a \in \bigcup S} F_a$}
+\medskip
+
+For any $x \in \bigcap_{C \in S}(\bigcap_{a \in C}F_a)$, we have that $x \in \bigcap\{\bigcap_{a \in C} F_a \text{ } | \text{ } C \in S\}$, which means that $x \in \bigcap_{a \in C} F_a$ for all $C \in S$.
+
+\medskip
+\textbf{$a \in C$ for any $C \in S$ and $x \in \bigcap_{C \in S}(\bigcap_{a \in C}F_a)$ implies $x \in F_a$}
+\medskip
+
+Considering the case for arbitrary fixed $D \in S$, we have the following:
+
+\medskip
+
+$x \in \bigcap_{a \in D} F_a$ for arbitrary $D \in S$ implies $x \in F_a$ for all $a \in D$. Then we have that for arbitary $a \in C$ for any $C \in S$ implies $x \in F_a$.
+
+\medskip
+Thus $x \in \bigcap_{a \in \bigcup S}F_a$ implies $x \in \bigcap_{C \in S}(\bigcap_{a \in C}F_a)$ as desired.
+
+\medskip
+\textbf{Any element of $\bigcap_{a \in \bigcup S} F_a$ is an element of $\bigcap_{C \in S}(\bigcap_{a \in C} F_a)$}
+\medskip
+
+Assume $x \in \bigcap_{C \in S}(\bigcap_{a \in C}F_a)$ as a given.
+This implies that $x \in F_a$ for any $a \in C$ such that $C \in S$.
+
+\medskip
+If $a \in \bigcup S$, then $a \in D$ for some $D \in S$, which implies $x \in F_a$, since $x \in F_a$ for any $a \in C$ such that $C \in S$.
+
+\medskip
+Thus $a \in \bigcup S$ always implies $x \in F_a$, which means $x \in \bigcap_{C \in S}(\bigcap_{a \in C} F_a$ implies $x \in \bigcap_{a \in \bigcup S}F_a$ as desired.
+
+\medskip
+\textbf{Conclusion}
+\medskip
+
+Since any element of $\bigcap_{a \in \cup S} F_a$ is also an element of $\bigcap_{C \in S}(\bigcap_{a \in C}F_a)$ and vice versa we have $\bigcap_{a \in \cup S} F_a = \bigcap_{C \in S}(\bigcap_{a \in C}F_a)$ via the Axiom of Extensionality.
+
+\bigskip
+3.11.1)
+
+\medskip
+\textbf{Any Element of $B - \bigcup_{a \in A}F_a$ is an Element of $\bigcap_{a \in A}(B - F_a)$}
+\medskip
+
+For any $x \in B - \bigcup_{a \in A}F_a$, we have that $x \in B$ and $x \notin \bigcup_{a \in A}F_a$. Because $x \notin \bigcup_{a \in A}F_a$, we have that $x \notin F_a$ for any $a \in A$.
+
+
+\medskip
+Because $x \notin F_a$ for any $a \in A$ and $x \in B$, for any $a \in A$ we have $x \in B - F_a$, which means $x \in \bigcap_{a \in A}(B - F_a)$.
+
+\medskip
+Thus any element of $B - \bigcup_{a \in A}F_a$ is an element of $\bigcap_{a \in A}(B - F_a)$ as desired.
+
+\medskip
+\textbf{Any Element of $\bigcap_{a \in A}(B - F_a)$ is an Element of $B - \bigcup_{a \in A}F_a$}
+\medskip
+
+If $x \in \bigcap_{a \in A}(B - F_a)$, then $x \in B - F_a$ for all $a \in A$, which implies that $x \in B$ and $x \notin F_a$ for all $a \in A$.
+
+\medskip
+$x \notin F_a$ for all $a \in A$ implies that $x \notin \bigcup_{a \in A}F_a$. Combined with $x \in B$ we have $x \in B - \bigcup_{a \in A}F_a$ as desired. Thus any element of $B - \bigcup_{a \in A}F_a$ is an element of $\bigcap_{a \in A}(B - F_a)$.
+
+\medskip
+\textbf{Conclusion}
+\medskip
+
+Since any element of $B - \bigcup_{a \in A}F_a$ is an element of $\bigcap_{a \in A}(B - F_a)$ and vice versa we have that $B - \bigcup_{a \in A}F_a = \bigcap_{a \in A}(B - F_a)$ via the Axiom of Extensionality.
+
+\medskip
+3.11.2)
+
+\medskip
+\textbf{Any Element of $B - \bigcap_{a \in A}F_a$ is an Element of $\bigcup_{a \in A}(B - F_a)$}
+\medskip
+
+For any element of $B - \bigcap_{a \in A}F_a$, we have that $x \in B$ and $x \notin \bigcap_{a \in A}F_a$. Since $x \notin \bigcap_{a \in A}F_a$, we have that $x \notin F_a$ for some $a \in A$. Then for such an $a \in A$ we have $x \in B$ and $x \notin F_a$, which means that $x \in B - F_a$ for that particular $a \in A$ and $x \in \bigcup_{a \in A}(B - F_a)$.
+
+\medskip
+It is shown any elemnt of $B - \bigcap_{A \in A}F_a$ is an element of $\bigcup_{a \in A}(B - F_a)$.
+
+\newpage
+\textbf{Any Element of $\bigcup_{a \in A}(B - F_a)$ is an Element of $B - \bigcap_{a \in A}F_a$}
+\medskip
+
+For any $x \in \bigcup_{a \in A}(B - F_a)$, we have that $x \in B - F_a$ for some $a \in A$. Thus for such an $a \in A$ we have $x \in B$ and $x \notin F_a$. $x \notin F_a$ for some $a \in A$ implies $x \notin \bigcap_{a \in A}F_a$. Since $x \in B$ and $x \notin \bigcap_{a \in A}F_a$, we have $x \in B - \bigcap_{a \in A}F_a$.
+
+\medskip
+\textbf{Conclusion}
+\medskip
+
+We have any element of $B - \bigcap_{a \in A}F_a$ is an element of $\bigcup_{a \in A}(B - F_a)$ and vice versa. Thus $B - \bigcap_{a \in A}F_a = \bigcup_{a \in A}(B - F_a)$ from the Axiom of Extensionality.
+
+\bigskip
+3.11.3)
+
+\medskip
+\textbf{Any element of LHS is an element of RHS}
+\medskip
+
+First assume $x \in (\bigcup_{a \in A}F_a) \cap (\bigcup_{b \in B}G_b)$ for the sake of demonstration.
+
+\medskip
+Note for any element $x \in (\bigcup_{a \in A}F_a) \cap (\bigcup_{b \in B}G_b)$ we have $x \in \bigcup_{a \in A}F_a$ and $x \in \bigcup_{b \in B}G_b$.
+
+\medskip
+From $x \in \bigcup_{a \in A}F_a$, we naturally find $x \in F_a$ for some $a \in A$ and similarly from $x \in \bigcup_{b \in B}G_b$, we find $x \in G_b$ for some $b \in B$. Fix such $a \in A$ and $b \in B$.
+
+\medskip
+For such $a,b$, we have $(a,b) \in A \times B$ and $x \in F_a \cap G_b$. Thus $(a,b) \in \bigcup_{(a,b) \in A \times B}(F_a \bigcap G_b)$.
+
+\medskip
+We have successfully shown any element of $x \in (\bigcup_{a \in A}F_a) \cap (\bigcup_{b \in B}G_b)$ is also an element of $\bigcup_{(a,b) \times A \times B}(F_a \cap G_b)$.
+
+\bigskip
+\textbf{Any element of RHS is an element of LHS}
+\medskip
+
+First assume $x \in \bigcup_{(a,b) \in A \times B}(F_a \cap G_b)$ for the sake of demonstration.
+
+\medskip
+Then for such $x$, there must exist $(a,b) \in A \times B$ such that $x \in F_a \cap G_b$. For such an $(a,b) \in A \times B$, it is true that $a \in A$, $b \in B$ and $x \in F_a$ as well as $x \in G_b$.
+
+\medskip
+Since there exists $a \in A$ such that $x \in F_a$, we have $x \in \bigcup_{a \in A}F_a$. Similarly since there exists $b \in B$ such that $x \in G_b$, we note $x \in \bigcup_{b \in B}G_b$.
+
+\medskip
+$x \in \bigcup_{a \in A}F_a$ and $x \in \bigcup_{b \in B}G_b$ implies that $x \in \bigcup_{a \in A}F_a \cap \bigcup_{b \in B}G_b$.
+
+\medskip
+thus any element of $\bigcup_{(a,b) \times A \times B}(F_a \cap G_b)$is an element of $x \in (\bigcup_{a \in A}F_a) \cap (\bigcup_{b \in B}G_b)$.
+
+\bigskip
+\textbf{Conclusion}
+\medskip
+
+Since any element in $(\bigcup_{a \in A}F_a) \cap (\bigcup_{b \in B}G_b)$ is also in $\bigcup_{(a,b) \times A \times B}(F_a \cap G_b)$ and vice versa, we have that $(\bigcup_{a \in A}F_a) \cap (\bigcup_{b \in B}G_b) = \bigcup_{(a,b) \times A \times B}(F_a \cap G_b)$.
+
+\newpage
+3.11.4)
+
+\medskip
+\textbf{Any element in LHS is an element of RHS}
+\medskip
+
+For any element $x \in (\bigcap_{a \in A} F_a) \cup (\bigcap_{b \in B} G_b)$, either $x \in F_a$ for all $a \in A$ or $x \in G_b$ for all $b \in B$. First consider the case in which $x \in F_a$ for all $a \in A$. In this case, for any $(a,b) \in A \times B$ we have $x \in F_a$, which implies $x \in F_a \cup G_b$. Thus $x \in \bigcap_{(a,b) \in A \times B} (F_a \cup G_b)$.
+Then consider the case in which $x \in G_b$ for all $b \in B$. In this case, for any $(a,b) \in A \times B$ we have $y \in G_b$, implying $x \in F_a \cup G_b$. Thus $x \in \bigcap_{(a,b) \in A \times B}(F_a \cup G_b)$ as well. Thus any element of $(\bigcap_{a \in A} F_a) \cup (\bigcap_{b \in B} G_b)$ is an element of $\bigcap_{(a,b) \in A \times B} (F_a \cup G_b)$ as well.
+
+\medskip
+\textbf{Any element in RHS is an element of LHS}
+\medskip
+
+For any element $x \in \bigcap_{(a,b) \in A \times B} (F_a \cup G_b)$, $x \in F_a \cup G_b$ for any $(a,b) \in A \times B$. If $x \notin F_a$ for some $a \in A$ and $x \notin G_b$ for some $b \in B$, then for that particular a,b, we have $x \notin F_a \cup G_b$ for $(a,b) \in A \times B$. This contradicts the assumption that $x \in \bigcap_{(a,b) \in A \times B} (F_a \cup G_b)$. It is therefore impossible that $x \notin F_a$ for some $a \in A$ and $x \notin G_b$ for some $b \in B$, which means either $x \in F_a$ for all $a \in A$ or $x \in G_b$ for all $b \in B$. In either case we would have $x \in (\bigcap_{a \in A}F_a) \cup (\bigcap_{b \in B}G_b)$.
+
+\medskip
+\textbf{Conclusion}
+\medskip
+
+Since any element in $(\bigcap_{a \in A} F_a) \cup (\bigcap_{b \in B} G_b)$ is in $\bigcap_{(a,b) \in A \times B} (F_a \cup G_b)$ and any element in $\bigcap_{(a,b) \in A \times B} (F_a \cup G_b)$ is in $(\bigcap_{a \in A}F_a) \cup (\bigcap_{b \in B}G_b)$, we have $(\bigcap_{a \in A} F_a) \cup (\bigcap_{b \in B} G_b) =  \bigcap_{(a,b) \in A \times B} (F_a \cup G_b)$.
+
+\bigskip
+3.13)
+
+\medskip
+\textbf{Any element in LHS is an element of RHS}
+\medskip
+
+For any element $x \in \bigcap_{a \in A}(\bigcup_{b \in B} F_{a,b})$, it must be that for every $a \in A$, $x \in \bigcup_{b \in B}F_{a,b}$. Fixing such an arbitrary $a \in A$, $x \in F_{a,b}$ for some $b \in B$. In other words, for every $a \in A$, there exists a $b \in B$ such that $x \in F_{a,b}$. 
+
+\medskip
+Define a function $f: A \xrightarrow{} B$ such that for every $a \in A$, find the $b \in B$ such that $x \in F_{a,b}$, then define $f(a) = b$. For this particular $f \in B^{A}$, we have $x \in F_{a,f(a)}$ for every $a \in A$ by the definition of $f$, which implies $x \in \bigcap_{a \in A}F_{a, f(a)}$. Since $f \in B^{A}$, $x \in \bigcap_{a \in A}F_{a, f(a)}$ implies $x \in \bigcup_{f \in B^{A}}(\bigcap_{a \in A}F_{a, f(a)})$.
+
+\medskip
+Every element in $\bigcap_{a \in A}(\bigcup_{b \in B} F_{a,b})$ is in $\bigcup_{f \in B^{A}}(\bigcap_{a \in A}F_{a, f(a)})$ as desired.
+
+\medskip
+\textbf{Any element in RHS is an element of LHS}
+\medskip
+
+For any element $x \in \bigcup_{f \in B^{A}}(\bigcap_{a \in A} F_{a, f(a)})$, it must be that there exists a function $f: A \xrightarrow{} B$ such that $x \in \bigcap_{a \in A} F_{a,f(a)}$. Fix such an $f$, then from $x \in \bigcap_{a \in A} F_{a,f(a)}$ we can note for every $a \in A$, $x \in F_{a,f(a)}$. For any $a \in A$, allow $b = f(a)$. Then $x \in F_{a,b}$ where $b \in B$. Therefore for any $a \in A$, $x \in \bigcup_{b \in B}F_{a,b}$, which implies $x \in \bigcap_{a \in A}(\bigcup_{b \in B}F_{a,b})$.
+
+\newpage
+\textbf{Conclusion}
+\medskip
+
+Since any element of $\bigcup_{f \in B^{A}}(\bigcap_{a \in A}F_{a, f(a)})$ is in $\bigcap_{a \in A}(\bigcup_{b \in B}F_{a,b})$ and every element of $\bigcap_{a \in A}(\bigcup_{b \in B}F_{a,b})$ is in $\bigcup_{f \in B^{A}}(\bigcap_{a \in A}F_{a, f(a)})$ we have $\bigcup_{f \in B^{A}}(\bigcap_{a \in A}F_{a, f(a)}) =  \bigcap_{a \in A}(\bigcup_{b \in B}F_{a,b})$.
+
+\bigskip
+\textbf{4.10 Theorem}
+
+\medskip
+\textbf{a)}
+\medskip
+
+Assume there exists some equivalence E over set A and let S = A/E. We wish to show that $E_S = E$ and will first show $E_S \subseteq E$ and then the converse.
+
+\medskip
+
+First we demonstrate $E_S \subseteq E$. For any arbitrary element $e \in E_S$, there must be $a,b \in A$ such that $e = (a,b)$. From the definition of $E_S$ we have $$E_S = \{(a,b) \in A \times A \text{ } | \text{  there is } C \in S \text { such that } a \in C \text { and } b \in C\}$$
+
+Since $e = (a,b) \in E_S$, there must exist some $C \in S$ such that $a,b \in C$. Fix such a $C$. Since $S = A/E$, it must be that $C = [x]_E$ for some $x \in A$. Since $a,b \in C$ and $C = [x]_E$, it must be that $a \sim x$ and $x \sim b$, which would imply that $a \sim b$. a being equivalent to b implies $(a,b) \in E$. Thus $e = (a,b)$ and $(a,b) \in E$ implies $e \in E$ as well. It has been shown that any element in $E_S$ is also in $E$. Therefore we have $E_S \subseteq E$.
+
+\medskip
+
+Now to prove the converse. For any arbitrary $e \in E$, it must be true that $e = (a,b)$ for some $a,b \in A$. Then since $(a,b) \in E$, $a \sim b$, which implies that $a \in [a]_{E}$ and $b \in [a]_{E}$. Given that $a,b \in a_{E}$ for $a_{E} \in S$, it must be true that $(a,b) \in E_S$ as well by definition. Therefore $E \subseteq E_S$ as desired.
+
+\medskip
+
+In conclusion since $E_S \subseteq E$ and $E \subseteq E_S$ we have $E_S = E$.
+
+\medskip
+\textbf{b)}
+\medskip
+
+Assume there exists some set A and some partition S of that set A. Then let there be some equivalence $E_S$ from the partition S and another partition from that equivalence $A/E_S$. We wish to show that $S = A/E_S$, to accomplish this we will first show that $S \subseteq A/E_S$ and then we will show the converse.
+
+\medskip
+First we wish to show $S \subseteq A/E_S$. Let there be some arbitrary element $D \in S$. There must be some element $x \in D$ since $S$ is a partition and partitions are systems of non-empty sets. Fix such a $x \in D$. Then note for any $y \in D$ we have that both $x,y \in D$. Since $x,y \in D$ for $D \in S$ and $E_S$ is the set of all ordered pairs in $A \times A$ such that the two elements of the ordered pair are in the same set in $S$, $(x,y) \in E_S$. Since $(x,y) \in E_S$, $x \sim y$, which implies $y \in [x]_{E_S}$. Since for any $y \in D$, $y \in [x]_{E_S}$, we have $D \subseteq [x]_{E_S}$. We now wish to show $[x]_{E_S} \subseteq D$. For any element $z \in [x]_{E_S}$, it must be that $x \sim z$, which implies $(x,z) \in E_S$. If $(x,z) \in E_S$, then $(x,z) \in C$ for some $C \in S$. Yet since $C$ and $D$ share the element x and $C,D \in S$, $C = D$ since $S$ is a partition its elements are disjoint. Thus since every element of $[x]_{E_S}$ is also an element of $D$, we have $[x]_{E_S} \subseteq D$. Since $D \subseteq x_{E_S}$ and $x_{E_S} \subseteq D$, $D = [x]_{E_S}$. Because $[x]_{E_S} \in A/E_S$, $D \in A/E_S$ as well. We finally have every element of $S$ is in $A/E_S$, which implies $S \subseteq A/E_S$ as desired.
+
+\medskip
+Now we wish to show $A/E_S \subseteq S$. For any element $D \in A/E_S$, fix some arbitrary $x \in D$. We note because $D$ and $[x]_{E_S}$ are both in $A/E_S$, either $D,[x]_{E_S}$ are disjoint or equal. Since $D$ and $[x]_{E_S}$ share an element $x$, they cannot be disjoint, so they must be equal. Since $x$ is in an element of $A/E_S$ and $\bigcup A/E_S = A$, $x \in A$. Since $S$ is a partition of $A$, $x \in C$ for some $C \in S$. Fix such a $C$. 
+
+\medskip
+We wish to show that $[x]_{E_S} = C$ and will first proceed by showing $[x]_{E_S} \subseteq C$. For any $y \in [x]_{E_S}$, we must have $y \sim x$ by definition of $x_{E_S}$. Assume for contradiction's sake $(x,y) \notin E_S$, then $y \not \sim x$ and $y \notin x_{E_S}$. This cannot be possible, therefore $(x,y) \in E_S$. Since $(x,y) \in E_S$, there must be some $C' \in S$ such that $x, y \in C'$. It remains to show $C = C'$, yet since $C$ and $C'$ are in partition $S$ and share element $x$, it must be that $C = C'$. Therefore every element which is in $D = [x]_{E_S}$ is in $C$. 
+
+\medskip
+Now we show $C \subseteq [x]_{E_S}$ as follows. For any $y \in C$, we have $x \sim_{E_S} y$ because $(x,y) \in C$ with $C \in S$. Since $x \sim_{E_S} y$, we can note $y \in [x]_{E_S}$. Thus any $y \in C$ is also in $[x]_{E_S}$. $C \subseteq [x]_{E_S}$ as desired. In conclusion, since $[x]_{E_S} \subseteq C$ and $C \subseteq [x]_{E_S}$, we have $[x]_{E_S} = C$. Since for any $[x]_{E_S} \in A/E_S$, $[x]_{E_S} = C \in S$, $A/E_S \subseteq S$. Since $S \subseteq A/E_S$ and $A/E_S \subseteq S$ we have $S = A/E_S$ as desired.
+
+\medskip
+\textbf{4.2}
+\medskip
+
+\medskip
+\textbf{a)}
+\medskip
+
+For the sake of the problem assume there exists some $f: A \xrightarrow{} B$. Define relation $E = \{(a,b) \in A \times A \text{ } | \text{ } f(a) = f(b)\}$. We wish to show that $E$ is a equivalence relation. For any $a \in A$, $f(a) = f(a)$, therefore $E$ is reflexive. For any $a,b \in A$, $a \sim b$ implies $f(a) = f(b)$ implies $b \sim a$. Thus $E$ is symmetric. For any $a,b,c \in A$, $a \sim b$ and $b \sim c$ implies $f(a) = f(b) = f(c)$, which implies $a \sim c$. Thus $E$ is transitive. $E$ is an equivalence relation.
+
+\medskip
+\textbf{b)}
+\medskip
+
+Let there be a function $\phi: A/E \xrightarrow{} B$ defined as follows. For any $[a]_{E} \in A/E$, $\phi([a]_{E}) := \phi(a)$. We proceed to show the function is well defined as follows. For any $[a]_{E}, [b]_{E} \in A/E$ such that $[a]_{E} = [b]_{E}$, we have $b \in [b]_{E} = [a]_{E}$. Thus $b \in [a]_{E}$, which implies $a \sim b$ and finally $f(a) = f(b)$. Thus $\phi([a]_{E}) = \phi(a) = \phi(b) = \phi([b]_{E})$. $\phi$ is a well defined function. Now to show $\phi$ is onto. For any $b \in B$, there exists $a \in A$ such that $f(a) = b$ because f is onto. $\phi([a]_{E}) = f(a) = b$ by definition of $\phi([a]_{E})$. $\phi$ is a function from $A/E$ onto $B$ as desired.
+
+\medskip
+\textbf{c)}
+\medskip
+Let there be a function $j: A \xrightarrow{} A/E$ with $j(a) := [a]_{E}$ for every $a \in A$. Then for arbitrary $a \in A$, $\phi \circ j(a) = (\phi(j(a)) = \phi([a]_{E}) = f(a)$. Since $\phi \circ j$ and $f$ have the same domain, co-domain and agree on every value in the domain, it must be that $f = \phi \circ j$ as desired.
+
+\bigskip
+\textbf{Chapter 2, Section 5}
+
+\begin{enumerate}
+\item \textbf{Question 1 part a)}
+\medskip
+	
+Let there be a set $A$ and some ordering $R$ on $A$. The let there be some total ordering $S$ corresponding to $R$ and some ordering $R^{*}$ corresponding to $S$. We wish to show that $R = R^{*}$. To achieve this, first we wish to show $R \subseteq R^{*}$ and then the converse.
+
+\medskip
+First to show $R \subseteq R^{*}$, let there be arbitrary $x \in R$. Since $R$ is a binary relation as well, there must exist $a,b \in A$ such that $x = (a,b)$. Then consider two cases for such $a,b$. The first case is $a = b$ and the second case being $a \neq b$. Consider the case $a = b$. Since $R^{*}$ is a partial ordering corresponding to $S$, it must be reflexive, thus $(a,b) \in R^{*}$. If $a \neq b$, then we have the following. Since $a \neq b$ and $aRb$, $aSb$. If $aSb$, then $aR^{*}b$. Thus $(a,b) \in R^{*}$. It is shown that irrespective of whether the first element of x is equal to the second $x \in R$ implies $x \in R^{*}$.
+
+\medskip
+Now we wish to show $R^{*} \subseteq R$. Let there be arbitrary $x \in R^{*}$ with $x = (a,b)$ where $a,b \in A$. Then consider the cases $a = b$ or $a \neq b$. If $a = b$, then $aRb$ because R as a partial ordering is reflexive. If $a \neq b$ consider the following. Since $R^{*}$ is the ordering corresponding to $S$. $aR^{*}b$ if $aSb$ or $a = b$. Since $a \neq b$, it must be that $aSb$. $aSb$ only if $aRb$ and $a \neq b$, thus $aSb$ implies $aRb$. $x = (a,b) \in R^{*}$ implies $x = (a,b) \in R$. Thus $R^{*} \subseteq R$ as desired.
+
+\medskip
+Since $R \subseteq R^{*}$ and $R^{*} \subseteq R$, we have $R = R^{*}$ as desired.
+
+\item \textbf{Question 1 part b)}
+\medskip
+
+Let there be a set $A$. Let $S$ be a strict ordering of $A$ and let $R$ be the corresponding ordering of $S$ and let $S^{*}$ be the strict ordering of $R$. We wish to show $S = S^{*}$ and to that end we wish to show $S \subseteq S^{*}$ and its converse.
+
+\medskip
+First we begin by showing $S \subseteq S^{*}$. For any $s \in S$, there must exist $a,b \in A$ such that $s = (a,b)$. Since $S$ is a strict ordering, it must be true that $a \neq b$. Otherwise if $a = b$ and $(a,b) \in S$, we will have $(b,a) \in S$ as well since $(a,b) = (b,a)$ by $a = b$. Because $R$ is a corresponding ordering of $S$, $(a,b) \in S$ implies $(a,b) \in A$. Since $S^{*}$ is a total ordering corresponding to $R$, $(a,b) \in R$ and $a \neq b$ implies $(a,b) \in S^{*}$. We have shown $s \in S$ implies $s \in S^{*}$ which implies $S \subseteq S^{*}$ as desired.
+
+\medskip
+Now we show $S^{*} \subseteq S$. For any $s \in S^{*}$, there must exist $a,b \in A$ such that $a \neq b$ and $s = (a,b)$. Then since $S^{*}$ is a total ordering corresponding to $R$, $aS^{*}b$ iff $aRb$ and $a \neq b$. Therefore $aS^{*}b$ implies $aRb$. $R$ is an ordering corresponding to $S$, so $aRb$ iff $aSb$ or $a = b$. Since $a \neq b$, it must be that $aSb$. Thus $(a,b) \in S$. We have shown that for any $s \in S^{*}$, $s \in S$ as well. Therefore $S^{*} \subseteq S$. $S \subseteq S^{*}$ and $S^{*} \subseteq S$ implies that $S = S^{*}$.
+
+\item \textbf{Question 4}
+\medskip
+
+Let there be a set $A$ and on ordering on $A$ named $R$. Let there be a set $B \subseteq A$. We wish to demonstrate $R \cap B^{2}$ is an ordering on $B$. To be an ordering, it is sufficient to be reflexive, antisymmetric, transitive. Therefore we will endeavor to show that $R \cap B^{2}$ is reflexive, antisymmetric, and transitive. Let $S = R \cap B^{2}$ for sake of convenience.
+
+\medskip
+First to show $S$ is reflexive. For any $b_1 \in B$, $b_1 \in A$ as well since $B \subseteq A$. Then $(b_1, b_1) \in R$ because $R$ is an ordering, which must be reflexive. $(b_1, b_1) \in B \times B$ since $b_1 \in B$. Since $(b_1, b_1) \in R$ and $(b_1, b_1) \in B \times B = B^{2}$, we have $(b_1, b_1) \in R \cap B^{2}$. Since for any $b_1 \in B$, $(b_1, b_1) \in S$, $S$ is reflexive.
+
+\medskip
+Now we wish to show that $S$ is antisymmetric. For any $b_1, b_2 \in B$ such that $(b_1, b_2) \in S$, it must be that $(b_1, b_2) \in R$. If $(b_2, b_1) \in S$ too for the sake of argument, then it must be that $(b_2, b_1) \in R$. $(b_1, b_2), (b_2, b_1) \in R$ implies that $b_1 = b_2$ since $R$ is antisymmetric. Thus we have $(b_1, b_2) \in S$ and $(b_2, b_1) \in S$ implies that $b_1 = b_2$. $S$ is antisymmetric. 
+
+\medskip
+Let us finally show that $S$ is transitive. For any $b_1, b_2, b_3 \in B$ such that $(b_1, b_2) \in S$ and $(b_2, b_3) \in S$, it must be true that $(b_1, b_2) \in R$ and $(b_2, b_3) \in R$. From $R$ is an ordering, $R$ must be transitive. Therefore $(b_1, b_2) \in R$ and $(b_2, b_3) \in R$ implies $(b_1, b_3) \in R$. If $(b_1, b_3) \in R$, then since $(b_1, b_3) \in B^{2}$, $(b_1, b_3) \in R \cap B^{2}$. We have shown that for every $b_1, b_2, b_3 \in B$ such that $(b_1, b_2) \in S$ and $(b_2, b_3) \in S$, $(b_1, b_3) \in S$ as well. Therefore $S$ is transitive.
+
+\medskip
+Since $S$ is a reflexive, antisymmetric, and transitive binary relation over $B$, $S = R \cap B^{2}$ is an ordering over $B$.
+
+\item \textbf{Question 6}
+
+\medskip 
+\textbf{a)} 
+\medskip
+
+Let there be a totally ordered set $(A, <)$. Define $B = A \cup \{b\}$ where $b \notin A$. Define $\prec$ as follows: $x \prec y$ if and only if $(x,y \in A \text{ and } x < y) \text { or } (x \in A \text{ and } y = b)$. We wish to demonstrate that $\prec$ is a total ordering over $B$. To accomplish this we will demonstrate that $\prec$ is asymmetric and transitive.
+
+\medskip
+
+For any $a,c \in B$ such that $a \prec c$, divide into casework on what $a,c$ could be. Consider the case that $a = b$ and $c \in A$. This is not possible because $(a,c) \notin <$ as $c \notin A$. Furthermore the second element of the ordered pair $(a,c)$ is not b, so neither of the two rules of $\prec$ is satisfied, thus $(a,c) \notin \prec$. Then consider the case that $a \in A$ and $c = A$. Then since $a \prec c$ it must be that either ($a,c \in A$ and $a < c$) or ($a \in A$ and $c = b$). Since $c \in A$ and $b \notin A$, it must be that $c \neq b$. Therefore it cannot be true that $a \in A$ and $c = B$, which means $a,c \in A$ and $a < c$. Since $a < c$, $c < a$ cannot be true by $<$ is a total ordering. Thus since $c < a$ cannot be true, it must be that ($c,a \in A$ and $c < a$) is false. In addition since $a \in A$ and $b \notin A$, it must also be true that ($c \in A$ and $a = b$) is false. Therefore since ($c,a \in A$ and $c < a$) and ($c \in A$ and $a = b$) are false $(c,a) \notin \prec$. Now consider the case that $a \in A$ and $c = b$. It cannot be the case that $c \prec a$ because $c \notin A$ implies ($c, a \in A$ and $c < a$) is false and $c \notin A$ also implies ($c \in A$ and $a = b$) is false. Finally we need to discuss when $a = b$, $c = b$. We cannot have $a \prec c$ here because the first element of the pair $a \in A$ is needed as shown before for $a \prec c$. Therefore under all cases $a \prec c$ for any $a,c \in B$ implies $(c,a) \notin \prec$. $\prec$ is asymmetric over $B$ as desired.
+
+\medskip
+
+Now we wish to show that $\prec$ is transitive. For any $x,y,z \in B$, assume $x \prec y$ and $y \prec z$. $x \prec y$ implies $x \in A$ and $y \prec z$ implies $y \in A$. Then consider if $z \in A$ or $z = b$. If $z \in A$, we consider the following. Since $x \prec y$ if and only if ($x,y \in A$ and $x < y$) or ($x \in A$ and $y = b$). Since $y \in A$, $y \neq b$, thus ($x \in A$ and $y = b$) is false. It must be that ($x,y \in A$ and $x < y$). From a similar argument $y \prec z$ and $z \in A$ implies that $y < z$. Since $x < y$ and $y < z$, $x < z$ by transitivity of the total ordering $<$. Now consider the case that $z = b$. Since $x \in A$ and $z = B$, $x \prec z$. Thus for arbitrary $x,y,z \in B$ such that $x \prec y$ and $y \prec z$, we have that $x \prec z$ as well. It has been shown that $\prec$ is transitive as desired.
+
+\medskip
+
+Since $\prec$ is asymmetric and transitive over $B$, it is a total ordering over $B$.
+
+\medskip
+
+Now we wish to demonstrate that $\prec \cap A^{2} = <$. To do this, first it is necessary to show $\prec \cap A^{2} \subseteq <$, then we should show $< \subseteq \prec \cap A^{2}$. First, proceed with  $\prec \cap A^{2} \subseteq <$. For any $a,c \in B$ such that $a \prec c$ and $(a,c) \in A^{2}$, it must be true that $a,c \in A$. Since $a \prec c$ and $a,c \in A$, it must then be true that $a < c$, as $c \in A$ implies $c \neq b$. Therefore $(a,c) \in \prec \cap A^{2}$ implies $(a,c) \in <$, which in other words means $\prec \cap A^{2} \subseteq <$. 
+
+\medskip
+
+Then to demonstrate that $< \subseteq \prec \cap A^{2}$. For arbitrary $a,b \in A$ such that $a < b$, we have $(a,b) \in A^{2}$. Since $a,b \in A^{2}$ and $a < b$, then $a \prec b$. Thus $(a,b) \in <$ implies $(a,b) \in \prec \cap A^{2}$ as desired. It is shown that $< \subseteq \prec \cap A^{2}$.
+
+\medskip
+
+From $\prec \cap A^{2} \subseteq <$ and $< \subseteq \prec \cap A^{2}$, we have $\prec \cap A^{2} = <$ as desired.
+
+\medskip 
+\textbf{b)} 
+\medskip
+
+Let there be strict orderings $(A_1, <_{1})$, $(A_2, <_{2})$ where $A_1 \cap A_2 = \emptyset$. Define $\prec$ on $B = A_1 \cup A_2$ such that $x \prec y$ iff ($x,y \in A_1$ and $x <_{1} y$) or ($x,y \in A_2$ and $x<_{2} y$) or ($x \in A_{1}$ and $y \in A_{2}$). We wish to demonstrate that $\prec$ is a total ordering over $B$, which means it is necessary to demonstrate that $\prec$ is asymmetric and transitive.
+
+\medskip
+
+Consider arbitrary $(a,b) \in \prec$. It must be that $a,b$ satisfies one of the following three cases. ($a, b \in A_1$ and $a <_{1} b$) or ($a,b \in A_2$ and $a <_{2} b$) or ($a \in A_1$ and $b \in A_2$). We examine these cases one by one. In the case that $a, b \in A_1$ and $a <_{1} b$, it must be true that $b \not <_{1} a$. Since $b,a \in A_1$, the only way for $b \prec a$ is ($b, a \in A_1$ and $b <_{1} a$). Thus in the case ($a, b \in A_1$ and $a <_{1} b$), $a \prec b$ implies $b \prec a$. In the next case, we have ($a,b \in A_2$ and $a <_{2} b$). For similar reasoning, we have $b \not <_{2} a$, which combined with $b,a \in A_2$ implies that $b \not \prec a$. Finally, in the last case ($a \in A_1$ and $b \in A_2$) implies that $b \notin A_1$. This means $b \prec a$ is only possible if ($b,a \in A_2$ and $b <_{2} a$). Yet $a \in A_1$ implies $a \notin A_2$. Thus it is impossible that $b \prec a$ in all possible cases concerning set memberships for $a,b$.
+
+\medskip
+
+Now we wish to demonstrate that $\prec$ is transitive. Let there be arbitrary $a,b,c \in B$ such that $a \prec b$ and $b \prec c$. Before we delve into casework, there are some cases for which $a \prec b$ and $b \prec c$ is not possible. Since $a \prec b$ and $b \prec c$ have to be possible to imply $a \prec c$. In the case that $a \prec b$, $b \prec c$ is not possible for some conditions on $a,b,c$, it is then not necessary to demonstrate $a \prec c$. There are eight cases to consider. First consider if $a,b,c \in A_1$. Then $a,b \in A_1$ and $a \prec b$ implies $a <_{1} b$. Same with $b,c \in A_1$ and $b \prec c$ implies $b <_{1} c$. $a <_{1} b$ and $b <_{1} c$ implies $a <_{1} c$. Then $a,c \in A_1$ and $a <_{1} c$ implies that $a \prec c$. For the second case, let $a,b \in A_1$ and $c \in A_2$. Then $a <_{1} b$ as before because $a,b \in A_1$. Then $b \prec c$ because $b \in A_1$ and $c \in A_2$. Thus it is possible to have $a \prec b$ and $b \prec c$ in this case, avoiding a vacuous truth.  Since $a \in A_1$ and $c \in A_2$, it must be true that $a \prec c$ as it satisfies the third rule of the $\prec$ requirement. In the third case, it is not possible that $a \in A_1$, $b \in A_2$, $c \in A_1$, since we cannot have $b \prec c$ with $b \in A_2$ not fitting the first requirement $b,c \in A_1$ and $b <_{1} c$ and the third requirement $b \in A_{1}$ and $c \in A_{2}$, while $c \in A_1$ breaks the second requirement $b <_{2} c$ or $b,c \in A_{2}$. There is no need to consider the third case. In the fourth case, we have $a \in A_1$, $b,c \in A_2$. $a \prec b$ from $a \in A_1$ and $b \in A_2$. $b \prec c$ and $b,c \in A_2$ implies $b <_{2} c$. So it is possible. Then we can note since $a \in A_1$ and $c \in A_2$, $a \prec c$. 
+
+\medskip
+We have considered all cases where $a \in A_1$. Now to consider the remaining cases when $a \in A_2$. In the fifth case, we have $a \in A_2$, $b \in A_1, c \in A_1$. As shown before $a \prec b$ is impossible since $a \in A_2, b \in A_1$. Examining the sixth case, we have $a \in A_2, b \in A_1, c \in A_2$, which is impossible for the same reason as the fifth case. Following it is the seventh case, which is impossible because $a \in A_2, b \in A_2, c \in A_1$ implies $b \not \prec c$. Finally the case $a,b,c \in A_2$. $a \prec b$ and $a,b \in A_2$ implies that $a <_{2} b$. Similarly, $b \prec c$ and $b,c \in A_2$ implies that $b <_{2} c$. $a <_{2} b$ and $b <_{2} c$ imply $a <_{2} c$ from $<_{2}$ is a total ordering. Since $a <_{2} c$ and $a,c \in A_2$, we have $a \prec c$. Considering all cases $a \prec b$, $b \prec c$ implies $a \prec $ regardless of the set membership of $a,b,c$ as long as $a,b,c \in B$.
+
+\item \textbf{Question 7}
+
+Let there be a set $A$ and let there be a reflexive and transitive relation named $R$ in $A$. Define binary relation $E$ such that $aEb$ if and only if $aRb$ and $bRa$. Then we wish to show that $E$ is an equivalence relation. To demonstrate this, we need to show that $E$ is reflexive, symmetric, and transitive. For reflexive, pick arbitrary $a \in A$. Since $R$ is reflexive, we have $aRa$ and $aRa$, this implies that $aEa$. $E$ is reflexive. To show that $E$ is symmetric, let there be some arbitrary $a,b \in A$ such that $aEb$. $aEb$ implies that $aRb$ and $bRa$, which is the same as $bRa$ and $aRb$. $bRa$ and $aRb$ implies that $bEa$. $E$ is symmetric. Finally, to show $E$ is transitive, let there be some arbitrary $a,b,c \in A$ such that $aEb$ and $bEc$. If $aEb$ and $bEc$, it must be that $aRb$, $bRa$, $bRc$, and $cRb$. Since $cRb$ and $bRa$, we have $cRa$ due to $R$ being transitive. Similarly $aRb$ and $bRc$ implies $aRc$. $aRc$ and $cRa$ implies that $aEc$. We have $E$ is transitive. Since $E$ is reflexive, symmetric and transitive over $A$, it is also an equivalence relation as desired.
+
+\medskip
+
+First let there be binary relation $R/E$ defined such that $[a]_{E} R/E [b]_{E}$ if and only if $aRb$. Then we wish to show $R/E$'s definition is independent of how the class representatives of $[a]_{E}$ and $[b]_{E}$ are chosen. For any arbitrary $x,y \in A/E$, there must exist $a \in x$ and $b \in y$ since a partition $A/E$ cannot be empty. Then note $x = [a]_{E}$ and $y = [b]_{E}$ since $A/E$ contains disjoint sets. Allow arbitrary $a' \in [a]_{E}, b' \in [b]_{E}$. We now wish to demonstrate that $[a]_{E} R/E [b]_{E}$ if and only if $[a']_{E} R/E [b']_{E}$. Therefore, first it is useful to demonstrate that $[a]_{E} R/E [b]_{E}$ implies $[a']_{E} R/E [b']_{E}$. If $[a]_{E} R/E [b]_{E}$, then $aRb$. Furthermore since $a,a' \in [a]_{E}$ and $b',b' \in [b]_{E}$. we have $aRa', a'Ra$ and $bRb', b'Rb$. Since we know $a'Ra, aRb, bRb'$ from transitivity of $R$ we know $a'Rb'$. Therefore it must be that $[a']_{E} R/E [b']_{E}$. Now we wish to demonstrate that $[a']_{E} R/E [b']_{E}$ implies $[a]_{E} R/E [b]_{E}$. $[a']_{E} R/E [b']_{E}$ implies $a'Rb'$. We again have $aRa', a'Ra$ and $bRb', b'Rb$. Given that $aRa', a'Rb', b'Rb$, it must be that $aRb$, which implies that $[a]_{E} R/E [b]_{E}$ as desired. It is shown if $a,a' \in [a]_{E}$ and $b,b' \in [b]_{E}$, $[a]_{E} R/E [b]_{E}$ if and only if $[a']_{E} R/E [b']_{E}$. This implies that $R/E$'s definition is independent of how a set representative is chosen.
+
+\medskip
+
+We finally wish to show that $R/E$ is an ordering on $A/E$. To do this, it is sufficient to show that $R/E$ is reflexive, antisymmetric, and transitive. To show $R/E$ is reflexive, let there be some arbitrary $x \in A/E$. There must exist $a \in x$ since $x$ is not empty. Thus $x = [a]_{E}$. Since $R$ is reflexive, $aRa$, which implies $[a]_{E} R/E a_{E}$, which is the same as $x R/E x$. Since for any $x \in A/E$, $x R/E x$, R/E is reflexive. Now we wish to show $R/E$ is antisymmetric. For any $x,y \in A/E$ such that $x R/E y$ and $y R/E x$. There must exist $a \in x$ and $b \in y$ as representatives. Thus $x = [a]_{E}$ and $y = [b]_{E}$. Then $x R/E y$ is the same as $[a]_{E} R/E [b]_{E}$, which implies $aRb$. Similarly, $y R/E x$ is the same as $[b]_{E} R/E a_{E}$, which implies $bRa$. Since $aRb$ and $bRa$, we have $aEb$, which implies $[a]_{E} = [b]_{E}$. Therefore $x = [a]_{E} = [b]_{E} = y$. Since for any $x,y \in A/E$, $x R/E y$ and $y R/E x$ implies $x = y$, $R/E$ is antisymmetric as desired. At last we wish to consider if $R/E$ is transitive. For any $x,y,z \in R/E$ such that $x R/E y$ and $y R/E z$, let there be $a \in x, b \in y, c \in z$. Then we have $[a]_{E} R/E [b]_{E}$ and $b_{E} R/E [c]_{E}$. From $[a]_{E} R/E [b]_{E}$ we have $aRb$ and from $[b]_{E} R/E [c]_{E}$ we have $bRc$. Since $aRb$ and $bRc$, by transitivity of $R$ we have $aRc$. $aRc$ implies $[a]_{E} R/E [c]_{E}$. Since $[a]_{E} = x$ and $[c]_{E} = z$, we have $x R/E z$. Since for any $x,y,z \in A/E$ we have $x R/E y$ and $y R/E z$ implies $x R/E z$, it must be that $R/E$ is transitive. Finally, since $R/E$ is reflexive, antisymmetric, and transitive, it must be an ordering on $A/E$ as desired. 
+
+\item \textbf{Question 8}
+\medskip
+
+Let A = $\mathcal{P}(X)$ with $X \neq \emptyset$.
+
+\begin{enumerate}
+	\item Let there be some arbitrary $S \subseteq A$. We wish to show that $\text{sup}(S) = \cup S$. To accomplish this, it is sufficient to show that $\cup S$ is the least upper bound of $S$. First proceed to show $\cup S$ is an upper bound of $S$. For any arbitrary $Y \in S$, we have that for any $y \in Y$, $Y \in S$ as well, thus $y \in \cup S$. This implies that $Y \subseteq \cup S$. Now to demonstrate $Y, \cup S$ have are in the subset ordering over A we must show $Y, \cup S \in A$. Since $Y \in S$ and $S \subseteq A$, we have $Y \in A$. For any $x \in \cup S$, $x \in C$ for some $C \in S$. Fix such a $C \in S$. Since $S \subseteq A$, we have $C \in A$. Since $A = \mathcal{P}(X)$ and $C \in A$, it must be that $C \subseteq X$. Thus $x \in C$ implies $x \in X$. Since for any $x \in \cup S$, $x \in X$, it must be that $\cup S \subseteq X$. Any subset of $X$ is in $\mathcal{P}(X)$, thus $\cup S \in \mathcal{P}(X) = A$. Since $Y, \cup S \in A$ and $Y \subseteq \cup S$, we have $Y \subseteq_{A} \cup S$ as desired. Therefore $\cup S$ is an upper bound of $S$ according to the ordering $\subseteq_{A}$. Now to show $\cup S$ is the lowest upper bound. Let there be an arbitrary upper bound of $S$ named $L$. For any $x \in C$ for some $C \in S$, we fix $x$ and $C$. Then since $L$ is the upper bound of $S$, $C \subseteq_{A} L$ which implies $C \subseteq L$. Since $x \in C$ and $C \subseteq L$, $x \in L$. Thus for any $x \in \cup S$, $x \in C$ for some $C \in S$, which implies $x \in L$. This means $\cup S \subseteq_{A} L$. Thus $\cup S$ is the least upper bound of $S$ as desired.
+	
+	\item Let there be some arbitrary $S \subseteq A$. We wish to show that $\text{inf } S = \cap S$ if $S \neq \emptyset$. In the case that $S = \emptyset$, we must have $\text{inf }S = X$. To demonstrate when $S \neq \emptyset$, $\text{inf } S = \cap S$, we must show $\cap S$ is an upper bound of $S$. Assume $S \neq \emptyset$, then fix any arbitrary $X \in S$. For such an $X$, any element $x \in \cap S$ is in $X$ because $X$ is an element of S and $x$ is in every element of $S$. Since any element in $\cap S$ is in $X$, we have $\cap S \subseteq X$ as desired. 
+	
+	\medskip
+	
+	We go on a quick detour to show that $\cap S \in A$. Note for any $x \in \cap S$, $x \in C$ for some $C \in S$. Since $S \subseteq A$, $x \in C$ for some $C \in A$. Fix such $x,C$. As $A$ is power set of $X$, any element of $A$ is a subset of $X$. Thus $x \in C$ and $C \in A$ means $x$ is in some element of A which is also a subset of $X$. Therefore $x \in X$. Since for every $x \in \cap S$, $x \in X$, we have that $\cap S \subseteq X$. Since $A$ contains all subsets of $X$, $\cap S \in A$.
+	
+	\medskip
+	
+	 For any arbitrary $X \in A$, since $X, \cap S \in A$ and $ \cap S \subseteq X$, $\cap S \subseteq_{A} X$. It is shown that $\cap S$ is a lower bound of $S$. Now we wish to show that $\cap S$ is the greatest upper bound. Let there be some arbitrary lower bound of $S$ and call it $P$. For sake of contradiction, let there be some $s \in P$, such that $s \notin \cap S$. For such a $s$, since $s \notin \cap S$ and $S \neq \emptyset$, there must exist some $S_i \in S$ such that $s \notin S_i$. For such an $S_i$, we note $s \in P$ yet $s \notin S_i$, which implies there exists some $S_i \in S$ such that $P \not \subseteq_{A} S_i$. Since $P \not \subseteq_{A} S_i$ and $S_i \in S$, $P$ is not an lower bound of $S$. Thus the assumption that there exists $s \in P$ such that $s \notin \cap S$ is contradicted and it must be that for every $s \in P$, $s \in \cap S$. Thus any lower bound $P$ of $S$ must have $P \subseteq_{A} \cap S$ as desired. It is shown that $\cap S$ is the greatest lower bound, or the infimum. Now consider the case that $S = \emptyset$. For $X \in A$, the following is vacuously true: $X \subseteq_{A} S_i$ for any $S_i \in S$. Thus $X$ is a lower bound of $S$. For any $Y \in A$, $Y$ is a subset of $X$. Thus $Y \subseteq_{A} X$. Thus $X$ is the greatest of the lower bounds, which means it is the infimum of $S$ in the case $S = \emptyset$.
+	
+\end{enumerate}
+
+\item \textbf{Question 9}
+\medskip
+
+Let there be a set of all functions from subsets of $X$ into $Y$ defined as follows: $\text{Fn}(X,Y) = \bigcup_{Z \subseteq X} Y^{Z}$. Define the relation $\leq$ in $\text{Fn}(X,Y)$ as follows: $f \leq g$ if and only if $f \subseteq g$.
+
+\begin{enumerate}
+	\item 
+	
+	We wish to show that $\leq$ is an ordering over $\text{Fn}(X,Y)$. First it is necessary to show that $\leq$ is reflexive. For any $f \in \text{Fn}(X,Y)$, $f \subseteq f$, which implies $f \leq f$. Thus $\leq$ is reflexive. It is then necessary to show that $\leq$ is anti-symmetric. For any $a,b\in \text{Fn}(X,Y)$ such that $a \leq b$ and $b \leq a$, it must be the case that $a \subseteq b$ and $b \subseteq a$, which implies $a = b$. Thus we have that $\leq$ is anti-symmetric. Finally, to show it is transitive, let there be some arbitrary $a,b,c \in \text{Fn}(X,Y)$ such that $a \leq b$ and $b \leq c$. Since $a \leq b$ and $b \leq c$, we have $a \subseteq b$ and $b \subseteq c$. $a \subseteq b$ and $b \subseteq c$ implies $a \subseteq c$, which since $a,c \in \text{Fn}(X,Y)$ and $a \subseteq c$ implies $a \leq c$. $\leq$ is transitive as desired. Since $\leq$ is reflexive, anti-symmetric, and transitive over $\text{Fn}(X,Y), \leq$ is an ordering over $\text{Fn}(X,Y)$.
+	
+	\item 
+	
+	Let there be some $F \subseteq \text{Fn}(X,Y)$. We wish to demonstrate that $\text{sup} (F)$ only exists if and only if $F$ is a compatible system of functions and that $\text{sup} (F) = \cup F$. First let us demonstrate if $\text{sup} (F)$ exists, then $F$ is a compatible system of functions and $\text{sup} (F) = \cup F$, then we will prove the converse. First we demonstrate the forward implication.
+	
+	\medskip
+	
+	 In the forward implication, let $G = \text{sup} (F)$ and assume for sake of contradiction there are two functions $F_1, F_2 \in F$ which are not compatible. Since $F_1,F_2$ are not compatible, there must exist $(x,y_1) \in F_1$ and $(x,y_2) \in F_2$ such that $y_1 \neq y_2$. Since $F_1, F_2$ are in $F$ and $G$ is the supremum of $\text{Fn}(X,Y)$, $F_1, F_2 \subseteq G$. It must be that $(x,y_1), (x,y_2) \in G$ which implies $G$ cannot be a function since $x$ maps to $y_1,y_2$ in $G$ where $y_1 \neq y_2$, which implies $G$ is not the supremum of $F$. Thus if a supremum of $\text{Fn}(X,Y)$ exists, it must imply that for every two functions in $\text{Fn}(X,Y)$, they are compatible, which means that $\text{Fn}(X,Y)$ is a system of compatible functions as desired. 
+	 
+	 \medskip
+	 
+	 Now to prove $F$ is a compatible system of functions implies that $\text{sup} (F)$ exists using the idea that $\cup F$ is such a supremum. Note it is necessary to show first $\cup F$ is in $\text{Fn}(X,Y)$, only then can it be compared using $\leq$ defined in $\text{Fn}(X,Y)$. There must exist some $F_1,F_2 \in F$ such that $(x, y_1) \in F_1$, $(x, y_2) \in F_2$ for any $(x, y_1), (x, y_2) \in \cup F$. $F_1,F_2$ must be compatible because $F$ is a consistent system of functions, which means $y_1 = y_2$. Since $\cup F$ is a function and $F \subseteq \text{Fn}(X,Y)$, it is clear that $\cup F \in \text{Fn}(X,Y)$. For any arbitrary $F_1 \in F$, $F_1 \subset \cup F$, thus $\cup F$ is an upper bound of $F$.  Now let there be some arbitrary upper bound of $F$ be named $G$. For any $x \in \cup F$, it must be that $x \in C$ for some $C \in F$. We can fix such a $C$, then for such a $C \in F$, because $G$ is the supremum of $F$, it must be that $C \subseteq G$, thus we have $x \in \cup F$ leading to $x \in G$, which finally results $\cup F \subseteq G$. Thus $\cup F$ is the least upper bound of $G$ as desired.
+	 
+	 \medskip
+	 
+	 In conclusion, we have shown that $\text{sup} F$ exists if and only if $F$ is a compatible system. In addition, in the case that $\text{sup} F$ exists, or that $F$ is a compatible system, we have that $\text{sup} F = \cup F$.
+	 	 
+\end{enumerate}
+	 
+	 \item \textbf{Question 11.}
+	 \medskip
+	 
+	 Let there some sets $P,Q$ equipped with orderings $<, \prec$. In addition, let there be an isomorphism $\phi$ between $P$ and $Q$. Then we wish to show that $<$ is a linear ordering implies that $\prec$ is a linear ordering. For any $a',b' \in Q$, there must exist $a,b \in P$ such that $\phi(a)  = a'$ and $\phi(b) = b'$ by $\phi$ is an isomorphism. As $<$ is a total linear ordering over $P$,  we can only have $\phi(a) \neq \phi(b)$. If $\phi(a) < \phi(b)$ then $a' \prec b'$ and if $\phi(b) < \phi(a)$ then $b' \prec a'$. Thus any arbitrary $a',b' \in Q$ are always comparable by $\prec$, thus $\prec$ is a total linear ordering of $Q$ as desired.
+	 
+	 \item \textbf{Question 12.}
+	 \medskip
+	 
+	 Assume there is a set $P$ equipped total ordering $<$. Let $I_{P}$ be the identity function over $P$.
+	 For any $a,b \in P$, we have $a < b$ implies $a = I_{P}(a) < I_{P}(b) = b$. Similarly we have $I_{P}(a) < I_{P}(b)$ implies $I_{P}(a) = a < b = I_{P}(b)$. Since $a < b$ if and only if $I_{P}(a) < I_{P}(b)$ and $I_{P}$ is a bijective function from $P$ to $P$, $I_{P}$ is an isomorphism from $P$ to $P$ as desired.
+	 
+	 \newpage
+	 \item \textbf{Question 13.} 
+	 \medskip
+	 
+	 Let $h$ be an isomorphism between $(P_1, <_{1})$ and $(P_2, <_{2})$. Then we wish to show $h^{-1}$ is an isomorphism. Note $h^{-1}$ is the inverse of a bijective function and thus a bijective function. It solely remains to demonstrate $h^{-1}$ preserves the ordering operation across $P_1$ and $P_2$. Since $h$ is onto, for any $a',b' \in P_2$ there must exist $a,b \in P_1$ such that $h(a) = a'$ and $h(b) = b'$. We can further note that $h^{-1}(a') = h^{-1}(h(a)) = a$ and $h^{-1}(b') = b$.  If $a'$ is not comparable to $b'$, we can safely ignore this case as it vacuously upholds $h^{-1}$ being an isomorphism. WLOG let $a' <_{2} b'$. Thus $h^{-1}(a) = a'$ and $h^{-1}(b) = b'$. With $h$ being an isomorphism we have $h^{-1}(a') = a <_{1} b = h^{-1}(b')$ implies $a' = h(a) <_{2} h(b) = b'$. and $a' = h(a) <_{2} h(b) = b'$ implies $h^{-1}(a') = a <_{1} b = h^{-1}(b')$. Thus we that $h^{-1}$ is also an isomorphism as desired.
+	 
+	 \item \textbf{Question 14.}
+	 \medskip
+	 
+	  Let $f$ be an isomorphism between $(P_1, <_{1})$ and $(P_2, <_{2})$.  Let $g$ be an isomorphism between $(P_2, <_{2})$ and $(P_3, <_{3})$. First note the composition of bijective functions is still a bijective function. Then note for any $a,b \in P_1$ such that $a <_{1} b$, we have $f(a) <_{2} f(b)$ by $f$ is an isomorphism and $g \circ f(a) = g(f(a)) <_{3} g(f(b)) = g \circ f(b)$ by $g$ is an isomorphism. Note for any $a'',b'' \in P_3$ such that $a'' <_{3} b''$ and $g \circ f(a) = a'', g \circ f(b) = b''$, $g(f(a)) = a'' < b'' = g(f(b))$ implies $f(a) < f(b)$ which implies $a < b$ as desired. Since for any $a, b \in P_1$, $a <_{1} b$ if and only if $g \circ f(a) <_{3} g \circ f(b)$, $g \circ f$ is an isomorphism between $(P_1, <_{1})$ and $(P_3, <_{3})$ as desired.
+
+\end{enumerate}
+
+\section{Chapter 3}
+
+\medskip
+\textbf{Chapter 3, Section 1}
+\medskip
+
+\begin{enumerate}
+	\item \textbf{Question 1.}
+	
+        We wish to demonstrate that $x \subseteq S(x)$. In the definition of the successor set, $S(x) = x \cup \{x\}$. As every element in $x$ must also be in the union of $x$ and $\{x\}$, $x \subseteq S(x)$ as desired. 
+        
+        In addition, we wish to show there does not exist $z$ such that $x \subset z \subset S(x)$. Assume for the sake of contradiction there exists such a $z$. Because $x \subset z$, it must follow that $z$ contains some element which $x$ does not. Let such an element be named $q$. Furthermore, $z$ is a subset of $S(x)$, $q \in S(x)$. We can only have $q = x$, the only element in $S(x)$ which is not in x. Thus $z = S(x)$, which means $z \not \subset S(x)$. This contradicts the assumption, which means there does not exist any $z$ such that $x \subset z \subset S(x)$.
+\end{enumerate}
+
+\newpage
+\medskip
+\textbf{Chapter 3, Section 2}
+\medskip
+
+\begin{enumerate}
+	\item \textbf{Question 1}
+	\medskip 
+	
+	We wish to demonstrate $n \in \mathbb{N}$ implies there is no $k \in \mathbb{N}$ such that $n < k < n + 1$. For the sake of contradiction, assume such a $k$ exists. Using the fact that $k < n + 1$ and according to Lemma 2.1 ii), $k = n$ or $k < n$. In the case that $k = n$, it cannot be that $n < k$ as $<$ is not reflexive. In the other case that $k < n$, we cannot have $n < k$, as $<$ is not symmetric. Thus $n < k$ is contradicted and for any $n \in \mathbb{N}$ we cannot have $k \in \mathbb{N}$ such that $n < k < n + 1$.
+	
+	\item \textbf{Question 2}
+	\medskip
+	
+	We wish to show $m < n$ implies $m + 1 \leq n$. Assume $m < n$ and for the sake of contradiction assume $n < m + 1$. As was demonstrated in Q1, we cannot have $m < n < m + 1$, it must be that $n < m + 1$ is an impossible assumption and that $m + 1 \leq n$. 
+	
+	\medskip
+	From the implication $m < n$ implies $m + 1 \leq n$ we can show $m < n$ implies $m + 1 = n$ or $m + 1 < n$. In either case we have $m + 1 < n + 1$ again by Lemma 2.1 ii). Using this implication we finally wish to show that $S(n) = n + 1$ is a one-to-one function over $\mathbb{N}$. To do so, choose arbitrary $a,b \in \mathbb{N}$ such that $a \neq b$. Then WLOG assume $a < b$, which leads to $S(a) = a + 1 < b + 1 = S(b)$. $S(a) < S(b)$ implies $S(a) \neq S(b)$, therefore $S$ is a one-to-one function over $\mathbb{N}$ as desired.
+	
+	\item \textbf{Question 3}
+	\medskip
+	
+	Let $S(n) = n + 1$ be the one-to-one function of interest. We wish to show it is a one-to-one function mapping $\mathbb{N}$ into a proper subset of $\mathbb{N}$.  For sake of contradiction, assume there exists some $x \in \mathbb{N}$ so that $f(x) = 0$. Then $x + 1 = 0$, which since $x < x + 1$ implies $x < 0$. This is not possible as $0 \leq n$ for all $n \in \mathbb{N}$ from Lemma 2.1. Thus there does not exist any $x \in \mathbb{N}$ such that $S(x) = x + 1$. Since $S(\mathbb{N}) \subseteq \mathbb{N}$ and $0 \in \mathbb{N}$ while $0 \notin \mathbb{N}$, we have $S(\mathbb{N}) \subset \mathbb{N}$ as desired.
+	
+	
+	\item \textbf{Question 4}
+	\medskip
+	
+	For every non-zero natural number $n$, we wish to show there is a unique natural number $k$ so that $n = k + 1$. Let there be a set of all natural numbers less than n and call it $S$. Note $S$ is not empty for $n \neq 0$, since $0 \in S$. Then n is an upper bound of non-empty set $S$ and thus $S$ must have a greatest element according to Theorem 2.5. 
+	
+	\medskip
+	 Let the greatest element of $S$ be $k$. It is natural to show $k + 1 = n$ by demonstrating that $k + 1 \not < n$ and $k + 1 \not > n$. Assume for sake of contradiction that $k + 1 < n$, then $k + 1 \in S$ and $k + 1 > k$, thus $k$ is not the greatest element of $S$. $k + 1 \not < n$. 
+	 Let us also assume $k + 1 > n$, which implies $k = n$ or $k > n$, neither of which means $k$ is an element less than $n$. Since $S$ is the set of all natural numbers less than $n$, it cannot be that $k \in S$. Since $<$ is a linear ordering, any two non-equal elements of $\mathbb{N}$ must be comparable, since $k + 1,n$ are not comparable, it must be that $k + 1 = n$ as desired.
+	 
+	 \medskip
+	 As shown for every natural number $n \neq 0$, there must exist some $k \in \mathbb{N}$ such that $k + 1 = n$. Yet such a natural number $k$ is unique because the successor function is one-to-one. Thus if $s(m) = s(k) = n$, then $m = k$. 
+	 
+	 \item \textbf{Question 5}
+	 \medskip
+	 
+	 We wish to show for any natural number $n \neq 0,1$, there must exist some $k \in \mathbb{N}$ such that $(k + 1) + 1 = n$. Let us consider for such $n$, there must exist a unique $m \in \mathbb{N}$ such that $m + 1 = n$ as shown in question 4. Note that such $m$ is not 0 unless $n = 1$. Therefore with $n \neq 0,1$ we have $m \neq 0$. Since $m \neq 0$, there must also exist some $k \in \mathbb{N}$ such that $k + 1 = m$. We have $(k + 1) + 1 = m + 1 = n$ as desired. Let there be $k' \in \mathbb{N}$ such that $(k' + 1) + 1 = n$ as well. $(k + 1) + 1 = (k' + 1) + 1$ implies $k + 1 = k' + 1$, which implies $k = k'$. In conclusion for every $n \in \mathbb{N}$, there must exist a unique $k$ where $(k + 1) + 1 = n$.
+	 
+	 \item \textbf{Question 6}
+	 \medskip
+	 
+	 We wish to show that any natural numbers is a set of all smaller natural numbers. Consolidate this into a property $P(n) := $ "For any natural number n, it is a set of all smaller natural numbers". $P(0)$ is vacuously true, there does not exist any natural number less than 0, therefore $0 = \emptyset$ contains all smaller natural numbers. We wish to now show $P(n)$ implies $P(n + 1)$. If $P(n)$ is true, then every element of $n$ is a natural number smaller than $n$. Now let us examine each element of $n + 1$ and try to show it is a natural number less than $n + 1$. $n + 1 = n \cup \{n\}$ implies that any element $k$ in $n + 1$ is either in $n$ or $\{n\}$. In the case that $k \in n$, $k < n$ and $n < n + 1$, thus $k < n + 1$. In the case that $k \in \{n\}$, $k = n$. With $k = n$, $k < n + 1$. Thus $n + 1$ solely consists of natural numbers less than $n + 1$ as desired. Based on the induction principle, since $P(0)$ is true and $P(n)$ implies $P(n + 1)$, $P(n)$ is true for all natural numbers. In other words, any natural number is a set of all smaller natural numbers.
+	 
+	 \newpage
+	 \item \textbf{Question 7}
+	 \medskip
+	 
+	 We wish to show for all $m, n \in \mathbb{N}$, $m < n$ if and only if $m \subset n$. 
+	 
+	 \medskip
+	 First we show $m < n$ implies $m \subset n$. First we assume $m < n$. For any element $k$ in $m$, it must be a natural number less than $m$ according to question 6. $k < m$ and $m < n$ implies $k < n$, thus $k$ is also an element of $n$. Since every element of $m$ is also an element in $n$, $m \subset n$.
+	 
+	 \medskip
+	 Now to show the converse direction. If $m \subset n$, $n$ must contain some natural number which $m$ does not. Call the number $k$. $k < n$ and $k \geq m$. Since $k \geq m$, it must be that $m = k$ or $m < k$, in either case we can combine any one of the two possibilities with $k < n$ to show $m < n$ as desired. Since $m < n$ implies $m \subset n$ and vice versa, we have demonstrated the desired claim.
+	
+	 \item \textbf{Question 8}
+	 
+	 \medskip
+	 
+	 We wish to show there does not exist function $f: \mathbb{N} \xrightarrow{} \mathbb{N}$ such that for all $n \in \mathbb{N}$, $f(n) > f(n + 1)$. For sake of contradiction, assume such a $f$ exists. Let there be a property $P(n) = $ "there exists some m $\in \mathbb{N}$ such that $f(m) = n$. To show $P(0)$, assume by way of contradiction $f(m) = 0$, then $f(m + 1)$ cannot be less than $f(m)$ since $0$ is the least natural number. Thus there does not exist $m \in \mathbb{N}$ such that $f(m) = 0$. For the inductive case, assume $P(k)$ is true for all $k < n$ using the second version of the induction principle (weak induction). Then assume $f(q) = n$. Since $f(q + 1) < f(q)$, it must be that $f(q + 1) = m < n$, which contradicts the strong induction assumption. It must be the case that there does not exist any $q \in \mathbb{N}$ such that $f(q) = n$. According to the principle of strong induction, $P(n)$ is true for all $n \in \mathbb{N}$. This invalidates $f(1) = k$ for any $k \in \mathbb{N}$, thus $f$ cannot exist. 
+	 
+	 \item \textbf{Question 9}
+	 
+	 \medskip
+	 
+	 We wish to show if $X \subseteq \mathbb{N}$ implies $\langle X, < \cap X^{2} \rangle$ is well-ordered. Any subset $Q$ of $X$ is also a subset of $\mathbb{N}$, thus $Q$ has a least element under $<$. Consider for $a,b \in X$, $a < b$ if and only if $a (< \cap X^{2}) b$, thus $Q$ also contains a least element under $< \cap X^{2}$. Since any subset of $X$ has a least element, $X$ is well-ordered. 
+	 
+	 
+	 \item \textbf{Question 10}
+	 
+	 \medskip
+	 
+	 Let $A = \mathbb{N}$, $b = \mathbb{N}$ and $B = \mathbb{N} \cup \{\mathbb{N}\}$. Define $\prec$ in $B$ such that $a \prec b$ if $k,j \in \mathbb{N}$ and $k < j$ or if $k \in \mathbb{N}$ and $j = \mathbb{N}$. We wish to show that $(B, \prec)$ is well-ordered. Let there be a non-empty subset $Q$ of $B$. That subset either contains $\mathbb{N}$ or does not. In the case that it does not, $Q$ is a subset of $\mathbb{N}$, thus naturally has a least element under $<$. Since $<$ and $\prec$ behave the same under $\mathbb{N}$, $Q$ also has a least element under $\prec$. If $Q$ contains $\mathbb{N}$, then consider if there are other elements or not. If there are other elements other than $Q$, then the least element of $Q$ should be in $Q \setminus \{\mathbb{N}\}$, as $\mathbb{N}$ is not less than any element in $A$. $Q \setminus \{\mathbb{N}\}$ is once again a subset of $\mathbb{N}$ and thus has a least element under $\prec$. In the case that $Q$ contains $\mathbb{N}$ but does not contain other elements, the least element is simply $\mathbb{N}$. We have found any non-empty subset of $B$ has a least element, therefore $(B, \prec)$ is well-founded as desired.
+	 
+
+	\item \textbf{Question 11}
+	
+	\medskip
+	
+	Let there be a property $P(x)$ with two conditions. The first condition is $P(k)$ is true and the second condition is $P(n)$ implies $P(n + 1)$. We wish to show that $P(n)$ is true for all $n \geq k$. Let $Q(n)$ be defined as follows. If $n < k$, $Q(n)$ is true. If $n \geq k$, then $Q(n)$ is true if and only if $P(n)$ is. Note $Q(0)$ is true, while for $n < k$, we have $n + 1 < k$ or $n + 1 = k$. If $n + 1 < k$, then $Q(n + 1)$ is true. If $n + 1 = k$, $Q(k)$ is true because $P(k)$ is. So for $n < k$, $Q(n)$ implies $Q(n + 1)$ always. If $n \geq k$, if $Q(n)$ is true, then so is $P(n)$, which implies $P(n + 1)$ is true, finally forcing $Q(n + 1)$ to be true. In summary, $Q(n)$ implies $Q(n + 1)$ for $n \geq k$. Thus $Q(n)$ is true for all natural numbers $n$. Now consider what $Q$ being true for any element of $\mathbb{N}$ means for $P$. For any $n \geq k$, $Q(n)$ is true and $Q(n) = P(n)$, therefore $P(n)$ is true for all $n \geq k$ as desired. 
+	
+	\item \textbf{Question 12}
+	
+	\medskip
+	
+	Let there be a property $P(x)$ such that $P(0)$ is true and for all $n < k$, $P(n)$ implies $P(n + 1)$. Let there be a property $Q(n)$ be defined as follows. If $n \leq k$, $Q(n)$ if and only if $P(n)$. If $n > k$, $Q(n)$ is true. $Q(0)$ is true because $P(0)$ is. For $n < k$, $Q(n)$ implies $P(n)$, which implies $P(n + 1)$, finally resulting in $Q(n + 1)$. As a result, $Q(n)$ implies $Q(n + 1)$. For $n \geq k$, $Q(n + 1)$ is by definition true, so $Q(n)$ always implies $Q(n + 1)$. We have that $Q(n)$ is true for all $n \in \mathbb{N}$. Consider what $Q$ is true means for $P$. Given $Q(n)$ is true for $n \leq k$, it must be that $P(n)$ is by definition of $Q$. 
+	 \end{enumerate}
+
+	\medskip
+	\textbf{Chapter 3, Section 3}
+	\medskip
+	
+	\begin{enumerate}
+	\item \textbf{Question 1}
+	\medskip
+	
+	Let $f$ be an infinite sequence of elements of $A$, where $A$ is ordered by $\prec$. Assume $f_n \prec f_{n + 1}$ for all $n \in \mathbb{N}$. We wish to show that $n < m$ implies $f_n \prec f_m$ for all $n, m \in \mathbb{N}$. Let us adopt the modified induction principle introduced in 3.2 Q11, which states that if $P(k)$ holds and for any $n \geq k$ $P(n)$ implies $P(n + 1)$, we have $P(n)$ for all $n \geq k$. For arbitrary $n \in \mathbb{N}$, let there be a property $P(m) := "f_n \prec f_m"$ regarding such an n. We wish to demonstrate this property is true for all $m > n$.  First note $P(n + 1)$ is true because $f_{n} \prec f_{n + 1}$ by assumption. Then for the inductive case assume for arbitrary $m$ where $n < m$ that $P(m)$ is true. Then we wish to show $P(m + 1)$ is true. Since $P(m)$ is assumed, $f_n \prec f_m$. As $m \in \mathbb{N}$, we also have $f_m \prec f_{m + 1}$ by assumption. Since $\prec$ is an ordering on $f$, it must be transitive. From this realization, we can note $f_n \prec f_m$ and $f_m \prec f_{m + 1}$ implies $f_n \prec f_{m + 1}$. With the base case and the inductive case, we have that $P(m)$ is true for any $m > n$.
+	
+	\item \textbf{Question 2}
+	
+	\medskip
+	\textbf{Assumptions and Setup}
+	\medskip
+	
+	Let there be a linearly ordered set $(A, \prec)$ and $p,q \in A$. Let successor in $A$ be defined as follows: $q$ is a successor of $p$ if $p \prec q$ and there is no $r \in A$ so that $p \prec r \prec q$. Note each $p \in A$ has at most one successor in $A$. Assume $(A, \prec)$ is non-empty and has the following three properties:
+	
+	\begin{enumerate}
+		\item Every $p \in A$ has a successor.
+		\item Every nonempty subset of A has a $\prec$-least element.
+		\item If $p \in A$ is not the $\prec$-least element of A, then $p$ is a successor of some $q \in A$.
+	\end{enumerate}
+	
+	\medskip
+	\textbf{Proof Main Body}
+	\medskip
+	
+	We wish to demonstrate that such a $(A, \prec)$ is isomorphic to $(\mathbb{N}, <)$. First, let us construct the isomorphism. Let the least element of $A$ be $a$. Now let there be a function $$g: (A \times N) \xrightarrow{} \mathbb{N}$$
+	
+	Define $g$ as such: $g(a_n, n) = s(a_n)$. Note the notation $s(a_n)$ is permissible as $(A, \prec)$ has the existence of a successor in property $c)$. Then from the recursion theorem, a function $f: \mathbb{N} \xrightarrow{} A$ exists such that $f_0 = a$ and $f_{n + 1} = g(f_n, n)$. Note $f$ conveniently maps elements from the natural numbers into $A$, so it would be sufficient to demonstrate $f$ is one-to-one and $\text{ran}f = A$ to show $f$ is an isomorphism from $\mathbb{N}$ to A, which is exactly what will be done. 
+	
+	\medskip
+	To show $f$ is one-to-one, let there be some $n,m \in \mathbb{N}$ such that $f_n = f_m$. We wish to demonstrate as a property $P(n) := "$for any $m \in \mathbb{N}, f_n = f_m$ implies n = m". For the base case with $P(0)$, if must be that $f_n = a$. Consider since for every $n \in \mathbb{N}$, $f_{n + 1} = g(f_n, n) = s(f_n)$, it must be that $f_n \prec f_{n + 1}$. Based on increasing behavior of consecutive terms in the sequence, we have from problem 1 $f$ is monotonically increasing. Thus it must be that $f_n = a = f_m$ implies $n = m$, otherwise $n < m$ would imply $f_n \prec f_m$. Thus $n = 0$ implies $m = 0$. For $n = 0$ it is shown $f_n = f_m$ implies $n = m$. For the inductive case let us assume $P(n)$ and demonstrate $P(n + 1)$. Since $f_n = f_m$ implies $n = m$, we have $f_{n + 1} = g(f_n, n) = g(f_m, n) = f_{m + 1}$ by definition of $f$. Thus $P(n)$ is true for all natural numbers $n$. This implies for any $n,m \in \mathbb{N}$, $f_n = f_m$ implies $n = m$ from $P(n)$. Thus it is shown that $f$ is one-to-one.
+	
+	\medskip
+	We will now proceed to show $\text{ran} f = A$. Since $\text{ran} f \subseteq A$ from the recursion theorem, let us demonstrate $A \subseteq \text{ran} f$. Let p be the least element of the set $A - \text{ran} f$. $p$ is not $a$, since $f_0 = a$. Since each non-least element in $A$ is a successor of another element, let $s(q) = p$. Then $q = f_m$, otherwise $p$ is not the least element of $A - \text{ran} f$. Then $f_{m + 1} = g(f_{m}, m) = s(f_{m}) = q = p$ implies $p \in \text{ran} f$. We have a contradiction and thus there does not exist any elements of $A - \text{ran} f$. Every element in $A$ must then also be in $\text{ran} f$ giving $A \subseteq \text{ran } f$. This implies $A = \text{ran} f$ as desired. 
+	
+	\medskip
+	Since $f: \mathbb{N} \xrightarrow{} A$ is a one-to-one function with $\text{ran} f = A$, it must be that $f$ is an isomorphism from $\mathbb{N}$ onto $A$, which implies that $(\mathbb{N}, <)$ and $(A, \prec)$ are isomorphic as desired. 
+	
+	\medskip
+	\textbf{An Isomorphism between $A$ and $\mathbb{N}$ depends on the three properties of $A$}
+	\medskip
+	
+	We wish to show removing any one of the following three properties of A means $\mathbb{N}$ and $A$ cannot be isomorphic:
+		\begin{enumerate}
+		\item Every $p \in A$ has a successor.
+		\item Every nonempty subset of A has a $\prec$-least element.
+		\item If $p \in A$ is not the $\prec$-least element of A, then $p$ is a successor of some $q \in A$.
+		
+		\medskip
+		
+		We will proceed by removing each of the properties and assuming an isomorphism $f$ exists between $\mathbb{N}$ and $A$, producing a contradiction to some assumption, finally resulting in the isomorphism $f$ being invalidated.
+		
+		\medskip
+		Let us proceed by removing the first property. If $(a)$ does not hold about $A$, there must exist some $p \in A$ which does not have a successor. Fix such a $p$. Since $f$ is onto, let $f(n) = p$. Let $f(n + 1) = p'$. We have $n < n + 1$ implies $f(n) = p \prec p' = f(n + 1)$. Then since $p$ does not have a successor there must be $r \in A$ between $p,p'$ with $p \prec r \prec p'$. Let $f(m) = r$. We can note $p \prec r \prec p'$ implies $n < m < n + 1$ from $f$ preserves ordering from $A$ to $\mathbb{N}$. Note $m < n + 1$ implies $m = n$ or $m < n$, both of which contradict $n < m$. Therefore it must be that an isomorphism $f$ does not exist between $\mathbb{N}$ and $A$ and $\mathbb{N}$ and $A$ are not isomorphic.
+		
+		\medskip
+		Now we shall continue the second property while maintaining the first and the third property. If $(b)$ is false regarding $A$, there must exist some nonempty subset of $A$ which does not have a $\prec$-last element. Let that subset be $S$. Let $B = f^{-1}(S)$. Since $S$ is not empty, $B$ is also non-empty, since there must exist $s \in S$ and $f(b) = S$ for some $b \in B$.	 Any nonempty subset of the natural numbers has a least element, so let the least element of $B$ be $b_0$. Let $s_0 = f(b_0)$. We wish to demonstrate $s_0$ is the least element of $S$. Note for any element $s \in S$ there must exist $b \in B$ such that $f(b) = s$. Since $b_0$ is the least element of $B$, we must have $b_0 < b$, which implies $f(b_0) = s_0 \prec s = f(b)$. Thus $s_0$ is the least element of $S$ contradicting $S$ does not have a least element. We have that any isomorphism $f$ between $\mathbb{N}$ and $A$ cannot exist.
+		
+		\medskip
+		While preserving the first and second property, let us remove the third property. Since the third property is false about $A$, there must exist some $p \in A$ which is the $\prec$-least element of $A$, which is not the successor of any element of $A$. Let $f(n) = p$. Note $n \neq 0$ because $f(0) = a$ is the $\prec$-least element of $A$. $S$ is nonempty because $0 \in S$ by $0 < n$ for any $n \neq 0$. Since $S$ is a nonempty subset of the natural numbers upper bounded by $n$, let the greatest element of $S$ be $n'$. We pause to compare $n' + 1$ and $n$. If $n' + 1 < n$, $n' + 1 \in S$, which implies $n'$ is not the greatest element of $S$. If $n' + 1 > n$, then $n = n'$ or $n < n'$. However, since $n' \in S$, $n' < n$. Thus it must be that $n' + 1 = n$. Let $p' = f(n')$. We have $n' < n$ implies $f(n') = p' \prec p = f(n)$. Since $p$ is not the successor of any element, it must be there exists some $r$ where $p'  \prec r \prec p$. Let $f(m) = r$. With $p' \prec r \prec p$ and $f$ preserves ordering from $A$ to $\mathbb{N}$, we have $n < m < n + 1$, which as shown in the removal of the first property is impossible. Thus the isomoprhism $f$ cannot exist.
+		
+		\medskip
+		In conclusion an isomorphism between $(\mathbb{N}, <)$ and $(A, \prec)$ cannot exist with the removal of either one of the three properties from $A$, thus given any one of the three properties is missing from $A$, $(\mathbb{N}, <)$ cannot be isomorphic with $(A, \prec)$ as desired.
+		
+	\end{enumerate}
+		
+		\item \textbf{Question 5}
+		\medskip
+		
+		Let there be a subset of $A$ called $A'$. Let $g: A' \times \mathbb{N} \xrightarrow{} A$. We wish to show there exists a unique sequence $f$, which satisfies the three following properties:
+		
+		\begin{enumerate}
+			\item $f_0 = a$;
+			\item $f_{n + 1} = g(f_n, n)$ for all $n \in \mathbb{N}$ such that $(n + 1) \in \text{dom } f$.
+			\item $f$ is either an infinite sequence or $f$ is a finite sequence of length $k + 1$ and $g(f_k, k)$ is undefined.
+		\end{enumerate}
+		
+		We let there be some $\bar{a} \notin A$. Let $\overline{A} = A \cup \{\bar{a}\}$. Then extend $g$ into $\overline{A}$ as follows. Let $\bar{g}$ be an extension of $g$ where $\bar{g}(x,n) = \begin{cases}
+		g(x,n) &\text{ if }(x, n) \in \text{dom} (g)\\
+		\bar{a} &\text{ if} (x, n) \notin \text{dom} (g)\\
+		\end{cases}$.
+		
+		Now $\bar{g}: \overline{A} \times \mathbb{N} \xrightarrow{} \overline{A}$ is defined as desired. Note for such a $g$, an $f$ exists such that $f_0 = a$ and $f_{n + 1} = \overline{g}(f_n, n)$ for every $n \in \mathbb{N}$ according to the Recursion Theorem. Let $S = \{n \in \mathbb{N} \text{ } | \text{ } (f_n, n) \notin \text{dom } g\}$. Let us consider casework regarding the value of $S$.
+		
+		\medskip
+		 If $S$ is empty, then $f$ works as the sequence of interest. $f$ is an infinite sequence fitting the properties of $(a), (b), (c)$. $f$ fits $a)$ because $f_0 = a$. For $b)$ we can note that $(f_n, n) \notin S$ for any $n \in \mathbb{N}$, thus $(f_n, n) \in g$ for all $n \in \mathbb{N}$. With $g$ defined on all $(f_n, n)$, we have $\overline{g}(f_n, n) = g(f_n, n)$ for all $n \in \mathbb{N}$. Thus $f_{n + 1} = \overline{g}(f_n, n) = g(f_n, n)$ for any $n + 1 \in \text{dom }f$.$f$ satisfies $b)$. $f$ is an infinite sequence thus satisfies $c)$. Since $f$ exists and satisfies $(a),(b),(c)$, it only remains to show $f$ is unique. If there exists some $k$ such that $k$ also satisfies $(a),(b),(c)$. It can be that $k$ is infinite or finite, first assume the infinite case. We have $k_0 = a = f_0$. Furthermore $k_n = f_n$ implies $k_{n + 1} = g(k_n, n) = g(f_n, n) = f_{n + 1}$. Thus $k_n = f_n$ for all $n \in \mathbb{N}$. Since $k, f$ have domain $\mathbb{N}$ and agree on the entirely of it, $k = f$. If $k$ is finite, then let $m + 1$ be the length of $k$. Note with same induction principle we have $k_{n} = f_{n}$ but only when $n \leq m$. Since $k$ satisfies $(c)$, it must be that $k$ has length $m + 1$ implies $g(k_m, m)$ is undefined. Yet $g(k_m, m) = g(f_m, m)$ since $k_m = f_m$. This is impossible as $m \notin S$ for any $m \in \mathbb{N}$. $k$ cannot be a finite sequence due to contradiction. Thus as shown in the case that $S$ is empty $f$ that satisfies $a), b), c)$ exists and is unique.
+		 		 
+		 \medskip
+		 If $S$ is nonempty, let $m$ be the least element of $S$, which is possible since every non-empty subset of the natural numbers possesses a least element. Let $h = f \upharpoonright (m + 1)$, and we wish to demonstrate $h$ is a unique sequence of $A$ and satisfies $a),b),c)$. We can first demonstrate $h$ is a sequence of $A$. Consider for any $q < m$, we have that $h_{q + 1} = f_{q + 1} = \overline{g}(f_q, q)$. This is not convenient as the image of $\overline{g}(\mathbb{N})$ is $\bar{A}$, so it is not guaranteed that $f_{q} \in A$ for any $q$. There must be some restricting condition on the domain of $f$, as given with $h = f \upharpoonright (m + 1)$. As $m$ is defined as the least number such that $(f_m, m) \notin \text{dom }g$, and $q < m$, we have that $(f_q, q) \in \text{dom }g$, which implies $\overline{g}(f_q, q) = g(f_q, q)$. Thus for any $q < m$, $h_{q + 1} = f_{q + 1} = \overline{g}(f_q, q) = g(f_q, q) \in A$. We now show that for any $q \in \text{dom }h = \{0, ..., m\}$, $h_q \in A$. either $q = 0$, or $q > 0$. If $q = 0$, then $h_q = h_0 = a \in A$. If $q > 0$, let $p + 1 = q$, then $q \leq m$ implies $p < m$, which means as shown before implies $h_{p + 1} \in A$. Since $h$ has domain $\{0, ..., m\} = m + 1$, which is a natural number, and $h(\{0, ..., m\}) \subseteq A$, we have $h$ is a sequence over $A$ as desired.
+		 
+		 Now let us show $h$ satisfies $a),b),c)$. As before we let $m$ be the least element of the set $S = \{n \in \mathbb{N} \text{ } | \text{ } (f_n, n) \notin \text{dom } g\}$. Again $m + 1$ is the length of the sequence $k$. First note since $m \geq 0$, $m + 1 \geq 1$, it must be that $0 \in \text{dom } h$. Thus it is reasonable to note $h_0 = f_0 = a$. $h$ satisfies $a)$. For all $n$ such that $n + 1 \in \text{dom } h = \{0,...,m\}$, we have $n + 1 \leq m$ and thus $n < m$. Let us demonstrate $h_{n + 1} = g(h_n, n)$ for all $n + 1 \in \text{dom } h$ inductively. Let $P(n) := "h_{n + 1} = g(h_n, n)"$ and we wish to show $P(n)$ for all $n < m$. First note, if $m = 0$, then there is nothing to show, as there does not exist any $n < m$. If $m > 0$, we have by definition of $h,f$ that $h_0 = f_0 = a$, which allows the following chain of equalities:
+		 \begin{align*}
+		 	h_1&= f_1\\
+			&= \overline{g}(f_0, 0)\\
+			&= g(f_0, 0) && \text{By $(f_0, 0) \in \text{dom } g$, since 0 < m}\\
+			&= g(h_0, 0) && \text{By $f_0 = h_0 = a$}\\
+		 \end{align*}
+	 
+	 	$P(0)$ is shown. Let us show $P(n)$ implies $P(n + 1)$ for all $n + 1 < m$. Given $P(n)$ we have $h_{n + 1} = g(h_n, n)$. Thus 
+		\begin{align*}
+			h_{n + 2} &= f_{n + 2}\\
+			&= \overline{g}(f_{n + 1}, n + 1)\\
+			&= g(f_{n + 1}, n + 1)  && \text{By n + 1 $<$ m implies $(f_{n + 1}, n + 1) \in \text{dom } g$}\\
+			&= g(h_{n + 1}, n + 1) && \text{By $h = f \upharpoonright (m + 1)$, thus $h_{n + 1} = f_{n + 1}$}\\
+		\end{align*}
+		
+		We have shown $P(n)$ implies $P(n + 1)$. $P(n)$ is true for all $n < m$. Since $h_{n + 1} = g(f_n, n)$ for all $n < m$, which in other words means we have $h_{n + 1} = g(f_n, n)$ for any $n + 1 \in \text{dom}(h) = \{0,...,m\}$. $h$ satisfies $b)$ as desired. Now to note $h: (m + 1) \xrightarrow{} \mathbb{N}$ is a finite sequence of length $m + 1$. Since $m$ is the least integer such that $g(f_m, m)$ is undefined, we have that $f_m = h_m$ implies $g(h_m, m)$ is undefined as well. Thus $h$ satisfies $c)$. Since a sequence of $A$ exists and satisfies $a),b),c)$, it remains to show that this sequence $h$ is unique.
+		
+		\medskip
+		 Let $f$ be another sequence of $A$ which satisfies $a),b),c)$. Consider the case that $f$ is a finite sequence or an infinite one. If $f$ is a finite sequence, consider the cases that $f$'s domain is a natural number $m$ or $\mathbb{N}$. If $\text{dom } f = m_1$ for some natural number $m_1$, let $m' = \text{min }(m, m_1)$.  Let $P(n) := "h_n = f_n"$. We wish to show $P(n)$ for all $n \leq m'$. $P(0)$ is true because $h_0 = a = f_0$ by $a)$. Let us assume $P(n)$ in the inductive assumption, and note $h_n = f_n$. Then we wish to demonstrate $P(n + 1)$ from this assumption given $n < m'$. $h_{n + 1} = g(h_n, n) = g(f_n, n) = f_{n + 1}$ since $n + 1 \leq m'$ is in the domain of both $h,f$. Thus $P(n)$ is true for all $n < m'$. If $m < m_1$, it must be that $g(h_m, m)$ is undefined. Then $g(f_m, m)$ should be undefined as well since $h_m = f_m$ by $P(m)$ and $m \leq m' = m$. This would contradict $m < m_1$. Similarly $m_1 < m$ is impossible. Thus $m = m_1 = m'$. If $f$ has an infinite domain, we can again demonstrate $h_m = f_m$, which would imply $g(f_m,m) = g(h_m,m)$ should be undefined, contradicting $f_{m + 1} = g(f_m, m)$. Thus $f$ cannot be an infinite sequence. It is shown that $f$ must have the same domain as $h$ and agree with $h$ entirely on this domain as shown with the property $P$, thus $f = h$ as desired.
+		 
+		 \medskip
+		 It is demonstrated regardless of whether $S = \{n \in \mathbb{N} \text{ } | \text{ } (f_n, n) \notin \text{dom } g\}$ is empty or not, there is a unique sequence $f$ which satisfies $a),b),c)$ as desired.
+		 
+		 \item \textbf{Question 6.}
+		 
+		 \medskip
+		 If $X \subseteq \mathbb{N}$. We wish to show there is some sequence of $f$ of interest. To do so, first define some proper $g$, on top of which we can establish some $f$ which will have $\text{ran} f = X$. This in some way requires $g$ to traverse $X$. Define some notion of successor function in $X \subseteq \mathbb{N}$ as follows. Let $s': X \xrightarrow{} \mathbb{N}$ and let $S_x = \{y \in X \text{ } | \text{ } y > x\}$ for any $x \in X$. Define $s'(x) = 
+		 \begin{cases}
+		 	x & S_x = \emptyset\\
+		        \text{least element of } S_x & S_x \neq \emptyset\\
+		 \end{cases}$
+		
+		 Note we can define $g: X \times \mathbb{N} \xrightarrow{} \mathbb{N}$ using $s'$ as follows: $g(x, n) = s'(x)$ for any $(x,n) \in X \times \mathbb{N}$. Note $X \subseteq \mathbb{N}$, thus $g: X \times \mathbb{N} \xrightarrow{} \mathbb{N}$ is of the form $g: \overline{A} \times \mathbb{N} \xrightarrow{} A$ where $\overline{A} \subseteq A$. By question 5, there must exist a sequence $f: \mathbb{N} \xrightarrow{} X$ that satisfies the three following properties.
+		 
+		 \begin{enumerate}
+		 	\item $f_0 =  \text{min}(X)$
+			\item $f_{n + 1} = g(f_n, n)$ for every $(n + 1) \in \text{dom} f$
+			\item $f$ is either infinite or length $m + 1$ where $g(f_m, m)$ is undefined.
+		 \end{enumerate}
+		
+		We wish to show $f$ is a one-to-one sequence such that $\text{ran} f = X$. First we examine the finite case for $f$, then the infinite case. For any $a,b \in \mathbb{N}$ where $f_a = f_b$. Let $x_0$ be the least element of $X$. For any $n,m \in \text{dom} f$ such that $f_n = f_m$ consider the case $n \neq m$, in this case either $n < m$ or $m < n$, WLOG we consider $n < m$ only according to symmetry. Since for any $n + 1 \in \text{dom} f$ we have $f_{n} \prec f_{n + 1}$ by $f_{n + 1} = g(f_n, n) = s'(f_n)$, we have monotonicity over $f$, which implies for any $n < m$ and $n, m \in \text{dom} f$, $f_n < f_m$. Thus $f_n \prec f_m$, which contradicts $f_n = f_m$. Thus it cannot be that when $f_n = f_m$, $n \neq m$, it must be that $n = m$.  $f$ is one-to-one.
+		
+		\medskip
+
+		Furthermore we wish to show that $f$ is surjective onto $X$. Let there be a property over the natural numbers: $P(n) :=`` n \notin X$ or there exists some $m \in \mathbb{N}$ such that $f_n = m$". We use strong induction on this property. Let us show $P(0)$. Let us consider if $0$ is in $X$ or not. If $0 \notin X$, $P(0)$ holds. If $0 \in X$, then $0$ is the least element of $X$, thus $f_0 = x$ by definition of $f$. Thus $P(0)$ is true regardless of whether $0$ in $X$ or not. Let there be an inductive assumption on $P(m)$ for all $m < n$ and we wish to show $P(n)$. Consider two cases, the first case is where there is some value $m < n$ such that $m \in X$ and the second case is for all $m < n$, $m \notin X$. In the first case, let $S_n = \{x \in X \text{ } | \text{ } x < n\}$. $S_n$ is not empty by definition and is upper bounded by $n$, thus a maximum element must exist. Let $\text{max}(S_n) = q$. Then according to $P(q)$, there must exist $t \in \mathbb{N}$ such that $f_t = q$. We wish to show $f_{t + 1} = n$. Let $l = s'(q)$. If $l < n$, then we have $l \in S_n$ and $q < l$, thus $q$ cannot be the greatest element of $S_n$. If $l > n$, then consider the two cases for $s'(q)$. It is not true that $S_q = \{y \in X \text{ } | \text{ } y > q\}$ is empty since $n \in X$ and $n > q$. Thus it must be that $s'(q) = \text{ least element of } S_q$. Since $n \in S_q$ and $n < l$, $l$ is not the least element of $S_q$ so it cannot be $s'(q) = l$. Thus it must be that $n = l$, which implies $n = l = s'(q)$. Since $g(f_t, t) = s'(f_t) = n$, it must be that $f$ does not have length $t + 1$ by $f$ is either infinite or length $t + 1$ where $g(f_t, t)$ is undefined. Since $f_t$ is defined, it must be that $f$ is either infinite or has length greater than $t + 1$. In either case $t + 1 \in \text{dom } f$ and thus $f_{t + 1} = g(f_t, t) = n$. Thus $P(m)$ for any $m < n$ implies $P(n)$. We have shown $P(n)$ holds for all $n \in \mathbb{N}$. For any $x \in X$, based on $P(x)$ we can note if $x \in X$, then $x \in \text{ran }f$. Thus $X \subseteq \text{ran }f$. Since $f: \mathbb{N} \xrightarrow{} X$. we have $\text{ran }f \subseteq X$, thus we have $\text{ran }f = X$ as desired. 
+		
+		
+				\medskip
+				\item \textbf{Chapter 3. Section 3. Question 6. Version 2}
+				\medskip
+				
+				Consider three cases on $X$: one where $X$ is empty set, one where $X$ is infinite and one where $X$ is finite. 
+				Define $S_x = \{y \in \mathbb{N} \text{ } | \text{ } y > x \text{ and } y \in X \}$ on arbitrary $x \in X$.
+				
+				In the case that $X = \emptyset$, then $f = \langle \rangle$ suffices as a sequence where $\text{ran}(f) = X$.
+				
+				In the infinite case, let there be $g: X \times \mathbb{N} \xrightarrow{} \mathbb{N}$ defined as follows: $$g(x, n) := \text{min}(S_x)$$ for every $x \in X$, $n \in \mathbb{N}$. Therefore we can apply exercise 3.5 on $g$ and the minimum of $X$, $x_0$, to get a function $f: \mathbb{N} \xrightarrow{} X$. $f$ has three properties as follows:
+				
+				\begin{enumerate}
+					\item $f(0) = x_0$
+					\item $f(n + 1) = g(f(n), n)$ \text{ given } $(n + 1) \in \dom(f)$
+					\item Given there exists minimum $k$ for which $g(f_k, k)$ is undefined, $f$ is finite and has length $k + 1$. Otherwise $f$ is infinite.
+				\end{enumerate}				
+		   		
+				Note $f$ is an infinite sequence, otherwise there must exist some $k$ for which $g(f_k, k)$ is undefined, which implies that $\text{min}(S_{f_k})$ does not exist, but this is not possible because $S_{f_k}$ must be not empty by $X$ is infinite. $f_{n + 1} = g(f(n), n) = \min(S_{f_{n}}) > f_{n}$, using exercise 3.1, $f$ is monotonic. Since $f$ is monotonic, $f$ is also one-to-one from $\mathbb{N} \xrightarrow{} X$. Therefore $f$ is a sequence. 
+				 
+				\medskip
+				\textbf{Lemma.} For $n \in \mathbb{N}$, either $n \notin X$, or there is $m \in \mathbb{N}$ such that $f(m) = n$.
+				
+				
+				\medskip
+				Let's begin the proof by defining $P(n) := ``f(m) = n \text{ for some m or } n \notin X\text{"}$.
+				For the base case, $P(0)$, we have that either $0 \in X$ or $0 \notin X$. In the case that $0 \in X$, $0$ is the least element of $X$, thus $f(0) = 0$. If $0 \notin X$, $P(0)$ is true by definition. For the inductive case, we use strong induction to assume $P(k)$ for all $k < n$ and show $P(n)$. For such $n$, consider $n \in X$ or $n \notin X$. If $n \notin X$, $P(n)$ is true by definition. If $n \in X$, then consider whether $V_n = \{y \in \mathbb{N} \text{ } | \text{ }  y < n \text{ and } y \in X\}$ is empty. If $V_n$ is empty, then $n$ is the minimum element of $X$, which means $f(0) = n$. If $V_n$ is not empty, the let $p_n = \text{max}(V_n)$. Let $g(p_n, n) = S_{p_n} = l$. We wish to show that $l = n$. To proceed, we demonstrate $l \neq n$ is not possible by contradiction. If $l < n$, $l \in V_n$, which means that $p_n$ is not the maximum of $V_n$ because $p_n < l$ by definition of $g$. This is a contradiction. If $l > n$, then $S_{p_n} = n \neq l$. This is not possible. Thus we have $l = n$ by force. First we can note $f(m) = p_n$ for some $m \in \mathbb{N}$ due to the inductive hypothesis, then $f(m + 1) = g(f(m), m) = g(p_{n}, m) = S_{p_n} = n$. Therefore we have shown both the base case and the inductive case of $P$.
+				
+				\medskip
+				\textbf{Corollary.}
+			For any $n \in X$, there exists some $m \in \mathbb{N}$ such that $f(m) = n$ by $P(n)$, thus $f: \mathbb{N} \xrightarrow{} X$ is onto.
+			
+			\medskip
+			Based on the fact that $f: \mathbb{N} \xrightarrow{} X$ is one-to-one and onto, the infinite case works as intended.
+			
+			\medskip
+			Now let us proceed to proving the proposition in the case that $X$ is finite. Since $X$ is finite, there must exist some $\bar{a} \in \mathbb{N}$ such that $\bar{a} \notin X$. This must be true because there must exist some $n \in X$ such that $n + 1 \notin X$, otherwise $X$ is an inductive set which contains $\mathbb{N}$ and thus infinite. 
+			
+			\medskip
+			Let us define a set $\bar{X} = X \cup \{\bar{a}\}$ and $g: \bar{X} \times \mathbb{N} \xrightarrow{} \bar{X}$ as follows:
+			$$g(x, n) := 
+			\begin{cases}
+				\bar{a} & x \notin X \land S_x = \emptyset\\
+				\text{min}(S_x) & S_x \neq \emptyset\\
+			\end{cases}$$.
+			
+			
+			Recall that $S_x = \{y \in \mathbb{N} \text{ } | \text{ } y > x \text{ and } y \in X \}$ on arbitrary $x \in X$ in the above g. Note that $S_x = \emptyset$ if $x$ is the maximum element of $X$ or if $x \notin X$, we have $\bar{a} = g(x,n)$.
+			
+			\medskip
+			Applying exercise 5 on $g$ and let there be $x_0 = \text{min}(X)$ by $X \neq \emptyset$ to produce $f: \mathbb{N} \xrightarrow{} X$ with the following properties:
+			
+			
+			\begin{enumerate}
+				\item $f(0) = x_0$
+				\item $f(n + 1) = g(f(n), n)$ \text{ given } $(n + 1) \in \dom(f)$
+				\item Given there exists minimum $k$ for which $g(f_k, k)$ is undefined, $f$ is finite and has length $k + 1$. Otherwise $f$ is infinite.
+			\end{enumerate}
+			
+			In this case we note that $g(\text{max}(X), n)$ for $f(n) = \text{max}(X)$ is undefined, in which case $f$ is finite. We apply the lemma to show that $\text{ran}(f) = X$ as before.
+			
+			We wish to show if $n, n + 1 \in \dom{f}$, then $f(n) < f(n + 1)$.
+			Note that $f_n < S_{f_{n}} = g(f(n), n) = f_{n + 1}$. From this property we have monotonicity on $f$, which implies $f$ one-to-one from exercise 1. We can conclude that $f$ is a sequence which satisifies $\text{ran}(f) = X$. 
+			
+			\medskip
+			We have shown in all cases of $X$, there exists some sequence $f$ such that $\text{ran}(f) = X$ as desired.
+
+	\end{enumerate}
+	
+	
+	
+	\medskip
+	\textbf{Chapter 3. Section 4}
+	\medskip 
+		
+	\begin{enumerate}
+		\item \textbf{Question 1}
+		\medskip
+		
+		Let $P(n) := ``\text{For any k,m} \in \mathbb{N}, (k + m) + n  = k + (m + n)$''. Let us demonstrate $P(n)$ for all $n \in \mathbb{N}$ through induction. For $P(0)$, we have $$(k + m) + 0 = k + m = k + (m + 0)$$.
+		
+		\medskip
+		For any $n \in \mathbb{N}$, let us assume $P(n)$ and demonstrate $P(n + 1)$.
+		
+		\begin{align*}
+			(k + m) + (n + 1) &= ((k + m) + n) + 1\\
+			&= (k + (m + n)) + 1\\
+			&= (k + ((m + n) + 1))\\
+			&= k + (m + (n + 1))\\
+		\end{align*}
+		
+		Thus we have shown $P(n)$ for all $n \in \mathbb{N}$. Thus for any $k,m,n \in \mathbb{N}$, we have $(k + m) + n = k + (m + n)$ by $P(n)$.
+		
+		\medskip
+		\item \textbf{Question 2}
+		\medskip
+		
+		We wish to show $m < n$ if and only if $m + k < n + k$ for all $m,n,k \in \mathbb{N}$. First let us show the forward direction and then the converse. Let there be a $P(k) := ``\text{for any } m < n \text{ implies } m + k < n + k$''. With $P(0)$ we have $m < n$ implies $m + 0 = m < n = n + 0$. Let us assume $P(n)$ and demonstrate $P(n + 1)$. If $m < n$, then it must be that $m + k < n + k$. Note the successor is monotonically increasing as shown before, thus $m + k < n + k$ implies $s(m + k) < s(n + k)$. We have $$m + (k + 1) = (m + k) + 1 = s(m + k) < s(n + k) = (n + k) + 1 = n + (k + 1)$$
+		 We have demonstrated $P(n)$ for all $n \in \mathbb{N}$. Thus with any $m,n,k \in \mathbb{N}$, $m < n$ implies $m + k < n + k$ because $P(k)$.
+		
+		\medskip
+		
+		Now to demonstrate the converse implication. Let there be some property $P(n) := ``\text{for any } m + k < n + k \text{ implies } m < n$''. With $P(0)$ we have $m = m + 0 < n + 0 = n$. Let us assume $P(n)$ and demonstrate $P(n + 1)$. Given $m + (k + 1) < n + (k + 1)$, we can consider what $m + k$ is in relation to $n + k$. Consider all three possible cases of $m + k$'s relation with $n + k$.
+		
+		\begin{enumerate}
+		\item 
+		\medskip
+		If $m + k > n + k$, then $$m + (k + 1) = (m + k) + 1 > (n + k) + 1 = n + (k + 1)$$
+		
+		\item 
+		\medskip
+		If $m + k = n + k$, then $$m + (k + 1) = n + (k + 1)$$
+		
+		\item 
+		\medskip
+		If $m + k < n + k$, then $$m + (k + 1) = (m + k) + 1 < (n + k) + 1 = n + (k + 1)$$
+		
+		\medskip
+		Thus the only way we can have $m + (k + 1) < n + (k + 1)$ is $m + k < n + k$. Thus we have $m + (k + 1) < n + (k + 1)$ implies $m + k < n + k$ which implies $m < n$. Thus $m + (k + 1) < n + (k + 1)$ implies $m < n$. $P(m)$ for any $m \in \mathbb{N}$. Then we have for all $m,n,k \in \mathbb{N}$, $m + k < n + k$ implies $m, n$ from $P(k)$ is true.
+		
+		\medskip
+		
+		Since $m < n$ implies $m + k < n + k$ and vice versa, then $m < n$ if and only if $m + k < n + k$.
+		 
+		\end{enumerate}
+		
+		\medskip
+		\item \textbf{Question 3}
+		\medskip
+		
+		We wish to show for all $m,n \in \mathbb{N}$ that $m \leq n$ if and only if there exists $k \in \mathbb{N}$ such that $m + k = n$. First demonstrate the forward direction then the converse.
+		
+		\medskip
+		With the forward direction assume that $m \leq n$. Then let us demonstrate this as a property of $n$. That is, let there be property $P(n)$ as follows: $$``\forall m \in \mathbb{N} \text{ such that m} \leq n \text{ we have some k} \in \mathbb{N} \text{ such that } m + k = n\text{''}$$
+		
+		Note for the base case $P(0)$ we have only when $m = 0$ do we have $m = 0 \leq 0 = n$. Thus assuming $m \leq n = 0$ implies that $m = 0$, for which we can let $k = 0$, thus $m + k = 0 + 0 = 0 = n$ as desired.
+		 
+		\medskip
+		For the inductive case for arbitrary $n \in \mathbb{N}$, we wish to show $P(n)$ implies $P(n + 1)$. For any $m$ such that $m \leq n + 1$ we have that $m < n + 1$ or $m = n + 1$. If $m < n + 1$, then we have $m \leq n$, which implies there exists some $k \in \mathbb{N}$ such that $m + k = n$ from the inductive assumption $P(n)$. Letting $k' = k + 1$ allows for $m + k' = m + (k + 1) = (m + k) + 1 = n + 1$, this gives us the desired $k'$ such that $m + k' = n$. If $m = n + 1$, then we note $m + 0 = n + 1$ simply. Thus we have $P(n)$ implies $P(n + 1)$ as desired. Since $P(n)$ implies $P(n + 1)$ for all $n \in \mathbb{N}$, $P(n)$ is true for all $n \in \mathbb{N}$, which implies that for any $n,m \in \mathbb{N}$ we have $m \leq n$ implies there exists some $k \in \mathbb{N}$ such that $m + k = n$ as per $P(n)$ is true.
+		
+		\medskip
+		In the converse direction, let us assume that there exists some $k \in \mathbb{N}$ such that $m + k = n$. Fix such a $k$. For sake of contradiction assume $m > n$. $m > n$ implies $m + k > n + k$. We wish to show $n + k \geq n$, which together with $m + k > n + k$ will mean $m + k > n$. To accomplish that first show $n + k \geq n$ for any $k \in \mathbb{N}$. Let $P(k) := ``\forall n, n + k \geq n$''. $P(0)$ is true because $n + 0 = n$. We wish to demonstrate $P(k)$ implies $P(k + 1)$.  We note $n + (k + 1) = (n + k) + 1 > n + k$. Since $n + k \geq n$ by the inductive assumption, together with $n + (k + 1) > n + k$, we can note that $(n + k) + 1 \geq n$. Thus we can finally note that $P(k)$ is true for all $k \in \mathbb{N}$. Since $m + k > n + k \geq n$ for all $k \in \mathbb{N}$ we have $m + k > n$ for all $k \in \mathbb{N}$, thus contradicting $m + k = n$. It must be that we cannot have $m > n$, which means that $m \leq n$ by necessity.
+		
+		\medskip
+		With both forward and converse directions shown, it is possible to conclude that for any $m,n \in \mathbb{N}$, $m \leq n$ if and only if there exists some $k \in \mathbb{N}$ such that $m + k = n$ as desired.
+		
+		\item \textbf{Question 4.}
+		
+		Let there be a $g: \mathbb{N} \times \mathbb{N} \times \mathbb{N}$ where $g(p,a,n) = a + p$. Also let there be some $\alpha: \mathbb{N} \xrightarrow{} \mathbb{N}$ where $\alpha(p) = p$ for all $p \in \mathbb{N}$. With $P,A = \mathbb{N}$ we have $g: P \times A \times \mathbb{N} \xrightarrow{} \mathbb{N}$ and $\alpha: P \xrightarrow{} A$. Thus from the Parametrized Recursion Theorem there must exist some $f: \mathbb{N} \times \mathbb{N} \xrightarrow{} \mathbb{N}$ such that for all $n, p \in \mathbb{N}$:
+		\begin{enumerate}
+			\item $f(p, 0) = \alpha(p) = 0$
+			\item $f(p, n + 1) = g(p, f(p, n), n) = f(p, n) + p$
+		\end{enumerate}
+		
+		Note if we let $\cdot = f$, we have $m \cdot 0 = 0$ and $m \cdot (n + 1) = m \cdot n + m$ for all $n,m$ as desired.
+		
+		\newpage
+		\item \textbf{Question 5.}
+		\medskip
+		
+		\medskip
+		\textbf{Distributivity}
+		\medskip
+		
+		Let us first prove left + right distributivity. Let $$P(c) = ``\text{For any a,b} \in \mathbb{N}, a \times (b + c) = a \times b + a \times c \text{''}$$
+		
+		Note for the base case we have $a \times (b + 0) = a \times b = a \times b + 0 = a \times b + a \times 0$.
+		
+		\medskip
+		
+		For the inductive case, we wish to assume $P(n)$ and demonstrate $P(n + 1)$. 
+		
+		\begin{align*}
+			a \times (b + (n + 1)) &= a \times ((b + n) + 1))\\
+			&= a \times (b + n) + a & \text{By definition of $\times$}\\
+			&= a \times b + a \times n + a & \text{By inductive assumption/hypothesis}\\
+			&= a \times b + (a \times n + a) & \text{By associativity of $+$}\\
+			&= a \times b + (a \times (n + 1)) & \text{By definition of $\times$}\\
+		\end{align*}
+		
+		The inductive case is demonstrated. We have shown that for any $n \in \mathbb{N}$, $P(n)$ is true. Thus for any $a,b,c \in \mathbb{N}$ we have $a \times (b + c) = a \times b + a \times c$ from $P(c)$.
+		
+		\medskip
+		 
+		We now proceed left distributivity. Let there be a property as follows:
+		
+		$$P(n) := ``\text{For any a,b} \in \mathbb{N}, (a + b) \times n = a \times n + b \times n''$$.
+		
+		For the base case we have $P(0) = (a + b) \times 0 = 0 = 0 + 0 = a \times 0 + b \times 0$.
+		
+		\medskip
+		
+		For the inductive case, we assume $P(n)$ and wish to show $P(n + 1)$. 
+		
+		\begin{align*}
+			(a + b) \times (n + 1) &= ((a + b) \times n) + (a + b) && \text{By definition of $\times$}\\
+			&= (a \times n + b \times n) + (a + b) && \text{By inductive assumption/hypothesis}\\
+			&= a \times n + b \times n + a + b && \text{By associativity of $+$}\\
+			&= a \times n + (b \times n + a) + b && \text{By associativity of $+$}\\
+			&= a \times n + (a + b \times n) + b && \text{By commutativity of $+$}\\
+			&= a \times n + a + b \times n + b && \text{By associativity of $+$}\\
+			&= a \times (n + 1) + b \times (n + 1) && \text{By definition of $\times$}\\
+		\end{align*}
+		
+		Since we have shown the base case and the inductive case, it must be true that $P(n)$ for all $n \in \mathbb{N}$. Thus for any $a,b,c \in \mathbb{N}$, we have $(a + b) \times c = a \times c + b \times c$ is true because $P(c)$ is true.
+		
+		\medskip
+		We have shown both left and right distributivity as desired.
+		
+		\medskip
+		\textbf{Associativity}
+		\medskip
+		
+		Now to show associativity of $\times$. 
+		Let there be a property $$P(n) := ``\text{For any a,b } \in \mathbb{N}, (a \times b) \times n = a \times (b \times n)''$$
+
+		Let us show the base case. $P(0) = (a \times b) \times 0 = 0 = a \times 0 = a \times (b \times 0)$.
+		
+		Now let us demonstrate the inductive case. We assume $P(n)$ and show $P(n + 1)$. 
+		
+		\begin{align*}
+			a \times (b \times (n + 1)) &= a \times (b \times n + b) && \text{By definition of $\times$}\\
+			&= a \times (b \times n) + a \times b && \text{By right distributivity}\\
+			&= (a \times b) \times n + a \times b && \text{By associativity of $\times$}\\
+			&= (a \times b) \times (n + 1) && \text{By definition of $\times$}\\
+		\end{align*}
+		
+		With the base case and inductive case as shown, we have that $P(n)$ is true for all $n \in \mathbb{N}$. Thus we have for any $a,b,c \in \mathbb{N}$, $(a \times b) \times c = a \times (b \times c)$ from $P(c)$ is true.
+		
+		\medskip
+		\textbf{Commutativity}
+		\medskip
+		
+		Let there be a property $$P(b) := ``\text{For any a} \in \mathbb{N}, a \times b = b \times a''$$.
+		
+		\medskip
+		Let us we take a side tour to show a lemma that $0 \times a = 0$ for any $a \in \mathbb{N}$. Let there be a property $$P(x) := ``0 \times x = 0''$$
+		
+		With the base case we have $P(0) = 0 \times 0 = 0$. 
+		With the inductive case we have $0 \times (n + 1) = 0 \times n + 0 = 0 + 0 = 0$. Thus we have shown that $0 \times n = 0$ for all $n \in \mathbb{N}$ as desired.
+		
+		\newpage
+		Now let us show the base case. $n \times 0 = 0 = 0 \times n$.
+		
+		\medskip
+		For the inductive case, let us assume $P(n)$ and demonstrate $P(n + 1)$.
+		
+		\begin{align*}
+			a \times (b + 1) &= a \times b + a && \text{By right distributivity}\\
+			&= b \times a + a && \text{By commutativity of $\times$}\\
+			&= a + b \times a && \text{By commutativity of $+$}\\
+			&= (a + 0) + b \times a && \text{By definition of $+$}\\
+			&= (0 + a) + b \times a && \text{By commutativity of $+$}\\
+			&= (0 \times a + a) + b \times a && \text{By $0 \times a = 0$}\\
+			&= (0 \times a + (a \times 1)) + b \times a && \text{By $a \times 1 = a$}\\
+			&= (0 \times a + (1 \times a)) + b \times a && \text{By commutativity of $\times$}\\
+			&= (0 + 1) \times a + b \times a && \text{By left distributivity}\\
+			&= 1 \times a + b \times a && \text{By $0 + 1 = 1$ from $1 + 0 = 0$ and commutativity of $+$}\\
+			&= b \times a + 1 \times a && \text{By commutativity of $+$}\\
+			&= (b + 1) \times a && \text{By definition fo $+$}\\
+		\end{align*}
+		
+		Since we have shown the base and inductive cases, $P(n)$ is true for all $n \in \mathbb{N}$ as desired. We can note for any $a,b \in \mathbb{N}, a \times b = b \times a$ because $P(b)$ is true.
+		
+		\medskip
+		
+		We have shown $\times$ is associative and commutative and also distributes over $+$ as desired.
+		
+		\item \textbf{Question 6.}
+		Let there be a property $$P(n) := ``\text{For all a,b} \in \mathbb{N}, a < b \text{ implies } a * n < b * n\text{''}$$
+		
+		\medskip
+		With the base case $P(1)$ we have $a * 1 = a < b = b* 1$.
+		
+		\medskip
+		For the inductive case let us assume $a < b$ implies $a * n < b * n$ as per the inductive hypothesis. Then we have $a * n + a < b * n + a$ from question 4.2. We also have $b * n + a = a + b * n < b + b * n$ from 4.2 again. Thus we have $a * (n + 1) = a * n + a < b * n + a < b + b * n = b * (n + 1)$ as desired. 
+		
+		\medskip
+		We have shown both the base case and the inductive case of $P(n)$. Thus $P(n)$ for all $n \in \mathbb{N}$, which implies for any $a,b,c \in \mathbb{N}$ we have $a < b$ implies $a \times c < b \times c$ from $P(c)$ is true.
+		
+		\newpage
+		\item \textbf{Question 7.}
+		Let there be a property $$P(b) := ``\text{For any n,a} \in \mathbb{N}, n^{a + b} = n^{a} \times n^{b} \text{''}$$
+		
+		\medskip
+		With the base case we have $n^{a + 0} = n^{a} \times 1 = n^{a} \times n^{0}$.
+		
+		\medskip
+		With the inductive case let us assume $P(b)$ and demonstrate $P(b + 1)$. 
+		\begin{align*}
+			n^{a + (b + 1)} &= n^{((a + b) + 1)} && \text{By associativity of $+$}\\
+			&= n^{(a + b)} \times n && \text{By definition of exponentiation}\\
+			&= n^{a} \times n^{b} \times n && \text{By inductive assumption/hypothesis}\\
+			&= n^{a} \times (n^{b} \times n) && \text{By associativity of $\times$}\\
+			&= n^{a} \times n^{b + 1} && \text{By definition of exponentiation}\\
+		\end{align*}
+		
+		\medskip
+		With both the base case and the inductive case shown, we can note that $P(b)$ is true for all $b \in \mathbb{N}$. Thus for $a,b,n \in \mathbb{N}$, $n^{a + b} = n^{a} \times n^{b}$ by $P(b)$.
+		
+		\item \textbf{Question 8.}
+		There are 8 Peano Axioms which we will verify in turn.
+		
+		\begin{enumerate}
+			\item \textbf{P1}
+			
+			If S(n) = S(m), we wish to show n = m. For contradictions sake, let us assume S(n) = S(m) and $n \neq m$. First we examine the case $n < m$ and then the case with $m < n$ is symmetric. If $n < m$, then we cannot have $n < m < n + 1$ as shown in Question 1 of section 3.2. Thus it must be that $n + 1 = m$ or $n + 1 < m$. If $n + 1 = m$, then $n + 1 = m < m + 1$. If $n + 1 < m$, then $n + 1 < m < m + 1$ implies $n + 1 < m + 1$ by $<$ is a total ordering and thus transitive. It must be that $n < m$ implies $S(n) = n + 1 < m + 1 = S(m)$ and thus a contradiction against $S(n) = S(m)$ is reached. $m < n$ results in $S(m) < S(n)$ and thus contradicts $S(n) = S(m)$ for the same reasons. Therefore if $S(n) = S(m)$ it must be that $n = m$ as desired.
+			
+			\item \textbf{P2}
+			
+			We wish to show that for all $n \in \mathbb{N}$ such that $S(n) \neq 0$.
+			
+			For sake of contradiction, let there exists some $n$ such that $S(n) = n + 1 = 0$. Then from $n + 1 = n \cup \{n\}$ we can note $n \in n + 1$, which implies that $n \in 0$. This is impossible since $0$ is the empty set. Thus it cannot be that $S(n) = 0$. Therefore for any $n \in \mathbb{N}$, $S(n) \neq 0$.
+			
+			\item \textbf{P3}
+			
+			$n + 0 = n$ is directly from the definition of $+$ according to the recursion theorem as shown in Theorem 4.1 of Chapter 3.
+			
+			\item \textbf{P4}
+			
+			$n + S(m) = S(n + m)$ is the same as $n + (m + 1) = (n + m) + 1$, which again is in the definition of $+$ as per Theorem 4.1
+			
+			\item \textbf{P5}
+			
+			$n \times 0 = 0$ directly comes from the definition of $\times$ as given in Question 4.4.
+			
+			\item \textbf{P6}
+			
+			$n \times S(m) = n \times (m + 1) = (n \times m) + n$ also comes from Question 4.4.
+			
+			\item \textbf{P7}
+			
+			If $n \neq 0$, we wish to show there exists some $k \in \mathbb{N}$ such that $S(k) = n$. We can let $S_n = \{l \in \mathbb{N} \text{ } | \text{ } l < n\}$. Then since $0 < n$, $0 \in S_n$, thus $S_n$ is not empty and upper bounded by $n$, which implies that $S_n$ has a greatest element. Let that element be $k = \text{max}(S_n)$. Let us compare $k + 1$ with $n$. If $k + 1 < n$, then we have $k + 1 \in S_n$. Since $k < k + 1$ and $k + 1 \in S_n$, $k$ is not the largest element in $S_n$, which is a contradiction. On the other hand if $k + 1 > n$, then we can note $n = k$ or $n < k$, in either case it must be that $k < n$ is contradicted. Thus it must be that $k + 1 = n$, which means that there always exists some $k \in \mathbb{N}$ such that $S(k) = n$.
+			
+			\item \textbf{P8}
+			
+			Let there be some property $A(n)$ where $A(0)$ is true and $A(k)$ implies $A(S(k))$ for every $k$. The set $L = \{k \in \mathbb{N} \text{ } | \text{ } A(k)\}$ is a inductive set because $0 \in L$ and $k \in L$ implies $S(k) = k + 1 \in L$. Inductive sets always have $\mathbb{N}$ as a subset, which means $\mathbb{N} \subseteq L$, or in other words, for any $n \in \mathbb{N}$, $n \in L$, which implies $A(n)$ is true. We have that for arbitrary $n \in \mathbb{N}$, $A(n)$, which means that every natural number has the property $A$.
+
+		\end{enumerate}
+		
+		\newpage
+		\item \textbf{Question 9.}
+		\medskip
+		
+		\textbf{PURE PAIN!}
+		
+		\medskip		
+		\textbf{Welcome to Pure Pain. Utilities/Lemmas/Tools are Defined Here}
+		\medskip
+		
+		\medskip
+		\textbf{Length Function}
+		\medskip
+		
+		First let us define a length function. Also hijack the $\text{seq}(\mathbb{N})$ to only mean finite sequences of reals in this question.
+		
+		$\len: \text{seq}(\mathbb{N}) \xrightarrow{} \mathbb{N}$ which finds the length of every sequence.
+		$$\len(s) := \begin{cases}
+			0 & s = \langle \rangle\\
+			\Max(\dom(s)) + 1 & s \neq \langle \rangle\\
+		\end{cases}$$
+		
+		Note $\Max(\dom(s))$ is always defined because $s \neq \langle \rangle$, thus $0 \in \dom(s)$. Since $s$ is finite length, let such a length be $n$, then $n \notin \dom(s) = n - 1$. Furthermore, since every $j \in n - 1$ has $j \leq n - 1$, thus $j < n$. Therefore $n$ is an upper bound of $s$. Any non-empty upper bounded set in the naturals must have a greatest element, thus let the greatest element of $\dom(s)$ be denoted as $\Max(\dom(s))$.
+		
+		\medskip
+		\textbf{Concatenation and Sum Function}
+		\medskip
+		
+		Now let there be a function which concatenates and adds up all the elements of a sequence at the same time. We construct function using the Recursion Theorem as follows. Let there be some $g: \seqnat \times \seqnat \times \mathbb{N} \xrightarrow{} \seqnat$ defined as 
+		$$g(p, a, n) := \begin{cases}
+			a & a = \langle \rangle \text{ or } a = \langle a_0 \rangle \text{ for some } a_0\\
+			m = \len(a), a \upharpoonright (m - 2) \cup \{(m - 2, a_{m - 2} + a_{m - 1})\} & \text{ otherwise }\\
+		\end{cases}$$
+		
+		Also define $\alpha: \seqnat \xrightarrow{} \seqnat$ where $\alpha(a) = a$ for all $a \in \seqnat$. With $g,\alpha$ so defined, there must exists some $f: \seqnat \times \mathbb{N} \xrightarrow{} \seqnat $ according to the Parameterized Recursion Theorem (3.6) such that 
+		
+		\begin{enumerate}
+		\item $f(p, 0) = \alpha(p) = p$
+		\item $f(p, n + 1) = g(p, f(p, n), n)$
+		 \end{enumerate}
+		  for all $p \in \seqnat, n \in \mathbb{N}$. 
+		  
+		  \medskip
+		  \textbf{Brief Result about g}
+		  \medskip
+		  
+		  We pause here note a short result about $g$ which we will use later: $a \in \seqnat$ with $\len(a) > 1$, $\len(g(a, a, 1)) = \len(a) - 1$. Let $\len(a) = m$. Since $g' = g(a, a, 1) = a \upharpoonright (m - 2) \cup \{(m - 2, a_{m - 2} + a_{m - 1})\}$, we observe $\dom(g')$ contains all the elements of $g$ except $m - 1$. Thus $\Max(\dom(g'))$ cannot be $m - 1$, and so it is $m - 2$. Thus $\len(g') = \Max(\dom(g')) + 1 = m - 1 = \len(g) - 1$ as desired.
+		  
+		  \newpage
+		  \textbf{Constructing $\Sigma$/Main Body}
+		  \medskip
+		  
+		  Let there be some $q: (\{0,1\} \xrightarrow{} \mathbb{N}) \xrightarrow{} \mathbb{N}$ defined as 
+		  $$q(s) := \begin{cases}
+		  	0 & s = \langle \rangle\\
+			a_0 & s = \langle a_0 \rangle\\
+		  \end{cases}$$
+		  
+		  Then define $\Sigma: \seqnat \xrightarrow{} \nat$ as $$\Sigma(a) :=
+		  	\begin{cases}
+			0 & a = \langle \rangle\\
+		   	q(f(a, \len(a) - 1)) & a \neq \langle \rangle\\
+			\end{cases}$$
+		  
+		  First we must demonstrate that $f(a, \len(a) - 1) \in \text{dom}(q)$ for any $a \in \seqnat$ to ensure that $\Sigma$ is indeed a function defined on the entirety of $\seqnat$. This will be done through a property of $f$ which we will demonstrate. 
+		  
+		  $$P(m) := ``\text{For any sequences } a \in \seqnat \text{ where }$$
+		  $$\len(a) = n \text{ where n} > 0, \text{ if } m < n, \len(f(a, \len(a))) = n - m\text{"}$$
+		  
+		  In the base case or P(0), we have $f(a, 0) = \alpha(a)$ for all $a \in \seqnat$. Thus $\len(f(a,0)) = \len(a) = \len(a) - 0$ as desired.
+		   
+		   \medskip
+		   Now let us work on the inductive case by assuming $P(m)$. Then for any $a \in \seqnat$ such that $\len(a) > m + 1$, we have $f(a, m + 1) = g(a, f(a, m), m)$. From the inductive hypothesis we have $\len(f(a,m)) = \len(a) - m$. From the brief result about g, we have $\len(f(a, m + 1)) = \len(g(a, f(a, m), m)) = \len(f(a,m)) - 1 = \len(a) - m - 1$. Thus we have shown the inductive case.
+		   
+		   \medskip
+		   Since we have shown both the base case and the inductive case, we have $P(m)$ is true for all $m \geq 0$. We then note that $\len(f(a, \len(a) - 1)) = 1$ for $a \neq \langle \rangle$, which implies that $f(a, \len(a) - 1) \in (\{0,1\} \xrightarrow{} \seqnat) = \dom(q)$ for any $a \in \seqnat$. It is shown that $\Sigma$ is a function defined over all $a \in \seqnat$ as desired.
+		   
+		   \medskip
+		   \textbf{Properties of $\Sigma$}
+		   \medskip
+		   
+		   Now we wish to demonstrate three properties of $\Sigma$.
+		   
+		   \begin{enumerate}
+		   	\item $\Sigma(\langle \rangle) = 0$ is true by definition of $\Sigma$.
+			\item $\Sigma(\langle k_0 \rangle) = q(f(\langle k_0 \rangle, 0)) = q(\langle k_0 \rangle) = k_0$.
+			\item We wish to show $\Sigma(\langle k_0, ..., k_n \rangle) = \Sigma(\langle k_0, ..., k_{n - 1}\rangle) + k_n$, which requires a side result we will show now about $f$. 
+		   \end{enumerate}
+			
+			$$P(m) := ``\text{If } n > 0 \text{ and } m > 0, \text{then for any } \langle k_0, ..., k_n \rangle, f(\langle k_0, ..., k_n \rangle, m) = s' \text{ and }$$ 
+			$$f(\langle k_0, ..., k_{n - 1}\rangle, m - 1) = s'' \text{ for any } m \leq n \text{ implies } s'(l) = s''(l)$$
+			$$\text{ for all } l < \len(s') - 1 \text{ and } s'(l) = s''(l) + k_n \text{ for } l = \len(s') - 1\text{"}$$
+			
+			\medskip
+			
+			For the base case, we have $m = 1$ and $$f(\langle k_0, .., k_n \rangle, 1) = g(\langle k_0, .., k_n \rangle, f(\langle k_0, .., k_n \rangle, 0), 0) = g(\langle k_0, .., k_n \rangle, \langle k_0, .., k_{n} \rangle, 0) = \langle k_0, .., k_{n - 1} + k_n \rangle$$ 
+			Let $s' = f(\langle k_0, .., k_n \rangle, 1) = \langle k_0, .., k_{n - 1} + k_n \rangle$.
+			Let $s'' = f(\langle k_0, ..., k_{n - 1} \rangle, 0) = \langle k_0, ..., k_{n - 1} \rangle$.
+			We have for all $i < n - 1$, $s'_{i} = k_{i} = s''_{i}$ and when $i = n - 1$, $s'_{i} = k_{n - 1} + k_n = s''_{i} + k_n$. The base case is demonstrated.
+			
+			\medskip
+			
+			For the inductive case, let us assume $P(m)$ and demonstrate $P(m + 1)$. 
+			
+			Let there be some arbitrary $\langle k_0, ..., k_n \rangle$ with $s' = f(\langle k_0, ..., k_n \rangle, m + 1)$ and $s'' = f(\langle k_0, ..., k_{n - 1}\rangle, m)$. It must be that $n < m + 1$ otherwise the statement $P(m + 1)$ is trivially true. Note the following about $s'$ and $s''$:
+			
+			\begin{align*}
+				s' &= f(\langle k_0, ..., k_n \rangle, m + 1)\\
+				&= g(\langle k_0, ..., k_n \rangle, f(\langle k_0, ..., k_n \rangle, m), m)\\
+				s'' &= f(\langle k_0, ..., k_{n - 1} \rangle, m)\\
+				&= g(\langle k_0, ..., k_{n - 1} \rangle, f(\langle k_0, ..., k_{n - 1} \rangle, m - 1),  m - 1)\\
+			\end{align*}
+			
+			We first note that from the length property on natural sequences and $f$ we have $$\len(f(\langle k_0, ..., k_n \rangle, m)) = (n + 1) - m$$ and $$\len(f(\langle k_0, ..., k_{n - 1}\rangle, m - 1)) = ((n - 1) + 1) - (m - 1) = n - (m - 1) = (n + 1) - m$$
+			Once again we let $s'_{0} = f(\langle k_0, ..., k_n \rangle, m)$ and $s''_{0} = f(\langle k_0, ..., k_{n - 1} \rangle, m - 1)$. Then consider two cases on the length $s'_{0}, s''_{0}$. One case is that both $s'_{0}, s''_{0}$ have length 0 or 1. In these cases it must be that both $s'_{0}, s''_{0}$ are of the form $\langle \rangle$ or $\langle a_0 \rangle$. If $s'_{0} = \langle \rangle = s''_{0}$, it must be that $\langle k_0, ..., k_n \rangle$ was of the form $\langle \rangle$, otherwise $g(\langle k_0, ..., k_n \rangle, f(\langle k_0, ..., k_n \rangle, m), m)$ cannot produce an output of $\langle \rangle$. So we can safety note that $s'_{0} = s''_{0}$ is not of the form $k_0, ..., k_n$, thus is outside of our scope of consideration. If $s'_{0}, s''_{0}$ are of the form $\langle a_0 \rangle$, then let $\langle a_0 \rangle = s'_{0}$ and $\langle b_0 \rangle = s''_{0}$. From the inductive hypothesis, we must have $a_0 = b_0 + k_n$. From this clarification into what $s'_{0}$ and $s''_{0}$ must be in the case of them both having length 1, we can find the result of $f$ as follows:
+			
+			\begin{align*}
+				f(\langle k_0, ..., k_n \rangle, m + 1) &= g(\langle k_0, ..., k_n \rangle, f(\langle k_0, ..., k_n \rangle, m), m)\\			&= g(\langle k_0, ..., k_n \rangle, s'_{0}, m)\\
+				&= g(\langle k_0, ..., k_n \rangle, \langle a_0 \rangle, m)\\
+				&= \langle a_0 \rangle = \langle b_0 + k_n \rangle \\
+				f(\langle k_0, ..., k_{n - 1} \rangle, m) &= g(\langle k_0, ..., k_n \rangle, f(\langle k_0, ..., k_{n - 1} \rangle, m - 1), m)\\			&= g(\langle k_0, ..., k_{n - 1} \rangle, s''_{0}, m)\\
+				&= g(\langle k_0, ..., k_n \rangle, \langle b_0 \rangle, m)\\
+				&= \langle b_0 \rangle\\
+			\end{align*}			
+			
+			It is shown in the case that $f(\langle k_0, ..., k_n \rangle, m)$ and $f(\langle k_0, ..., k_{n - 1} \rangle, m - 1)$ are length 1, $P(m + 1)$ is true.
+			
+			\medskip
+			Now to show the general case, where $s'_{0} = f(\langle k_0, ..., k_n \rangle, m), s''_{0} = f(\langle k_0, ..., k_{n - 1} \rangle, m - 1)$ are both length q where $q > 1$. 			
+			\begin{align*}
+				f(\langle k_0, ..., k_n \rangle, m + 1) &= g(\langle k_0, ..., k_n \rangle, f(\langle k_0, ..., k_n \rangle, m), m)\\
+				&= g(\langle k_0, ..., k_n \rangle, \langle a_0, ..., a_{q - 1} \rangle, m)\\
+				f(\langle k_0, ..., k_{n - 1} \rangle, m) &= g(\langle k_0, ..., k_{n - 1} \rangle, f(\langle k_0, ..., k_{n - 1} \rangle, m - 1), m - 1)\\
+				&= g(\langle k_0, ..., k_{n - 1} \rangle, \langle b_0, ..., b_{q - 1} \rangle, m - 1)\\
+			\end{align*}
+			
+			Pausing here to note by the inductive hypothesis/assumption, we must have that $s'_{0}(i) = s''_{0}(i)$ for all $i < \len(s') - 1$ and $s'_{0}(i) + k_n = s''_{0}(i)$ for $i = \len(s') - 1$. Thus it must be that $s'_{0}(i) = a_i = b_i = s''_{0}(i)$ for all $i < q - 1$ and $a_{q - 1} = b_{q - 1} + k_n$.
+			
+			\medskip
+			Since the length of $s'_{0}, s''_{0}$ are greater than one, we note that 
+			
+			
+			\begin{align*}	
+				s' &= g(\langle k_0, ..., k_n \rangle, s'_{0}, m + 1) = s'_{0} \upharpoonright (q - 2) \cup \{(q - 2, s'_{0}(q - 2) + s'_{0}(q - 1))\}\\
+				s'' &= g(\langle k_0, ..., k_{n - 1} \rangle, s''_{0}, m) = s''_{0} \upharpoonright (q - 2) \cup \{(q - 2, s''_{0}(q - 2) + s''_{0}(q - 1))\}\\
+			\end{align*}
+			
+			Thus for all $i < q - 2$ we have $s'_{i} = s'_{0}(i) = s''_{0}(i) = s''_{i}$. If $i = q - 2$, then from $s'_{0}(n - 2) = s''_{0}(n - 2)$ and $s'_{0}(n - 1) = s''_{0}(n - 1) + k_n$ we can note $s'_{n - 2} = s'_{0}(n - 2) + s'_{0}(n - 1) = s''_{0}(n - 2) + (s''_{0}(n - 1) + k_n) = s''_{n - 2} + k_n$. Since the domain of $s'$ consists of $q - 2$ and numbers less than $q - 2$, it must be that $\len(s') = (q - 2) + 1 = q - 1$. Thus we have $s'_{i} = s''_{i}$ for all $i = q - 2 = \len(s') - 1$ and $s'_{i} = s''_{i} + k_n$ for $i = q - 2 = \len(s') - 1$ as desired.
+			
+			\medskip
+			Both the base case and the inductive cases are demonstrated on $P$, thus $P(m)$ for all $m \in \mathbb{N}$.
+			Now we can return to thinking about $\Sigma$. Since $\len(f(\langle k_0, ..., k_n \rangle, n)) = \len(f(\langle k_0, ..., k_{n - 1}, n - 1) = 1$, they must both be of the form $a_0, b_0$. From $P(n)$ we can note $f(\langle k_0, ..., k_n \rangle, n) = \langle a_0 + k_0 \rangle$ and $f(\langle k_0, ..., k_{n - 1} \rangle, n - 1) = \langle a_0 \rangle$ for some $a_0 \in \mathbb{N}$. Thus we have 
+			\begin{align*}
+				\Sigma \langle k_0, ..., k_n \rangle &= q(f(\langle k_0, ..., k_n \rangle, n))\\
+				&= q(\langle a_0 + k_n \rangle)\\
+				&= a_0 + k_n\\
+				&= q(\langle a_0 \rangle) + k_n\\
+				&= q(f(\langle k_0, ..., k_{n - 1}), n) + k_n\\
+				&= \Sigma \langle k_0, ..., k_{n - 1}) + k_n\\
+			\end{align*}
+			
+			All three properties of $\Sigma$ are demonstrated, thus the $\Sigma$ which we defined works as expected.
+			\end{enumerate}
+			
+			\medskip
+			 \textbf{Chapter 3. Section 5}
+			 \medskip
+			 
+			 \begin{enumerate}
+			 	\item \textbf{Question 4.}
+				\medskip
+								
+				Let there be $A \neq \emptyset$ and $B = \mathcal{P}(A)$. 
+				
+				
+				First list some facts which will be of interest throughout the proof. 
+				\begin{enumerate}
+					\item For any $x \in B$, $x \subseteq A$.
+					\item For any $x \in B$, $y \in x$ implies $y \in A$ from previous fact.
+					\item For any $x,y \in B$, $x,y \subseteq A$, thus $x \cup y \subseteq A$ and $x \cap y \subseteq A$.
+				\end{enumerate}
+				
+				Let there be some $h: B \xrightarrow{} B$. We wish to show that $h$ is one-to-one and onto. First let us show that $h$ is one-to-one. Let $h(x) := A - x$ for all $x \in B$ where $-$ is defined as set subtraction. Note if $h(a) = h(b)$ implies $A - a = A - b$. Assume for sake of contradiction we can have $a \neq b$, which implies there either exists some $y \in a$ such that $y \notin b$ or vice versa. Take the first case with $y \in a$ and $y \notin b$ WLOG. With this case we have $y \in a$ implies $y \in A$ from fact B. Thus we have $y \in A$, $y \in a$, $y \notin b$, which implies that $y \notin A - a$, $y \in A - b$, which finally contradicts $A - a = A - b$. We must have $a = b$ as desired and $h$ is one-to=one. Now let us show that $h$ is onto. For any $x \in A$, let us show $h(A - x) = x$ first by showing $A - (A - x) \subseteq x$ and $x \subseteq A - (A - x)$.
+				
+				\medskip
+				First with the forward direction, we have for any $y \in A - (A - x)$, $y \notin A - x$ and $y \in A$. $y \notin A - x$ implies that $y \notin A$ or $y \in x$, yet since $y \in A$, we must have $y \in x$. Thus we have $A - (A - x) \subseteq x$ as desired.
+				
+				\medskip
+				Now to show the reverse direction. For arbitrary $y \in x$, it must be that $y \in A$ by fact B. $y \in x$ implies $y \notin A - x$, thus we have $y \notin A - x$ and $y \in A$, which implies that $y \in A - (A - x)$ as desired. 
+				
+				\medskip
+				We have shown that $A - (A - x) = x$ by showing both sides of the containment. By this fact we note for every $x \in A$ there exists some $q  = (A - x) \in A$ such that $h(q) = x$, which means that $h$ is onto. With $h$ both one-to-one and onto, we have all we need for $h$. 
+				
+				\medskip
+				Let us then show that $h$ is an isomorphism across the structures of $(B, \cup_{B}, \cap_{B})$ and $(B, \cap_{B}, \cup_{B})$. For any $a,b \in A$, we have that $h(a) \cup_{B} h(b) = h(a \cup_{B} b)$ when either side is defined. First clarify some minor points about this. There is a difficulty which lies in the fact that if the LHS is defined, the RHS must also be defined to have equal value as the LHS and vice versa. So it is convenient to demonstrate that both sides are always defined in one go. For any $a,b \in B$, we note that $a \cap b$ and $a \cup b$ are both elements of $B$ from fact C, and thus $a \cap_{B} b$ and $a \cup_{B} b$ are always both defined. For this reason we have that $a \cap_{B} b$, $a \cup_{B} b$, $h(a) \cap_{B} h(b)$, and $h(a) \cup_{B} h(b)$ are always defined. With this minor difficulty removed, we can now try to show that $h(a) \cup_{B} h(b) = h(a \cap_{B} b)$ for all a,b.
+				
+				\medskip
+				For any $a,b \in A$, we wish to show that $h(a) \cup_{B} h(b) \subseteq h(a \cap_{B} b)$, then vice versa. 
+				
+				\medskip
+				First let us show $h(a) \cup_{B} h(b) \subseteq h(a \cap_{B} b)$. For any $x \in h(a) \cup_{B} h(b)$, we have that $x \in h(a)$ or $x \in h(b)$, which implies that ($x \in A$ and $x \notin a$) or ($x \in A$ and $x \notin b$). Extracting out the $x \in A$, we have that $x \in A$ and ($x \notin a$ or $x \notin b$). We can now safely note from $x \notin a$ or $x \notin b$. For sake of contradiction, assume that $x \in a \cap b$. In this case we have that $x \in a$ and $x \in b$, which contradicts $x \notin a$ or $x \notin b$. thus it must be that $x \notin a$ or $x \notin b$ implies $x \notin a \cap b$. Based on the previous statements, we can imply $x \in A$ and $x \notin a \cap b$, which results in $x \in A - (a \cap b) = h(a \cap_{B} b)$. We have shown that $h(a) \cup_{B} h(b) \subseteq h(a \cap_{B} b)$ as desired.
+				
+				\medskip
+				Now let us show $h(a \cap_{B} b) \subseteq h(a) \cup_{B} h(b)$. For any $x \in h(a \cap_{B} b)$, we have $x \in A - (a \cap_{B} b)$, which implies that $x \in A$ and $x \notin a \cap_{B} b$, which means that we must have at least one of $x \notin a$, $x \notin b$ be true, otherwise $x \in a \cap_{B} b$. Based on the fact $x \in A$ and $x \notin a$ or $x \notin b$, we have two cases with $x \notin a$ or $x \notin b$. In the case that $x \notin a$, we have that $x \in A - a$. In the case that $x \notin b$, we have that $x \in A - b$. In both cases we have $x \in A - a$ or $x \in A - b$, which implies that $x \in h(a) \cup_{B} h(b)$. We have shown that $h(a \cap_{B} b) \subseteq h(a) \cup_{B} h(b)$.
+				
+				\medskip
+				With both $h(a) \cup_{B} h(b) \subseteq h(a \cap_{B} b)$ and  $h(a \cap_{B} b) \subseteq h(a) \cup_{B} h(b)$ we have $h(a) \cup_{B} h(b) = h(a \cap_{B} b)$ for any $a,b \in A$.
+				
+				\medskip
+				Now to show $h(a) \cap_{B} h(B) = h(a \cup_{B} b)$, but this is very similar to the previous demonstration, so we will proceed by more concise arguments. First let us show $h(a) \cap_{B} h(B) \subseteq h(a \cup_{B} b)$. For any $x \in h(a) \cap_{B} h(b)$, it must be that $x \in A - a$ and $x \in A - b$, which implies that $x \in A$ and $x \notin a$ and $x \notin b$. Since $x \notin a$ and $x \notin b$, $x \notin a \cup b$. From $x \in A$ and $x \notin a \cup b$, we have $x \in A - (a \cup b)$, which implies that $x \in h(a \cup_{B} b)$. Now to show $h(a \cup_{B} b) \subseteq h(a) \cap_{B} h(B)$. For any $x \in h(a \cup_{B} b)$, $x \in A$ and $x \notin a \cup_{B} b$. From $x \notin a \cup_{B} b$, we have that $x \notin a$ and $x \notin b$, which with $x \in A$ implies ($x \in A$ and $x \notin a$) and ($x \in A$ and $x \notin b$). This previous statement is equivalent to $x \in A - a$ and $x \in A - b$, or alternatively $x \in h(a) \cap_{B} h(b)$. With both directions of the containment shown, we can note $h(a) \cap_{B} h(b) = h(a \cup_{B} b)$.
+				
+				\medskip
+				\textbf{Conclusion}
+				\medskip
+				
+				With $h: B \xrightarrow{} B$ both as a bijective function and $h(a) \cup_{B} h(b) = h(a \cap_{B} b)$ and $h(a) \cap_{B} h(b) = h(a \cup_{B} b)$ for any $a,b \in B$ shown, we can note that an isomorphism $h$ exists between $(B, \cup_{B}, \cap_{B})$ and $(B, \cap_{B}, \cup_{B})$ and thus these structures are isomorphic.
+				
+				\medskip
+				\item \textbf{Question 7.}
+				\medskip
+				
+				Let us show this inductively. Let there be a property $P(n) := ``\text{Any set of entirely n-tuples is an n-ary relation in A for some A''}$. First let us work with the base case. For $P(1)$, we have some set of the form $S = \{a_0, a_1, ...\}$, as a one-tuple $(a_0)$ was just defined as $a_0$. Such a set is already a $1$-ary relation over itself, so $P(1)$ is true. Now let us work with the inductive case. To do this, we assume $P(n)$ and wish to show $P(n + 1)$. Let there be some arbitrary set consisting of entirely $n + 1$-tuples. Let it be named $S = \{(a_0, ..., a_{n}), (b_0, ..., b_{n}), ....\}$. From the definition of a $n + 1$-tuple based on $n$-tuples where $(a_0, ..., a_n) = ((a_0, ..., a_{n - 1}), a_n)$ and the definition of a $2$-tuple as $(a,b) = \{\{a\}, \{a,b\}\}$ we can note an alternate way to write $S$ is $$\{\{(a_0,...,a_{n - 1}), \{(a_0,...,a_{n - 1}), a_n\}\}, \{\{(b_0,...,b_{n - 1}), \{(b_0,...,b_{n - 1}), b_n\}\}, ...\}$$
+				
+				This can help us symbolically represent $\cup S = \{(a_0, ..., a_{n - 1}), a_n, (b_0, ..., b_{n - 1}), b_n, ...\}$ in a more visually intuitive way. $\cup S$ contains all of the last elements we need from the $n + 1$-tuples, to capture the first n elements from each $n + 1$-tuple, we simply need to revisit the inductive assumption. Let there be a set $S' = \{(a_0, ..., a_{n - 1}) \text{ } | \text{ } (a_0, ..., a_{n - 1}, a_n) \in S \text{ for some  } a_n\}$ that is formed of the n-tuples consisting of the first n elements of the $n + 1$-tuples in $S$. For such an $S'$, there must exist some $A$ such that $S'$ is a n-ary relation over $A$. With $A$ containing the first n elements of each $n+1$-tuple and $\cup S$ containing the last element, it is sufficient to perform a union on $\{\cup S, A\}$ to produce a set which contains all $n + 1$-elements of every single $n + 1$-tuple in $S$. Thus we have shown that any set $S$ consisting of only $n + 1$-tuples is an $n + 1$-ary relation over some set $B$ as desired. With the demonstration of the base case and the inductive case of the property $P(n)$, we have shown that for any set $S$ containing only $n$-tuples, it is an n-ary relation over some $A$ based on $P(n)$.
+				
+				
+				\medskip
+				\item \textbf{Question 8.}
+				\medskip
+				
+				Let there be some arbitrary n-ary operation $F$ over some $A$. Then let us define some set $R: \{a \in A^{n + 1} \text{ } | \text{ exists } a_0, ..., a_n \in A \text{ such that } a = (a_0, ..., a_n) \text{ and } F(a_0, ..., a_{n - 1}) = a_n\}$. We wish to show $F(a_0, ..., a_{n - 1}) = a_n$ if and only if $R(a_0, ..., a_n)$. First to show the forward direction, note for any $a_0, ..., a_n$ such that $F(a_0, ..., a_{n - 1}) = a_n$, it must be that $(a_0, ..., a_n) \in A^{n + 1}$ since $F$ is an $n$-ary operation on $A$. Thus $(a_0, ..., a_n) \in R$. We have $F \subseteq R$. In the reverse direction for any element $a \in R$, it must be that $a = (a_0, ..., a_n)$ for some $a_0, ..., a_n$ such that $F(a_0, ..., a_{n - 1}) = a_{n}$. Therefore we have shown that $F(a_0, ..., a_{n - 1}) = a_n$ if and only if $R(a_0, ..., a_{n})$ as desired.
+				
+				\medskip
+				Now to show such a $R$ is unique. Let there be some other $n + 1$-ary relation $R'$ such that $F(a_0, ..., a_{n - 1}) = a_n$ if and only if $R'(a_0, ..., a_{n})$. We wish to show $R = R'$ and proceed to do so by showing first $R \subseteq R'$ and then $R' \subseteq R$. For any $a \in R$, we have there must exists $a_0, ..., a_n \in A$ such that $a = (a_0, ..., a_n)$ and $F(a_0, ..., a_{n - 1}) = a_n$. This implies that $(a_0, ..., a_{n}) \in R'$. Thus $R \subseteq R'$. Now the reverse direction, we have for any $a \in R'$, $R'$ is a $(n + 1)$-ary relation, so $a = (a_0, ..., a_{n})$ for some $a_0, ..., a_n \in A$. $a = (a_0, ..., a_n) \in R'$ implies that $F(a_0, ..., a_{n - 1}) = a_n$, which finally implies that that $(a_0, ..., a_{n}) \in R$. We have that $R' \subseteq R$ and $R \subseteq R'$ which implies $R = R'$, proving any $(n + 1)$-ary relation satisfying the desired requirement is unique.
+					
+				\medskip
+				\item \textbf{Question 10.}
+				\medskip
+				
+				Let us demonstrate this by induction. $P(n) := ``\Pi_{0 \leq i < n} A_i \neq \emptyset \text{ if and only if } A_i \neq \emptyset \text{ for all } i \geq 0, i < n \text{"}$. In the base case or $P(1)$ we have $\Pi_{0 \leq i < 1} A_i \neq \emptyset \text{ if and only if } A_0 \neq \emptyset \text{ for all } i \geq 0, i < n \text{"}$. This is true because $\Pi_{0 \leq i < 1} A_i$ is the set of all one tuples $\{a \text{ } | \text{ such that there exists } a_0 = a \text{ and } a \in A_0\}$. This set is just $A_0$. Thus $A_0$ is only $\emptyset$ when $A_0$ is the $\emptyset$ or vice versa is true by definition.
+				
+				\medskip
+				Onto the inductive case. Let us assume the inductive hypothesis $P(n)$ and show $P(n + 1)$. For any systems of sets $A$ over the naturals with $\Pi_{0 \leq i < n + 1} A_i \neq \emptyset$, we wish to demonstrate that $A_i \neq \emptyset$ for any $0 \leq i \leq n$. This can be accomplished with a side idea that $\Pi_{0 \leq i < n + 1} A_i$ is equivalent to $\Pi_{0 \leq i < n} A_i \times A_n$, which we will show now. Note that for any $a \in \Pi_{0 \leq i < n + 1} A_i$, it must be that $a = (a_0, ..., a_n)$ for some $a_i \in A_i$ for each $i \in \{0, ..., n\}$. From $a_i \in A_i$, we can note $(a_0, ..., a_{n - 1}) \in \Pi_{0 \leq i < n} A_i$, which means $(a_0, ..., a_{n - 1}, a_{n}) = ((a_0, ..., a_{n - 1}), a_{n}) \in \Pi_{0 \leq i < n} \times A_n$. Thus we have shown that $\Pi_{0 \leq i < n + 1} A_i \subseteq \Pi_{0 \leq i < n}A_i \times A_n$, now to demonstrate the reverse direction. For any $a \in \Pi_{0 \leq i < n} A_i \times A_n$, it must take the form of $((a_0, ..., a_{n - 1}), a_n)$ where $a_i \in A_i$ for any $i \in \{0, ..., n - 1\}$ due to $(a_0, ..., a_{n - 1}) \in \Pi_{0 \leq i < n}A_i$. In addition we have $a_{n} \in A_n$. Combining these we have $a_i \in A_i$ for all $i \in \{0, ..., n\}$, which implies $((a_0, ..., a_{n - 1}), a_n) = (a_0, ..., a_n) \in \Pi_{0 \leq i < n + 1}A_i$. Thus we have both containment on both sides, which finally implies that $\Pi_{0 \leq i < n + 1} A_i = \Pi_{0 \leq i < n} A_i \times A_n$.
+				
+				\medskip
+				We will proceed this newly minted notation $\Pi_{0 \leq i < n} A_i \times A_n$ instead of the old $\Pi_{0 \leq i < n + 1} A_i$, as the new notation is more useful to take advantage of the inductive hypothesis. We note that if $A_i = \emptyset$ for any $i \in \{0, ..., n - 1\}$, it must be that $\Pi_{0 \leq i < n} A_i = \emptyset$ from the inductive assumption. With $\Pi_{0 \leq i < n} A_i \times A_n = \emptyset \times A_n = \{(a,b) \text{ } | \text{ } a \in \emptyset \text{ and } b \in A_n\}$, it must be that such a set is $\emptyset$ since there does not exist any $(a,b)$ such that $a \in \emptyset$. Thus we cannot have $A_i = \emptyset$ for any $i \in \{0, ..., n - 1\}$. For similar reasons we also cannot have $A_n = \emptyset$ because the set $\Pi_{0 \leq i < n} A_i \times A_n = \{(a,b)  \text{ } | \text{ } a \in \Pi_{0 \leq i < n} \text{ and } b \in \emptyset\}$ is empty because there does not exist any $(a,b)$ such that $b \in \emptyset$. Thus we have shown it must be that $A_i \neq \emptyset$ for any $i \in \{0, ..., n\}$, which are all the natural numbers less than $n + 1$. With both base and inductive case shown for $P$, we can note $P(n)$ is true for all $n \in \mathbb{N}$ which is equivalent to stating that $\Pi_{0 \leq i < n} A_i \neq \emptyset$ implies $A_i \neq \emptyset$ for any $i \in \{0, ..., n - 1\}$ for all $n$.					
+	\end{enumerate}  
+	
+	\medskip
+	\section{Chapter 4. I.E Cantor's Paradise}
+	\medskip
+	
+	\subsection{Section 1. Cardinality of Sets}
+	
+	\begin{enumerate}
+		\item \textbf{Question 1.}
+			\medskip
+			
+			There are four parts of Lemma 1.5, which we will discuss separately.
+			
+			\medskip
+			\begin{enumerate}
+				\item We wish to show if $|A| \leq |B|$ and $|A| = |C|$, then $|C| \leq |B|$.
+				
+				\medskip
+				Assume $|A| \leq |B|$ and $|A| = |C|$, which implies there must exist $f: A \xrightarrow{} B$ and $g: A \xrightarrow{} C$ such that $f$ is one-to-one and $g$ is bijective. We note $g^{-1}$ is a one-to-one function from $C$ onto $A$ because inverse of a bijective function is also a bijection. Again, the composition of one-to-one functions is still one-to-one, thus we have $g^{-1} \circ f: C \xrightarrow{} B$ is a one-to-one function, which means that $|C| \leq |B|$ as desired.
+				
+				\item We wish to show if $|A| \leq |B|$ and $|B| = |C|$, then $|A| \leq |C|$.
+				\medskip
+				
+				If $|A| \leq |B|$ and $|B| = |C|$, then there must exist some $f: A \xrightarrow{} B$ and $g: B \xrightarrow{} C$ such that $A$ is one-to-one and $g$ is bijective. The composition of one-to-one functions is one-to-one, thus $g \circ f: A \xrightarrow{} C$ is a one-to-one function from $A$ into $C$, which implies $|A| \leq |C|$ as desired.
+				
+				\item We wish to show $|A| \leq |A|$.
+				\medskip
+				
+				For any set $A$, we note $I_{A}: A \xrightarrow{} A$ defined as $I_{A}(a) = a$ for all $a \in A$ is a one-to-one function from $A$ into $A$, by $I_{A}(a) = I_{A}(b)$ implies $a = I_{A}(a) = I_{B}(b) = b$.
+				 
+				\item We wish to show if $|A| \leq |B|$ and $|B| \leq |C|$, then $|A| \leq |C|$. 
+				
+				\medskip
+				If $|A| \leq |B|$, $|B| \leq |C|$, then there must exist one-to-one functions $f: A \xrightarrow{} B$ and $g: B \xrightarrow{} C$. The composition of one-to-one functions is also one-to-one, so $f \circ g: A \xrightarrow{} C$ is one-to-one as well. Thus $|A| \leq |C|$.
+				
+			\end{enumerate}
+		
+		\item \textbf{Question 2.}	
+		\begin{enumerate}
+			\item We wish to show $|A| < |B|$ and $|B| \leq |C|$, then $|A| < |C|$. 
+			\medskip
+			
+			First we note $|A| < |B|$ implies $|A| \leq |B|$. $|A| \leq |B|$ and $|B| \leq |C|$ means $|A| \leq |C|$ from Question 1. With $|A| \leq |C|$, demonstrating $|A| \neq |C|$ is enough to show $|A| < |C|$. So assume for the sake of contradiction that $|A| = |C|$. If $|A| = |C|$, then $|A| < |B|$ implies $|C| < |B|$. $|C| < |B|$ implies $|C| \leq |B|$, which together with $|B| \leq |C|$ implies $|B| = |C|$ by Cantor-Bernstein. This cannot be possible as $|A| = |C|$ and $|B| = |C|$ implies $|A| = |B|$ contradicting $|A| < |B|$. Thus we cannot have $|A| = |C|$ as desired, which implies $|A| < |C|$.
+			
+			\item We wish to show $|A| \leq |B|$ and $|B| < |C|$, then $|A| < |C|$.
+			\medskip
+			
+			Assuming $|A| \leq |B|$ and $|B| < |C|$, we have $|B| < |C|$ implies $|B| \leq |C|$. $|A| \leq |B|$ and $|B| \leq |C|$ forces $|A| \leq |C|$. Showing $|A| \neq |C|$ at this point is sufficient to show $|A| < |C|$. So let us assume $|A| = |C|$ for the sake of contradiction. $|A| = |C|$ and $|A| \leq |B|$ means $|C| \leq |B|$. $|C| \leq |B|$ and $|B| \leq |C|$ implies $|B| = |C|$, which contradicts $|B| < |C|$. Thus our assumption that $|A| = |C|$ is incompatible with $|A| \leq |B|$ and $|B| < |C|$, which implies that $|A| < |C|$ as desired.
+		
+		\end{enumerate}
+		
+		\item \textbf{Question 3.}
+		\medskip
+		
+		We wish to show $A \subseteq B$ implies $|A| \leq |B|$. We can note $I_{A}: A \xrightarrow{} A$ where $I_{A}(a) = a$ for all $a \in A$. This function is one-to-one because $I_{A}(a) = I_{A}(b)$ implies $a = I_{A}(a) = I_{A}(b) = b$. Furthermore $I_{A}$ is from $A$ onto $A$, which also means it is from $A$ into $B$ since $A \subseteq B$. $I_{A}$ being a one-to-one and into function from $A$ into $B$ implies that $|A| \leq |B|$ as desired.
+		
+		\item \textbf{Question 4.}
+		\begin{enumerate}
+			\item 
+			\medskip
+			
+			We wish to show $|A \times B| = |B \times A|$. We define $f: A \times B \xrightarrow{} B \times A$ as follows:
+			
+			$f(a,b) := (b,a)$ for any $(a,b) \in A \times B$. We note $f$ is one-to-one because for any $a_1, b_1, a_2, b_2$, $f(a_1, b_1) = f(a_2, b_2)$ implies $(b_1, a_1) = f(a_1, b_1) = f(a_2, b_2) = (b_2, a_2)$. By property of tuples, $(b_1, a_1) = (b_2, a_2)$ implies $b_1 = b_2$ and $a_1 = a_2$, which implies $(a_1, b_1) = (a_2, b_2)$. Furthermore, we can note $f: A \times B \xrightarrow{} B \times A$ is onto by observing for any $(b,a) \in B \times A$, $f(a,b) = (b,a)$. Since $f$ is one-to-one and onto, we have $|A \times B| = |B \times A|$.
+			
+			\item 
+			\medskip
+			
+			We wish to show $|(A \times B) \times C| = |A \times (B \times C)|$. We construct $f: (A \times B) \times C \xrightarrow{} A \times (B \times C)$ as follows. For any $((a,b), c) \in (A \times B) \times C$, we have $f((a,b),c) = (a,(b,c))$. Note $f$ is one-to-one because for any $((a_1, b_1), c_1), ((a_2, b_2), c_2) \in (A \times B) \times C$, $(a_1, (b_1, c_1)) = f((a_1, b_1), c_1) = f((a_2, b_2), c_2) = (a_2, (b_2, c_2))$ implies $a_1, a_2$ and $(b_1, c_1) = (b_2, c_2)$. $(b_1, c_1) = (b_2, c_2)$ further implies $b_1 = b_2$ and $c_1 = c_2$. Thus we have $a_1 = a_2, b_1 = b_2, c_1 = c_2$ which finally means $((a_1, b_1), c_1) = ((a_2, b_2), c_2)$. We note $f$ is also onto, because for any $(a,(b,c)) \in A \times (B \times C)$ we have $f((a,b),c) = (a,(b,c))$. Thus $f$ is one-to-one and onto, which implies $|(A \times B) \times C| = |A \times (B \times C)|$ as desired.
+			
+			\item 
+			\medskip
+			
+			We wish to show that $B \neq \emptyset$ implies $|A| \leq |A \times B|$. We wish to show $B$ must contain some element. Let $C$ be a set which does not contain any elements. Then all the elements in $C$ are in $\emptyset$ and vice versa, thus $C = \emptyset$. Thus any set which is not the empty set must contain some element. Let b be such an element in B and fix it. Then we define $f: A \xrightarrow{} A \times B$ with $f(a) = (a,b)$. First let us show $f$ is one-to-one. For any $a_1, a_2 \in A$ such that $f(a_1) = f(a_2)$, we have $(a_1, b) = f(a_1) = f(a_2) = (a_2, b)$ which implies $a_1 = a_2$ by $(a_1, b) = (a_2, b)$. Since $f$ is one-to-one and from $A$ into $A \times B$, we have $|A| \leq |A \times B|$.
+			
+		\end{enumerate}
+		
+		\item \textbf{Question 5.}
+		\medskip
+		
+		We wish to show $|S| \leq |\mathcal{P}(S)|$. We define $f: |S| \xrightarrow{} |\mathcal{P}(S)|$ as follows.
+		For any $s \in S$, $f(s) := \{s\}$. We note that $f$ is one-to-one, because for any $s_1, s_2 \in S$ such that $\{s_1\} = f(s_1) = f(s_2) = \{s_2\}$ it must be that $s_1 \in \{s_2\}$ by definition of set equality. This must mean $s_1 = s_2$, since $s_1 \in \{s_2\}$ and $s_2$ is the only element in $\{s_2\}$. Thus $f$ is one-to-one. Since $f: S \xrightarrow{} \mathcal{P}(S)$ is one-to-one and into, we have that $|S| \leq |\mathcal{P}(S)|$.
+		
+		\item \textbf{Question 6.}
+		\medskip
+		
+		Let us assume $S \neq \emptyset$. Then we wish to show that $|A| \leq |A^{S}|$ for any $A$. Define $g: A \xrightarrow{} A^{S}$ as follows.
+		For any $a \in A$, $g(a) := q$ where $q(s) = a$ for any $s \in S$. Then we note that $g$ is one-to-one, because for any $a,b \in A$ such that $g(a) = g(b)$, it must be that $q_a = g(a) = g(b) = q_b$, which implies for any $s \in S$, $a = q_a(s) = q_b(s) = b$. Since $g$ is one-to-one and from $A$ into $A^{S}$, we have $|A| \leq |A^{S}|$ as desired.
+		
+		\bigskip
+
+	\end{enumerate}
+\end{document}
+
+ 
